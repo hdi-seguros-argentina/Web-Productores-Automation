@@ -1,0 +1,53 @@
+package steps;
+import io.cucumber.java.en.*;
+import pages.GenericPage;
+import pages.HomePage;
+
+public class HomeSteps {
+    HomePage homePage = new HomePage();
+    GenericPage genericPage = new GenericPage();
+
+    @Given("el usuario ingresa a la home")
+    public void elUsuarioIngresaALaHome() {
+        homePage.IngresoHome();
+    }
+
+    @And("el usuario verifica que el titulo {string} es correcto")
+    public void elUsuarioVerificaQueElTituloEsCorrecto(String arg0) {
+        genericPage.verificaTitulo(arg0);
+    }
+
+    @And("el usuario verifica que el subtitulo {string} es correcto")
+    public void elUsuarioVerificaQueElSubTituloEsCorrecto(String arg0) {
+        genericPage.verificaSubTitulo(arg0);
+    }
+    @When("el usuario selecciona un intermediario")
+    public void elUsuarioSeleccionaUnIntermediario() {
+        homePage.seleccionIntermediario();
+    }
+
+    @Then("el usuario verifica que el sistema muestra el panel de inicio")
+    public void elUsuarioVerificaQueElSistemaMuestraElPanelDeInicio() {
+        homePage.ingresoPanelInicio();
+    }
+
+    @When("el usuario se posiciona en la pantalla de home")
+    public void elUsuarioSePosicionaEnLaPantallaDeHome() {
+    }
+
+    @Then("el usuario verifica que el header el correcto")
+    public void elUsuarioVerificaQueElHeaderElCorrecto() {
+        homePage.validarHeader();
+    }
+
+    @And("el usuario verifica que el boton {string} Activo es correcto")
+    public void elUsuarioVerificaQueElBotonActivoEsCorrecto(String arg0) {
+        homePage.validarBotonBorrarFiltrosActivo();
+
+    }
+
+    @And("el usuario verifica que los iconos de {string} son correcto")
+    public void elUsuarioVerificaQueLosIconosDeSonCorrecto(String arg0) {
+        genericPage.validarIconos(arg0);
+    }
+}
