@@ -120,7 +120,7 @@ public abstract class MasterPage extends Hooks {
     }
 
     public static void auto_waitForElementVisibility(String locator){
-        page.get().locator(locator).waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.VISIBLE));
+        page.get().locator(locator).waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.VISIBLE).setTimeout(50000));
     }
 
     public static void auto_waitForElementInvisibility(String locator){

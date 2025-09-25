@@ -31,4 +31,3 @@ Feature: Cotizador
     And el usuario verifica que el input "Estado" es correcto
     And el usuario verifica que el boton "Filtrar" es correcto
     And el usuario verifica que el boton "Borrar Filtros" es correcto
-

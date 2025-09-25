@@ -14,10 +14,6 @@ public class GenericPage extends MasterPage {
     public static final String COLOR_GRIS = "rgb(110, 110, 110)";
     public static final String COLOR_BLANCO = "rgb(255, 255, 255)";
     public static final String COLOR_1 = "rgb(227, 32, 94)";     //Magenta1
-    public static final String COLOR_2 = "rgb(0, 103, 41)";      //Magenta2
-    public static final String COLOR_4 = "rgb(252, 232, 239)";   //Magenta3
-    public static final String COLOR_5 = "rgb(255, 233, 233)";   //Magenta4
-    public static final String COLOR_6 = "rgb(64, 150, 255)";    //Magenta5
     public static final String COLOR_7 = "rgb(232, 69, 121)";    //Magenta6
     public static final String COLOR_3 = "rgb(0, 91, 187)";      //Azul
     public static final String COLOR_TRANSPARENTE = "rgba(0, 0, 0, 0)";
@@ -37,7 +33,6 @@ public class GenericPage extends MasterPage {
                 .as("Color de texto titulo info incorrecto")
                 .isEqualTo(COLOR_1);
     }
-
 
     public void validarInput(String arg0) {
         switch (arg0) {
@@ -151,6 +146,61 @@ public class GenericPage extends MasterPage {
                 auto_verificarEstilos(page.get().locator(String.format(GENERIC3_INPUT_XPATH, arg0)).first(), COLOR_NEGRO, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
                 break;
 
+            case "76095 - ORTUONDO FERNANDO MARCIO":
+                page.get().locator(String.format(GENERIC5_INPUT_XPATH, arg0)).first().click();
+                auto_verificarEstilos(page.get().locator(String.format(GENERIC5_INPUT_XPATH, arg0)).first(), COLOR_NEGRO, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
+                break;
+
+            case "ORTUONDO FERNANDO MARCIO (1-76095)":
+                page.get().locator(String.format(GENERIC5_INPUT_XPATH, arg0)).first().click();
+                auto_verificarEstilos(page.get().locator(String.format(GENERIC5_INPUT_XPATH, arg0)).first(), COLOR_NEGRO, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
+                break;
+
+            case "Bien Siniestrado":
+                page.get().locator(String.format(GENERIC1_INPUT_XPATH, arg0)).first().click();
+                auto_verificarEstilos(page.get().locator(String.format(GENERIC1_INPUT_XPATH, arg0)).first(), COLOR_NEGRO2, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
+                break;
+
+            case "Poliza":
+                page.get().locator(String.format(GENERIC1_INPUT_XPATH, arg0)).first().click();
+                auto_verificarEstilos(page.get().locator(String.format(GENERIC1_INPUT_XPATH, arg0)).first(), COLOR_NEGRO2, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
+                break;
+
+            case "Siniestro":
+                page.get().locator(String.format(GENERIC1_INPUT_XPATH, arg0)).first().click();
+                auto_verificarEstilos(page.get().locator(String.format(GENERIC1_INPUT_XPATH, arg0)).first(), COLOR_NEGRO2, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
+                break;
+
+            case "Siniestro más reciente primero":
+                page.get().locator(String.format(GENERIC5_INPUT_XPATH, arg0)).first().click();
+                auto_verificarEstilos(page.get().locator(String.format(GENERIC5_INPUT_XPATH, arg0)).first(), COLOR_NEGRO, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
+                break;
+
+            case "Patente":
+                page.get().locator(String.format(GENERIC1_INPUT_XPATH, arg0)).first().click();
+                auto_verificarEstilos(page.get().locator(String.format(GENERIC1_INPUT_XPATH, arg0)).first(), COLOR_NEGRO2, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
+                break;
+
+            case "Seleccionar fecha":
+                page.get().locator(String.format(GENERIC4_INPUT_XPATH, arg0)).first().click();
+                auto_verificarEstilos(page.get().locator(String.format(GENERIC4_INPUT_XPATH, arg0)).first(), COLOR_GRIS, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
+                break;
+
+            case "Seleccionar hora":
+                page.get().locator(String.format(GENERIC4_INPUT_XPATH, arg0)).first().click();
+                auto_verificarEstilos(page.get().locator(String.format(GENERIC4_INPUT_XPATH, arg0)).first(), COLOR_GRIS, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
+                break;
+
+            case "Rama":
+                page.get().locator(String.format(GENERIC5_INPUT_XPATH, arg0)).first().click();
+                auto_verificarEstilos(page.get().locator(String.format(GENERIC5_INPUT_XPATH, arg0)).first(), COLOR_NEGRO, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
+                break;
+
+            case "Póliza":
+                page.get().locator(String.format(GENERIC2_INPUT_XPATH, arg0)).first().click();
+                auto_verificarEstilos(page.get().locator(String.format(GENERIC2_INPUT_XPATH, arg0)).first(), COLOR_NEGRO2, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
+                break;
+
             default:
                 throw new IllegalArgumentException("Botón no soportado: " + arg0);
         }
@@ -179,6 +229,12 @@ public class GenericPage extends MasterPage {
                 auto_verificarEstilos(page.get().locator(String.format(GENERIC_BTN_XPATH, arg0)).first(), COLOR_BLANCO, COLOR_8, COLOR_7, FUENTE_BASE);
                 break;
 
+            case "Buscar Póliza":
+                page.get().locator(String.format(FILTER1_BTN_XPATH, arg0)).first();
+                auto_verificarEstilos(page.get().locator(String.format(FILTER1_BTN_XPATH, arg0)).first(), COLOR_BLANCO, COLOR_BLANCO, COLOR_7, FUENTE_BASE);
+                break;
+
+
             //SECUNDARIO
             case "¿Olvidaste tu contraseña?":
                 page.get().locator(String.format(GENERIC_BTN_XPATH, arg0)).first();
@@ -196,6 +252,11 @@ public class GenericPage extends MasterPage {
                 break;
 
             //AZUL
+            case "Seleccionar":
+                page.get().locator(String.format(ACCIONES_BTN_XPATH, arg0)).first();
+                auto_verificarEstilos(page.get().locator(String.format(ACCIONES_BTN_XPATH, arg0)).first(), COLOR_3, COLOR_3, COLOR_BLANCO, FUENTE_BASE);
+                break;
+
             case "Acciones":
                 page.get().locator(String.format(ACCIONES_BTN_XPATH, arg0)).first();
                 auto_verificarEstilos(page.get().locator(String.format(ACCIONES_BTN_XPATH, arg0)).first(), COLOR_3, COLOR_3, COLOR_BLANCO, FUENTE_BASE);

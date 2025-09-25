@@ -40,10 +40,9 @@ public class HomeSteps {
         homePage.validarHeader();
     }
 
-    @And("el usuario verifica que el boton {string} Activo es correcto")
-    public void elUsuarioVerificaQueElBotonActivoEsCorrecto(String arg0) {
-        homePage.validarBotonBorrarFiltrosActivo();
-
+    @And("el usuario ingresa {string} en el input")
+    public void elUsuarioIngresaEnElInput(String arg0) {
+        homePage.ingresarValor(arg0);
     }
 
     @And("el usuario verifica que los iconos de {string} son correcto")

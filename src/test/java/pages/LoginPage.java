@@ -9,7 +9,6 @@ public class LoginPage extends MasterPage {
         auto_waitForElementVisibility(HOME_TITLE_XPATH);
         auto_verifyVisibility(HOME_TITLE_XPATH);
     }
-
     public void ingresaUsuario(String username) {
         auto_setTextToInput(USUARIO_INPUT_XPATH, username);
     }

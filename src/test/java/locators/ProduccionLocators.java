@@ -14,7 +14,6 @@ public class ProduccionLocators {
     public static final String POLIZA_BTN_XPATH = "//span[text()='240431 - 0']/parent::*";
     public static final String INFO_BTN_XPATH = "(//span[@class='ant-btn-icon']/parent::*)[3]";
     public static final String POLIZA_PANEL_XPATH = "//a[text()='%s']";
-    public static final String GENERIC_DESPLEGABLE1_XPATH = "//span[text()='%s']/ancestor::div[1]";
     public static final String GENERIC_MENU_XPATH = "//span[text()='%s']";
     public static final String GENERIC_SUBMENU_XPATH = "//span[text()='%s']";
 }

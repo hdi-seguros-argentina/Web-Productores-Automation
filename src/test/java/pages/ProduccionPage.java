@@ -5,7 +5,6 @@ import org.assertj.core.api.SoftAssertions;
 import java.util.List;
 
 import static locators.GenericLocators.*;
-import static locators.HomeLocators.*;
 import static locators.ProduccionLocators.*;
 public class ProduccionPage extends MasterPage {
 

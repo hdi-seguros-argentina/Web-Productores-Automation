@@ -4,18 +4,12 @@ import com.core.utility.MasterPage;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.options.LoadState;
 import org.assertj.core.api.SoftAssertions;
-
-import java.util.List;
-
-import static locators.GenericLocators.BORRARFILTROS1_BTN_XPATH;
 import static locators.HomeLocators.*;
 
 public class HomePage extends MasterPage {
     SoftAssertions softAssertions = new SoftAssertions();
 
-    public static final String COLOR_BLANCO = "rgb(255, 255, 255)";
     public static final String COLOR_1 = "rgb(227, 32, 94)";     //Magenta
-    public static final String FUENTE_BASE = "Montserrat, sans-serif";
 
     public void IngresoHome() {
         auto_waitForLoadStates(LoadState.DOMCONTENTLOADED);
@@ -23,7 +17,7 @@ public class HomePage extends MasterPage {
     }
 
     public void seleccionIntermediario() {
-        page.get().waitForTimeout(50000);
+        auto_waitForElementVisibility("//*[text()='1 / 76018']");
         auto_setTextToInput(NAME_INPUT_XPATH, "Ortuondo");
         auto_setClickElement(FILTER_BTN_XPATH);
 
@@ -51,26 +45,9 @@ public class HomePage extends MasterPage {
         softAssertions.assertAll();
     }
 
-    public void validarBotonBorrarFiltrosActivo() {
-        auto_setTextToInput(NAME_INPUT_XPATH, "Ortuondo");
-        page.get().waitForTimeout(1000);
-        Locator boton = page.get().locator(BORRARFILTROS1_BTN_XPATH).first();
-
-        softAssertions.assertThat(auto_getCssValue(boton, "color"))
-                .as("Color de texto botón Seleccionar incorrecto")
-                .isEqualTo(COLOR_1);
-
-        softAssertions.assertThat(auto_getCssValue(boton, "border-color"))
-                .as("Borde botón Seleccionar incorrecto")
-                .isEqualTo(COLOR_1);
-
-        softAssertions.assertThat(auto_getCssValue(boton, "background-color"))
-                .as("Background botón Seleccionar incorrecto")
-                .isEqualTo(COLOR_BLANCO);
-
-        softAssertions.assertThat(auto_getCssValue(boton, "font-family"))
-                .as("Fuente botón Seleccionar incorrecta")
-                .contains(FUENTE_BASE);
-        softAssertions.assertAll();
+    public void ingresarValor(String arg0) {
+        auto_waitForElementVisibility("//*[text()='1 / 76018']");
+        auto_setTextToInput(NAME_INPUT_XPATH, arg0);
+        auto_setClickElement(FILTER_BTN_XPATH);
     }
 }

@@ -25,7 +25,12 @@ Feature: Home
     And el usuario verifica que el input "Nível" es correcto
     And el usuario verifica que el boton "Filtrar" es correcto
     And el usuario verifica que el boton "Borrar Filtros" es correcto
-    And el usuario verifica que el boton "Borrar Filtros" Activo es correcto
+
+  @branding
+  Scenario: Componentes de Home
+    Given el usuario ingresa a la home
+    And el usuario ingresa "Ortuondo" en el input
+    And el usuario verifica que el boton "Borrar Filtros" es correcto
     And el usuario verifica que el boton "Seleccionar" es correcto
 
   @branding

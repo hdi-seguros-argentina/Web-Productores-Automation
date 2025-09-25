@@ -26,5 +26,3 @@ Feature: Emision
     When el usuario ingresa al menu de "Transporte Mercaderías" en "Emision"
     Then el usuario verifica que el titulo "Transporte Mercaderías" es correcto
     And el usuario verifica que el boton "Aceptar" es correcto
-
-
