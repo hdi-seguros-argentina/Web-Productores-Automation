@@ -9,17 +9,17 @@ import static locators.HomeLocators.GENERIC_TITULO_XPATH;
 
 public class GenericPage extends MasterPage {
     SoftAssertions softAssertions = new SoftAssertions();
-    public static final String COLOR_NEGRO = "rgb(0, 0, 0)";
-    public static final String COLOR_NEGRO2 = "rgba(0, 0, 0, 0.88)";
-    public static final String COLOR_GRIS = "rgb(110, 110, 110)";
-    public static final String COLOR_BLANCO = "rgb(255, 255, 255)";
-    public static final String COLOR_1 = "rgb(227, 32, 94)";     //Magenta1
-    public static final String COLOR_7 = "rgb(232, 69, 121)";    //Magenta6
-    public static final String COLOR_3 = "rgb(0, 91, 187)";      //Azul
-    public static final String COLOR_TRANSPARENTE = "rgba(0, 0, 0, 0)";
-    public static final String COLOR_8 = "rgb(217, 217, 217)";
-    public static final String COLOR_NARANJA = "rgb(219, 99, 1)";
-    public static final String FUENTE_BASE = "Montserrat, sans-serif";
+    public static final String COLOR_NEGRO          = "rgb(0, 0, 0)";
+    public static final String COLOR_NEGRO2         = "rgba(0, 0, 0, 0.88)";
+    public static final String COLOR_GRIS           = "rgb(110, 110, 110)";
+    public static final String COLOR_BLANCO         = "rgb(255, 255, 255)";
+    public static final String COLOR_TRANSPARENTE   = "rgba(0, 0, 0, 0)";
+    public static final String COLOR_1              = "rgb(227, 32, 94)";     //Magenta
+    public static final String COLOR_7              = "rgb(232, 69, 121)";    //Magenta claro
+    public static final String COLOR_8              = "rgb(217, 217, 217)";   //Gris claro
+    public static final String COLOR_3              = "rgb(0, 91, 187)";      //Azul
+    public static final String COLOR_NARANJA        = "rgb(219, 99, 1)";
+    public static final String FUENTE_BASE          = "Montserrat, sans-serif";
 
     public void verificaTitulo(String args) {
         Locator titulo = page.get().locator(String.format(GENERIC_TITULO_XPATH, args)).first();
@@ -27,7 +27,9 @@ public class GenericPage extends MasterPage {
                 .as("Color de texto titulo info incorrecto")
                 .isEqualTo(COLOR_NEGRO);
     }
+
     public void verificaSubTitulo(String args) {
+        auto_waitForElementVisibility(String.format(GENERIC_TITULO_XPATH, args));
         Locator titulo = page.get().locator(String.format(GENERIC_TITULO_XPATH, args)).first();
         softAssertions.assertThat(auto_getCssValue(titulo, "color"))
                 .as("Color de texto titulo info incorrecto")
@@ -35,236 +37,120 @@ public class GenericPage extends MasterPage {
     }
 
     public void validarInput(String arg0) {
+        String xpath;
+        String colorTexto;
+        String colorBorde;
+        String colorFondo;
+        String fuente;
+
         switch (arg0) {
+            case "Ramo":
+            case "Estado":
+            case "Más reciente primero":
+            case "Quincena":
+            case "Seleccione un grupo":
+            case "ACCIDENTES PERSONALES COLECTIV":
+            case "Articulo":
+            case "Operación":
+            case "76095 - ORTUONDO FERNANDO MARCIO":
+            case "ORTUONDO FERNANDO MARCIO (1-76095)":
+            case "Siniestro más reciente primero":
+            case "Rama":
+            case "Nível":
+            case "Productor":
+                xpath = GENERIC5_INPUT_XPATH;
+                colorTexto = COLOR_NEGRO;
+                colorBorde = COLOR_1;
+                colorFondo = COLOR_BLANCO;
+                fuente = FUENTE_BASE;
+                break;
+
+            // GRIS OSCURO
             case "Usuario":
-                page.get().locator(String.format(GENERIC1_INPUT_XPATH, arg0)).first().click();
-                auto_verificarEstilos(page.get().locator(String.format(GENERIC1_INPUT_XPATH, arg0)).first(), COLOR_NEGRO2, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
-                break;
-
             case "Contraseña":
-                page.get().locator(String.format(GENERIC1_INPUT_XPATH, arg0)).first().click();
-                auto_verificarEstilos(page.get().locator(String.format(GENERIC1_INPUT_XPATH, arg0)).first(), COLOR_NEGRO2, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
-                break;
-
-            case "Nombre":
-                page.get().locator(String.format(GENERIC3_INPUT_XPATH, arg0)).first().click();
-                auto_verificarEstilos(page.get().locator(String.format(GENERIC3_INPUT_XPATH, arg0)).first(), COLOR_NEGRO2, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
+            case "Bien Siniestrado":
+            case "Poliza":
+            case "Siniestro":
+            case "Patente":
+                xpath = GENERIC1_INPUT_XPATH;
+                colorTexto = COLOR_NEGRO2;
+                colorBorde = COLOR_1;
+                colorFondo = COLOR_BLANCO;
+                fuente = FUENTE_BASE;
                 break;
 
             case "CUIT":
-                page.get().locator(String.format(GENERIC2_INPUT_XPATH, arg0)).first().click();
-                auto_verificarEstilos(page.get().locator(String.format(GENERIC2_INPUT_XPATH, arg0)).first(), COLOR_NEGRO2, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
-                break;
-
             case "Código Interno":
-                page.get().locator(String.format(GENERIC2_INPUT_XPATH, arg0)).first().click();
-                auto_verificarEstilos(page.get().locator(String.format(GENERIC2_INPUT_XPATH, arg0)).first(), COLOR_NEGRO2, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
-                break;
-
-            case "Nível":
-                page.get().locator(String.format(GENERIC_BTN_XPATH, arg0)).first().click();
-                auto_verificarEstilos(page.get().locator(String.format(GENERIC_BTN_XPATH, arg0)).first(), COLOR_NEGRO, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
-                break;
-
-            case "Asegurado":
-                page.get().locator(String.format(GENERIC3_INPUT_XPATH, arg0)).first().click();
-                auto_verificarEstilos(page.get().locator(String.format(GENERIC3_INPUT_XPATH, arg0)).first(), COLOR_NEGRO2, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
-                break;
-
-            case "Ramo":
-                page.get().locator(String.format(GENERIC_BTN_XPATH, arg0)).first().click();
-                auto_verificarEstilos(page.get().locator(String.format(GENERIC_BTN_XPATH, arg0)).first(), COLOR_NEGRO, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
-                break;
-
             case "Número de póliza":
-                page.get().locator(String.format(GENERIC2_INPUT_XPATH, arg0)).first().click();
-                auto_verificarEstilos(page.get().locator(String.format(GENERIC2_INPUT_XPATH, arg0)).first(), COLOR_NEGRO2, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
-                break;
-
-            case "Productor":
-                page.get().locator(String.format(GENERIC5_INPUT_XPATH, arg0)).first().click();
-                auto_verificarEstilos(page.get().locator(String.format(GENERIC5_INPUT_XPATH, arg0)).first(), COLOR_NEGRO, COLOR_1, COLOR_8, FUENTE_BASE);
-                break;
-
-            case "Fecha inicial":
-                page.get().locator(String.format(GENERIC4_INPUT_XPATH, arg0)).first().click();
-                auto_verificarEstilos(page.get().locator(String.format(GENERIC4_INPUT_XPATH, arg0)).first(), COLOR_GRIS, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
-                break;
-
-            case "Estado":
-                page.get().locator(String.format(GENERIC5_INPUT_XPATH, arg0)).first().click();
-                auto_verificarEstilos(page.get().locator(String.format(GENERIC5_INPUT_XPATH, arg0)).first(), COLOR_NEGRO, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
-                break;
-
-            case "Más reciente primero":
-                page.get().locator(String.format(GENERIC5_INPUT_XPATH, arg0)).first().click();
-                auto_verificarEstilos(page.get().locator(String.format(GENERIC5_INPUT_XPATH, arg0)).first(), COLOR_NEGRO, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
-                break;
-
-            case "Año":
-                page.get().locator(String.format(GENERIC4_INPUT_XPATH, arg0)).first().click();
-                auto_verificarEstilos(page.get().locator(String.format(GENERIC4_INPUT_XPATH, arg0)).first(), COLOR_GRIS, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
-                break;
-
-            case "Mes":
-                page.get().locator(String.format(GENERIC4_INPUT_XPATH, arg0)).first().click();
-                auto_verificarEstilos(page.get().locator(String.format(GENERIC4_INPUT_XPATH, arg0)).first(), COLOR_GRIS, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
-                break;
-
-            case "Quincena":
-                page.get().locator(String.format(GENERIC5_INPUT_XPATH, arg0)).first().click();
-                auto_verificarEstilos(page.get().locator(String.format(GENERIC5_INPUT_XPATH, arg0)).first(), COLOR_NEGRO, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
-                break;
-
-            case "Seleccione un grupo":
-                page.get().locator(String.format(GENERIC5_INPUT_XPATH, arg0)).first().click();
-                auto_verificarEstilos(page.get().locator(String.format(GENERIC5_INPUT_XPATH, arg0)).first(), COLOR_NEGRO, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
-                break;
-
-            case "ACCIDENTES PERSONALES COLECTIV":
-                page.get().locator(String.format(GENERIC5_INPUT_XPATH, arg0)).first().click();
-                auto_verificarEstilos(page.get().locator(String.format(GENERIC5_INPUT_XPATH, arg0)).first(), COLOR_NEGRO, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
-                break;
-
-            case "Apellido y Nombre":
-                page.get().locator(String.format(GENERIC3_INPUT_XPATH, arg0)).first().click();
-                auto_verificarEstilos(page.get().locator(String.format(GENERIC3_INPUT_XPATH, arg0)).first(), COLOR_NEGRO, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
-                break;
-
-            case "Articulo":
-                page.get().locator(String.format(GENERIC5_INPUT_XPATH, arg0)).first().click();
-                auto_verificarEstilos(page.get().locator(String.format(GENERIC5_INPUT_XPATH, arg0)).first(), COLOR_NEGRO, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
-                break;
-
-            case "Operación":
-                page.get().locator(String.format(GENERIC5_INPUT_XPATH, arg0)).first().click();
-                auto_verificarEstilos(page.get().locator(String.format(GENERIC5_INPUT_XPATH, arg0)).first(), COLOR_NEGRO, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
-                break;
-
-            case "Número de Cotización":
-                page.get().locator(String.format(GENERIC3_INPUT_XPATH, arg0)).first().click();
-                auto_verificarEstilos(page.get().locator(String.format(GENERIC3_INPUT_XPATH, arg0)).first(), COLOR_NEGRO, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
-                break;
-
-            case "76095 - ORTUONDO FERNANDO MARCIO":
-                page.get().locator(String.format(GENERIC5_INPUT_XPATH, arg0)).first().click();
-                auto_verificarEstilos(page.get().locator(String.format(GENERIC5_INPUT_XPATH, arg0)).first(), COLOR_NEGRO, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
-                break;
-
-            case "ORTUONDO FERNANDO MARCIO (1-76095)":
-                page.get().locator(String.format(GENERIC5_INPUT_XPATH, arg0)).first().click();
-                auto_verificarEstilos(page.get().locator(String.format(GENERIC5_INPUT_XPATH, arg0)).first(), COLOR_NEGRO, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
-                break;
-
-            case "Bien Siniestrado":
-                page.get().locator(String.format(GENERIC1_INPUT_XPATH, arg0)).first().click();
-                auto_verificarEstilos(page.get().locator(String.format(GENERIC1_INPUT_XPATH, arg0)).first(), COLOR_NEGRO2, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
-                break;
-
-            case "Poliza":
-                page.get().locator(String.format(GENERIC1_INPUT_XPATH, arg0)).first().click();
-                auto_verificarEstilos(page.get().locator(String.format(GENERIC1_INPUT_XPATH, arg0)).first(), COLOR_NEGRO2, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
-                break;
-
-            case "Siniestro":
-                page.get().locator(String.format(GENERIC1_INPUT_XPATH, arg0)).first().click();
-                auto_verificarEstilos(page.get().locator(String.format(GENERIC1_INPUT_XPATH, arg0)).first(), COLOR_NEGRO2, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
-                break;
-
-            case "Siniestro más reciente primero":
-                page.get().locator(String.format(GENERIC5_INPUT_XPATH, arg0)).first().click();
-                auto_verificarEstilos(page.get().locator(String.format(GENERIC5_INPUT_XPATH, arg0)).first(), COLOR_NEGRO, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
-                break;
-
-            case "Patente":
-                page.get().locator(String.format(GENERIC1_INPUT_XPATH, arg0)).first().click();
-                auto_verificarEstilos(page.get().locator(String.format(GENERIC1_INPUT_XPATH, arg0)).first(), COLOR_NEGRO2, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
-                break;
-
-            case "Seleccionar fecha":
-                page.get().locator(String.format(GENERIC4_INPUT_XPATH, arg0)).first().click();
-                auto_verificarEstilos(page.get().locator(String.format(GENERIC4_INPUT_XPATH, arg0)).first(), COLOR_GRIS, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
-                break;
-
-            case "Seleccionar hora":
-                page.get().locator(String.format(GENERIC4_INPUT_XPATH, arg0)).first().click();
-                auto_verificarEstilos(page.get().locator(String.format(GENERIC4_INPUT_XPATH, arg0)).first(), COLOR_GRIS, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
-                break;
-
-            case "Rama":
-                page.get().locator(String.format(GENERIC5_INPUT_XPATH, arg0)).first().click();
-                auto_verificarEstilos(page.get().locator(String.format(GENERIC5_INPUT_XPATH, arg0)).first(), COLOR_NEGRO, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
-                break;
-
             case "Póliza":
-                page.get().locator(String.format(GENERIC2_INPUT_XPATH, arg0)).first().click();
-                auto_verificarEstilos(page.get().locator(String.format(GENERIC2_INPUT_XPATH, arg0)).first(), COLOR_NEGRO2, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
+                xpath = GENERIC2_INPUT_XPATH;
+                colorTexto = COLOR_NEGRO2;
+                colorBorde = COLOR_1;
+                colorFondo = COLOR_BLANCO;
+                fuente = FUENTE_BASE;
+                break;
+
+            case "Nombre":
+            case "Asegurado":
+            case "Apellido y Nombre":
+            case "Número de Cotización":
+                xpath = GENERIC3_INPUT_XPATH;
+                colorTexto = COLOR_NEGRO2;
+                colorBorde = COLOR_1;
+                colorFondo = COLOR_BLANCO;
+                fuente = FUENTE_BASE;
+                break;
+
+            // GRIS
+            case "Fecha inicial":
+            case "Año":
+            case "Mes":
+            case "Seleccionar fecha":
+            case "Seleccionar hora":
+                xpath = GENERIC4_INPUT_XPATH;
+                colorTexto = COLOR_GRIS;
+                colorBorde = COLOR_1;
+                colorFondo = COLOR_BLANCO;
+                fuente = FUENTE_BASE;
                 break;
 
             default:
-                throw new IllegalArgumentException("Botón no soportado: " + arg0);
+                throw new IllegalArgumentException("Input no soportado: " + arg0);
         }
+        Locator locator = page.get().locator(String.format(xpath, arg0)).first();
+        locator.click();
+        auto_verificarEstilos(locator, colorTexto, colorBorde, colorFondo, fuente);
     }
 
     public void ValidarBoton(String arg0) {
+        Locator boton;
+
         switch (arg0) {
-            //PRINCIPAL
+            // PRINCIPAL
             case "Iniciar sesión":
-                page.get().locator(String.format(LOGIN_BTN1_XPATH, arg0)).first();
-                auto_verificarEstilos(page.get().locator(String.format(LOGIN_BTN1_XPATH, arg0)).first(), COLOR_BLANCO, COLOR_BLANCO, COLOR_1, FUENTE_BASE);
-                break;
-
             case "Filtrar":
-                page.get().locator(String.format(FILTER1_BTN_XPATH, arg0)).first();
-                auto_verificarEstilos(page.get().locator(String.format(FILTER1_BTN_XPATH, arg0)).first(), COLOR_BLANCO, COLOR_BLANCO, COLOR_7, FUENTE_BASE);
-                break;
-
             case "Aceptar":
-                page.get().locator(String.format(GENERIC_BTN_XPATH, arg0)).first();
-                auto_verificarEstilos(page.get().locator(String.format(GENERIC_BTN_XPATH, arg0)).first(), COLOR_BLANCO, COLOR_BLANCO, COLOR_7, FUENTE_BASE);
-                break;
-
             case "Iniciar Cotización":
-                page.get().locator(String.format(GENERIC_BTN_XPATH, arg0)).first();
-                auto_verificarEstilos(page.get().locator(String.format(GENERIC_BTN_XPATH, arg0)).first(), COLOR_BLANCO, COLOR_8, COLOR_7, FUENTE_BASE);
-                break;
-
             case "Buscar Póliza":
-                page.get().locator(String.format(FILTER1_BTN_XPATH, arg0)).first();
-                auto_verificarEstilos(page.get().locator(String.format(FILTER1_BTN_XPATH, arg0)).first(), COLOR_BLANCO, COLOR_BLANCO, COLOR_7, FUENTE_BASE);
+            case "Continuar":
+                boton = page.get().locator(String.format(GENERIC_BTN_XPATH, arg0)).first();
+                auto_verificarEstilos(boton, COLOR_BLANCO, COLOR_BLANCO, COLOR_7, FUENTE_BASE);
                 break;
 
-
-            //SECUNDARIO
+            // SECUNDARIO
             case "¿Olvidaste tu contraseña?":
-                page.get().locator(String.format(GENERIC_BTN_XPATH, arg0)).first();
-                auto_verificarEstilos(page.get().locator(String.format(GENERIC_BTN_XPATH, arg0)).first(), COLOR_1, COLOR_1, COLOR_TRANSPARENTE, FUENTE_BASE);
-                break;
-
             case "Borrar Filtros":
-                page.get().locator(String.format(BORRARFILTROS1_BTN_XPATH, arg0)).first();
-                auto_verificarEstilos(page.get().locator(String.format(BORRARFILTROS1_BTN_XPATH, arg0)).first(), COLOR_1, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
-                break;
-
             case "Cancelar":
-                page.get().locator(String.format(GENERIC_BTN_XPATH, arg0)).first();
-                auto_verificarEstilos(page.get().locator(String.format(GENERIC_BTN_XPATH, arg0)).first(), COLOR_1, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
+                boton = page.get().locator(String.format(GENERIC_BTN_XPATH, arg0)).first();
+                auto_verificarEstilos(boton, COLOR_1, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
                 break;
 
-            //AZUL
+            // AZULES
             case "Seleccionar":
-                page.get().locator(String.format(ACCIONES_BTN_XPATH, arg0)).first();
-                auto_verificarEstilos(page.get().locator(String.format(ACCIONES_BTN_XPATH, arg0)).first(), COLOR_3, COLOR_3, COLOR_BLANCO, FUENTE_BASE);
-                break;
-
             case "Acciones":
-                page.get().locator(String.format(ACCIONES_BTN_XPATH, arg0)).first();
-                auto_verificarEstilos(page.get().locator(String.format(ACCIONES_BTN_XPATH, arg0)).first(), COLOR_3, COLOR_3, COLOR_BLANCO, FUENTE_BASE);
-                break;
-
             case "Procesar Selección":
-                page.get().locator(String.format(GENERIC_BTN_XPATH, arg0)).first();
-                auto_verificarEstilos(page.get().locator(String.format(GENERIC_BTN_XPATH, arg0)).first(), COLOR_3, COLOR_3, COLOR_BLANCO, FUENTE_BASE);
+                boton = page.get().locator(String.format(GENERIC_BTN_XPATH, arg0)).first();
+                auto_verificarEstilos(boton, COLOR_3, COLOR_3, COLOR_BLANCO, FUENTE_BASE);
                 break;
 
             default:
@@ -273,56 +159,45 @@ public class GenericPage extends MasterPage {
     }
 
     public void validarTab(String arg0) {
+        Locator tab;
+
         switch (arg0) {
+            // SUPERIOR
             case "Principal":
-                page.get().locator(String.format(SUPERIOR_TAB_XPATH, arg0)).first().click();
-                auto_verificarEstilos(page.get().locator(String.format(SUPERIOR_TAB_XPATH, arg0)).first(), COLOR_1, COLOR_1, COLOR_TRANSPARENTE, FUENTE_BASE);
-                break;
-
-            case "Datos generales":
-                page.get().locator(String.format(LATERAL_TAB_XPATH, arg0)).first().click();
-                auto_verificarEstilos(page.get().locator(String.format(LATERAL_TAB_XPATH, arg0)).first(), COLOR_1, COLOR_1, COLOR_TRANSPARENTE, FUENTE_BASE);
-                break;
-
-            case "Comisiones":
-                page.get().locator(String.format(LATERAL_TAB_XPATH, arg0)).first().click();
-                auto_verificarEstilos(page.get().locator(String.format(LATERAL_TAB_XPATH, arg0)).first(), COLOR_1, COLOR_1, COLOR_TRANSPARENTE, FUENTE_BASE);
-                break;
-
-            case "Premio":
-                page.get().locator(String.format(LATERAL_TAB_XPATH, arg0)).first().click();
-                auto_verificarEstilos(page.get().locator(String.format(LATERAL_TAB_XPATH, arg0)).first(), COLOR_1, COLOR_1, COLOR_TRANSPARENTE, FUENTE_BASE);
-                break;
-
             case "Endoso de Aumento de Suma de Ascensores y Calderas":
-                page.get().locator(String.format(SUPERIOR_TAB_XPATH, arg0)).first().click();
-                auto_verificarEstilos(page.get().locator(String.format(SUPERIOR_TAB_XPATH, arg0)).first(), COLOR_1, COLOR_1, COLOR_TRANSPARENTE, FUENTE_BASE);
+            case "Endoso de Aumento de Vehículos":
+            case "Continuar":
+                tab = page.get().locator(String.format(SUPERIOR_TAB_XPATH, arg0)).first();
+                auto_verificarEstilos(tab, COLOR_1, COLOR_1, COLOR_TRANSPARENTE, FUENTE_BASE);
                 break;
 
-            case "Endoso de Aumento de Vehículos":
-                page.get().locator(String.format(SUPERIOR_TAB_XPATH, arg0)).first().click();
-                auto_verificarEstilos(page.get().locator(String.format(SUPERIOR_TAB_XPATH, arg0)).first(), COLOR_1, COLOR_1, COLOR_TRANSPARENTE, FUENTE_BASE);
+            // LATERAL
+            case "Datos generales":
+            case "Comisiones":
+            case "Premio":
+                tab = page.get().locator(String.format(LATERAL_TAB_XPATH, arg0)).first();
+                auto_verificarEstilos(tab, COLOR_1, COLOR_1, COLOR_TRANSPARENTE, FUENTE_BASE);
                 break;
 
             default:
-                throw new IllegalArgumentException("Botón no soportado: " + arg0);
+                throw new IllegalArgumentException("Tab no soportado: " + arg0);
         }
     }
 
     public void validarIconos(String nombreIcono) {
         switch (nombreIcono) {
+            // COLOR_1
             case "Polizas Vigentes":
                 auto_verificarIconos(POLIZAS_ICONS_XPATH, COLOR_1);
                 break;
-
-            case "Siniestros Denunciados":
-                auto_verificarIconos(SINIESTROS_ICONS_XPATH, COLOR_NARANJA);
-                break;
-
             case "Cotizaciones":
                 auto_verificarIconos(COTIZACIONES_ICONS_XPATH, COLOR_1);
                 break;
 
+            // COLOR_NARANJA
+            case "Siniestros Denunciados":
+                auto_verificarIconos(SINIESTROS_ICONS_XPATH, COLOR_NARANJA);
+                break;
             case "Siniestros Cartera":
                 auto_verificarIconos(SINIESTROSCARTERA_ICONS_XPATH, COLOR_NARANJA);
                 break;

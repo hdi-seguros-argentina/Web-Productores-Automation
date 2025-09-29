@@ -23,29 +23,6 @@ public class ProduccionPage extends MasterPage {
         auto_setClickElement(LISTADOPOLIZAS_MENU_XPATH);
     }
 
-    public void validarBotonBorrarFiltrosActivo(String arg0){
-        auto_setTextToInput(ASEGURADO1_INPUT_XPATH, "Ortuondo");
-        page.get().waitForTimeout(500);
-        Locator boton = page.get().locator(String.format(BORRARFILTROS1_BTN_XPATH, arg0)).first();
-
-        softAssertions.assertThat(auto_getCssValue(boton, "color"))
-                .as("Color de texto botón Borrar Filtros Activo incorrecto")
-                .isEqualTo(COLOR_1);
-
-        softAssertions.assertThat(auto_getCssValue(boton, "border-color"))
-                .as("Borde botón Borrar Filtros Activo incorrecto")
-                .isEqualTo(COLOR_1);
-
-        softAssertions.assertThat(auto_getCssValue(boton, "background-color"))
-                .as("Background botón Borrar Filtros Activo incorrecto")
-                .isEqualTo(COLOR_BLANCO);
-
-        softAssertions.assertThat(auto_getCssValue(boton, "font-family"))
-                .as("Fuente botón Borrar Filtros Activo incorrecta")
-                .contains(FUENTE_BASE);
-        softAssertions.assertAll();
-    }
-
     public void validarIconosAccesoDirecto() {
         page.get().waitForTimeout(1000);
         List<Locator> iconos = page.get().locator(ACCESODIRECTO_ICONS_XPATH).all();

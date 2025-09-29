@@ -15,11 +15,39 @@ Feature: Cobranzas
     When el usuario ingresa al menu de "Preliquidación" en "Cobranzas"
     Then el usuario verifica que el titulo "Preliquidación" es correcto
     Then el usuario verifica que el subtitulo "Generación de preliquidación" es correcto
-
+    And el usuario verifica que el boton "Continuar" es correcto
 
   @branding
-  Scenario: Componentes de Preliquidaciones guardadas y enviadas
-    When el usuario ingresa al menu de "Preliquidaciones guardadas y enviadas" en "Cobranzas"
+  Scenario Outline: Componentes de Preliquidación
+    When el usuario ingresa al menu de "Preliquidación" en "Cobranzas"
+    And el usuario selecciona "<boton>"
+    Then el usuario verifica que el radio-boton "<boton>" es correcto
+    And el usuario verifica que el boton "Continuar" es correcto
+    Examples:
+      | boton |
+      | SI    |
+      | NO    |
+
+  @branding
+  Scenario: Componentes de Preliquidación
+    When el usuario ingresa al menu de "Preliquidación" en "Cobranzas"
+    And el usuario selecciona "SI"
+    And el usuario hace clic en el boton "Continuar"
+    And el usuario ingresa a la pantalla de "Preliquidación"
+    Then el usuario verifica que el titulo "Preliquidación" es correcto
+    And el usuario verifica que el subtitulo "Listado de Pólizas" es correcto
+    And el usuario verifica que step "Principal" está activo en el stepper
+    And el usuario verifica que el input "Rama" es correcto
+    And el usuario verifica que el input "Asegurado" es correcto
+    And el usuario verifica que el input "Póliza" es correcto
+    And el usuario verifica que el boton "Filtrar" es correcto
+    And el usuario verifica que el boton "Borrar Filtros" es correcto
+    And el usuario verifica que el subtitulo "Resumen" es correcto
+    And el usuario verifica que el boton "Continuar" es correcto
+
+  @branding
+  Scenario: Componentes de Preliquidaciones guardadas
+    When el usuario ingresa al menu de "Preliquidaciones Guardadas" en "Cobranzas"
     Then el usuario verifica que el subtitulo "Preliquidaciones Enviadas y Guardadas" es correcto
 
 

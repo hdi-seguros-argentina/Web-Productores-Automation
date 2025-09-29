@@ -12,12 +12,7 @@ public class GenericLocators {
 
 
     //BUTTON
-    public static final String LOGIN_BTN1_XPATH = "//*[text()='%s']//ancestor::button";
-    public static final String FILTER1_BTN_XPATH = "//*[text()='%s']/ancestor::button";
-    public static final String GENERIC_BTN_XPATH = "(//*[text()='%s']/parent::*)[1]";
-    public static final String BORRARFILTROS1_BTN_XPATH = "//span[text()='%s']/parent::*";
-    public static final String ACCIONES_BTN_XPATH = "//span[text()='%s']/parent::*";
-
+    public static final String GENERIC_BTN_XPATH = "//*[text()='%s']/ancestor::button";
 
     //TAB
     public static final String SUPERIOR_TAB_XPATH = "//div[text()='%s']";

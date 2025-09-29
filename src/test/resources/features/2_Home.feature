@@ -17,7 +17,6 @@ Feature: Home
   Scenario: Componentes de Home
     Given el usuario ingresa a la home
     When el usuario se posiciona en la pantalla de home
-    Then el usuario verifica que el titulo "Panel de Inicio" es correcto
     And el usuario verifica que el header el correcto
     And el usuario verifica que el input "Nombre" es correcto
     And el usuario verifica que el input "CUIT" es correcto
@@ -38,6 +37,7 @@ Feature: Home
     Given el usuario ingresa a la home
     When el usuario selecciona un intermediario
     Then el usuario verifica que el sistema muestra el panel de inicio
+    Then el usuario verifica que el titulo "Panel de Inicio" es correcto
     And el usuario verifica que los iconos de "Polizas Vigentes" son correcto
     And el usuario verifica que los iconos de "Siniestros Denunciados" son correcto
     And el usuario verifica que los iconos de "Cotizaciones" son correcto

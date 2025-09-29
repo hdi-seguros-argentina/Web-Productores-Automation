@@ -61,9 +61,4 @@ public class ProduccionSteps {
     public void elUsuarioIngresaAlMenuDeEn(String arg0, String arg1) {
         produccionPage.ingresarAWeb(arg0, arg1);
     }
-
-    @And("el usuario verifica que el boton {string} Activo en Listado de polizas es correcto")
-    public void elUsuarioVerificaQueElBotonActivoEnListadoDePolizasEsCorrecto(String arg0) {
-        produccionPage.validarBotonBorrarFiltrosActivo(arg0);
-    }
 }

@@ -228,10 +228,10 @@ public abstract class MasterPage extends Hooks {
         String backgroundColorValue = auto_getCssValue(locator,"background-color");
         String textFontValue = auto_getCssValue(locator,"font-family");
 
-        softAssertions.assertThat(colorValue).as("Color de texto botón " + locator + " incorrecto").isEqualTo(color);
-        softAssertions.assertThat(borderColorValue).as("Borde botón " + locator + " incorrecto").isEqualTo(borderColor);
-        softAssertions.assertThat(backgroundColorValue).as("Background botón " + locator + " incorrecto").isEqualTo(backgroundColor);
-        softAssertions.assertThat(textFontValue).as("Fuente botón " + locator + " incorrecta").contains(textFont);
+        softAssertions.assertThat(colorValue).as("Color de texto elemento " + locator + " incorrecto").isEqualTo(color);
+        softAssertions.assertThat(borderColorValue).as("Borde elemento " + locator + " incorrecto").isEqualTo(borderColor);
+        softAssertions.assertThat(backgroundColorValue).as("Background elemento " + locator + " incorrecto").isEqualTo(backgroundColor);
+        softAssertions.assertThat(textFontValue).as("Fuente elemento " + locator + " incorrecta").contains(textFont);
         softAssertions.assertAll();
     }
 
