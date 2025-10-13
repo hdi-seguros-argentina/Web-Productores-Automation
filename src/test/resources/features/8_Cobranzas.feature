@@ -47,8 +47,8 @@ Feature: Cobranzas
 
   @branding
   Scenario: Componentes de Preliquidaciones guardadas
-    When el usuario ingresa al menu de "Preliquidaciones Guardadas" en "Cobranzas"
-    Then el usuario verifica que el subtitulo "Preliquidaciones Enviadas y Guardadas" es correcto
+    When el usuario ingresa al menu de "Preliquidaciones guardadas y enviadas." en "Cobranzas"
+    Then el usuario verifica que el subtitulo "Preliquidaciones guardadas y enviadas." es correcto
 
 
   @branding

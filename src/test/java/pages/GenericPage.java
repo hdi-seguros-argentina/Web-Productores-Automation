@@ -50,12 +50,12 @@ public class GenericPage extends MasterPage {
             case "Quincena":
             case "Seleccione un grupo":
             case "ACCIDENTES PERSONALES COLECTIV":
-            case "Articulo":
             case "Operación":
             case "76095 - ORTUONDO FERNANDO MARCIO":
             case "ORTUONDO FERNANDO MARCIO (1-76095)":
             case "Siniestro más reciente primero":
             case "Rama":
+            case "Articulo":
             case "Nível":
             case "Productor":
                 xpath = GENERIC5_INPUT_XPATH;
@@ -69,7 +69,6 @@ public class GenericPage extends MasterPage {
             case "Usuario":
             case "Contraseña":
             case "Bien Siniestrado":
-            case "Poliza":
             case "Siniestro":
             case "Patente":
                 xpath = GENERIC1_INPUT_XPATH;
@@ -82,7 +81,7 @@ public class GenericPage extends MasterPage {
             case "CUIT":
             case "Código Interno":
             case "Número de póliza":
-            case "Póliza":
+            case "Número de Cotización":
                 xpath = GENERIC2_INPUT_XPATH;
                 colorTexto = COLOR_NEGRO2;
                 colorBorde = COLOR_1;
@@ -90,10 +89,11 @@ public class GenericPage extends MasterPage {
                 fuente = FUENTE_BASE;
                 break;
 
+            case "Póliza":
+            case "Poliza":
             case "Nombre":
             case "Asegurado":
             case "Apellido y Nombre":
-            case "Número de Cotización":
                 xpath = GENERIC3_INPUT_XPATH;
                 colorTexto = COLOR_NEGRO2;
                 colorBorde = COLOR_1;
@@ -128,6 +128,10 @@ public class GenericPage extends MasterPage {
         switch (arg0) {
             // PRINCIPAL
             case "Iniciar sesión":
+                boton = page.get().locator(String.format(GENERIC_BTN_XPATH, arg0)).first();
+                auto_verificarEstilos(boton, COLOR_BLANCO, COLOR_BLANCO, COLOR_1, FUENTE_BASE);
+                break;
+
             case "Filtrar":
             case "Aceptar":
             case "Iniciar Cotización":
@@ -138,19 +142,27 @@ public class GenericPage extends MasterPage {
                 break;
 
             // SECUNDARIO
-            case "¿Olvidaste tu contraseña?":
             case "Borrar Filtros":
             case "Cancelar":
                 boton = page.get().locator(String.format(GENERIC_BTN_XPATH, arg0)).first();
                 auto_verificarEstilos(boton, COLOR_1, COLOR_1, COLOR_BLANCO, FUENTE_BASE);
                 break;
 
+            case "¿Olvidaste tu contraseña?":
+                boton = page.get().locator(String.format(GENERIC_BTN_XPATH, arg0)).first();
+                auto_verificarEstilos(boton, COLOR_1, COLOR_1, COLOR_TRANSPARENTE, FUENTE_BASE);
+                break;
+
             // AZULES
             case "Seleccionar":
-            case "Acciones":
             case "Procesar Selección":
                 boton = page.get().locator(String.format(GENERIC_BTN_XPATH, arg0)).first();
                 auto_verificarEstilos(boton, COLOR_3, COLOR_3, COLOR_BLANCO, FUENTE_BASE);
+                break;
+
+            case "Acciones":
+                boton = page.get().locator(String.format(GENERIC_BTN_XPATH, arg0)).first();
+                auto_verificarEstilos(boton, COLOR_3, COLOR_3, COLOR_TRANSPARENTE, FUENTE_BASE);
                 break;
 
             default:
@@ -165,10 +177,14 @@ public class GenericPage extends MasterPage {
             // SUPERIOR
             case "Principal":
             case "Endoso de Aumento de Suma de Ascensores y Calderas":
-            case "Endoso de Aumento de Vehículos":
             case "Continuar":
                 tab = page.get().locator(String.format(SUPERIOR_TAB_XPATH, arg0)).first();
                 auto_verificarEstilos(tab, COLOR_1, COLOR_1, COLOR_TRANSPARENTE, FUENTE_BASE);
+                break;
+
+            case "Endoso de Aumento de Vehículos":
+                tab = page.get().locator(String.format(SUPERIOR_TAB_XPATH, arg0)).first();
+                auto_verificarEstilos(tab, COLOR_NEGRO2, COLOR_NEGRO2, COLOR_TRANSPARENTE, FUENTE_BASE);
                 break;
 
             // LATERAL

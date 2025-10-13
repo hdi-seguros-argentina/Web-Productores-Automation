@@ -43,7 +43,7 @@ Feature: Cuenta Corriente
 
   @branding
   Scenario: Componentes de Saldo de Cuenta Corriente
-    When el usuario ingresa al menu de "Saldo de Cuenta Corriente" en "Cuenta Corriente"
+    When el usuario ingresa al menu de "Saldo De Cuenta Corriente" en "Cuenta Corriente"
     Then el usuario verifica que el titulo "Saldo de Cuenta Corriente" es correcto
     And el usuario verifica que el input "ORTUONDO FERNANDO MARCIO (1-76095)" es correcto
     And el usuario verifica que el boton "Filtrar" es correcto

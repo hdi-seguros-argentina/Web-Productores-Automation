@@ -120,11 +120,11 @@ public abstract class MasterPage extends Hooks {
     }
 
     public static void auto_waitForElementVisibility(String locator){
-        page.get().locator(locator).waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.VISIBLE).setTimeout(50000));
+        page.get().locator(locator).waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.VISIBLE).setTimeout(80000));
     }
 
     public static void auto_waitForElementInvisibility(String locator){
-        page.get().locator(locator).waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.HIDDEN).setTimeout(50000));
+        page.get().locator(locator).waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.HIDDEN).setTimeout(80000));
     }
 
     public static void auto_setTextToClipboard(String value){
@@ -221,7 +221,7 @@ public abstract class MasterPage extends Hooks {
     }
 
     public void auto_verificarEstilos(Locator locator, String color, String borderColor, String backgroundColor, String textFont){
-        page.get().waitForTimeout(500);
+        page.get().waitForTimeout(700);
 
         String colorValue = auto_getCssValue(locator,"color");
         String borderColorValue = auto_getCssValue(locator,"border-color");

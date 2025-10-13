@@ -12,6 +12,7 @@ public class CobranzasPage extends MasterPage {
     public void ingresoPantalla(String arg0) {
         auto_waitForLoadStates(LoadState.DOMCONTENTLOADED);
         auto_waitForElementVisibility(String.format(TITLE_GENERIC_XPATH, arg0));
+        auto_waitForElementVisibility("//h3[text()='Listado de Pólizas']");
     }
 
     public void verificaStepActivo(String arg0){
