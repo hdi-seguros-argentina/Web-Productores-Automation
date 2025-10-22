@@ -11,7 +11,7 @@ Feature: Cuenta Corriente
     Then el usuario verifica que el sistema muestra el panel de inicio
 
   @branding
-  Scenario: Componentes de Presentación Factura Comisiones
+  Scenario: Verificar inputs, botones y paginado en Presentación Factura Comisiones
     When el usuario ingresa al menu de "Facturas pendientes" en "Cuenta Corriente"
     Then el usuario verifica que el titulo "Presentación Factura Comisiones" es correcto
     And el usuario verifica que el input "76095 - ORTUONDO FERNANDO MARCIO" es correcto
@@ -19,9 +19,10 @@ Feature: Cuenta Corriente
     And el usuario verifica que el input "Estado" es correcto
     And el usuario verifica que el boton "Filtrar" es correcto
     And el usuario verifica que el boton "Borrar Filtros" es correcto
+    And el usuario verifica que el paginado de "Facturas Pendientes" es correcto
 
   @branding
-  Scenario: Componentes de Detalle de Retenciones
+  Scenario: Verificar inputs y botones en la pantalla Detalle de Retenciones
     When el usuario ingresa al menu de "Detalle de retenciones" en "Cuenta Corriente"
     Then el usuario verifica que el titulo "Detalle de Retenciones" es correcto
     And el usuario verifica que el input "ORTUONDO FERNANDO MARCIO (1-76095)" es correcto
@@ -30,7 +31,7 @@ Feature: Cuenta Corriente
     And el usuario verifica que el boton "Borrar Filtros" es correcto
 
   @branding
-  Scenario: Componentes de Detalle de Retenciones
+  Scenario: Verificar check, botones y paginado en Detalle de Retenciones filtrado
     When el usuario ingresa al menu de "Detalle de retenciones" en "Cuenta Corriente"
     And el usuario selecciona "16/08/2024" en Fecha
     And el usuario hace clic en el boton "Filtrar"
@@ -39,10 +40,10 @@ Feature: Cuenta Corriente
     And el usuario verifica que el boton "Borrar Filtros" es correcto
     And el usuario verifica que el boton "Procesar Selección" es correcto
     And el usuario valida que el check es correcto
-
+    And el usuario verifica que el paginado de "retenciones" es correcto
 
   @branding
-  Scenario: Componentes de Saldo de Cuenta Corriente
+  Scenario: Verificar inputs y botones en la pantalla Saldo de Cuenta Corriente
     When el usuario ingresa al menu de "Saldo De Cuenta Corriente" en "Cuenta Corriente"
     Then el usuario verifica que el titulo "Saldo de Cuenta Corriente" es correcto
     And el usuario verifica que el input "ORTUONDO FERNANDO MARCIO (1-76095)" es correcto

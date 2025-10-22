@@ -8,16 +8,16 @@ Feature: Home
     And el usuario hace click en el boton de login
 
   @Regression
-  Scenario: Home - Buscar intermediario
+  Scenario: Verificar selección de intermediario y visualización del panel de inicio
     Given el usuario ingresa a la home
     When el usuario selecciona un intermediario
     Then el usuario verifica que el sistema muestra el panel de inicio
 
   @branding
-  Scenario: Componentes de Home
+  Scenario: Verificar inputs, botones y header en la pantalla Home
     Given el usuario ingresa a la home
     When el usuario se posiciona en la pantalla de home
-    And el usuario verifica que el header el correcto
+    Then el usuario verifica que el header el correcto
     And el usuario verifica que el input "Nombre" es correcto
     And el usuario verifica que el input "CUIT" es correcto
     And el usuario verifica que el input "Código Interno" es correcto
@@ -26,18 +26,19 @@ Feature: Home
     And el usuario verifica que el boton "Borrar Filtros" es correcto
 
   @branding
-  Scenario: Componentes de Home
+  Scenario: Verificar listado de intermediarios, botones de acción y paginado
     Given el usuario ingresa a la home
-    And el usuario ingresa "Ortuondo" en el input
-    And el usuario verifica que el boton "Borrar Filtros" es correcto
+    When el usuario ingresa "Ortuondo" en el input
+    Then el usuario verifica que el boton "Borrar Filtros" es correcto
     And el usuario verifica que el boton "Seleccionar" es correcto
+    And el usuario verifica que el paginado de "intermediarios" es correcto
 
   @branding
-  Scenario: Componentes de Panel de inicio
+  Scenario: Verificar títulos e íconos del panel de inicio por intermediario
     Given el usuario ingresa a la home
     When el usuario selecciona un intermediario
     Then el usuario verifica que el sistema muestra el panel de inicio
-    Then el usuario verifica que el titulo "Panel de Inicio" es correcto
+    And el usuario verifica que el titulo "Panel de Inicio" es correcto
     And el usuario verifica que los iconos de "Polizas Vigentes" son correcto
     And el usuario verifica que los iconos de "Siniestros Denunciados" son correcto
     And el usuario verifica que los iconos de "Cotizaciones" son correcto

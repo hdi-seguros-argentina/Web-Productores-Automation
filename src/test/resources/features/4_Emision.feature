@@ -11,7 +11,7 @@ Feature: Emision
     Then el usuario verifica que el sistema muestra el panel de inicio
 
   @branding
-  Scenario: Componentes de Endosos Aumento de Suma
+  Scenario: Verificar tabs, botones y paginado en Endosos Aumento de Suma
     When el usuario ingresa al menu de "Endosos Aumento de Suma" en "Emision"
     And el usuario verifica que el boton "Aceptar" es correcto
     And el usuario verifica que el boton "Cancelar" es correcto
@@ -20,9 +20,10 @@ Feature: Emision
     And el usuario verifica que la tab "Endoso de Aumento de Suma de Ascensores y Calderas" es correcta
     And el usuario verifica que la tab "Endoso de Aumento de Vehículos" es correcta
     And el usuario verifica que el boton "Procesar Selección" es correcto
+    And el usuario verifica que el paginado de "endosos" es correcto
 
   @branding
-  Scenario: Componentes de Transporte Mercaderias
+  Scenario: Verificar título y botón Aceptar en Transporte de Mercaderías
     When el usuario ingresa al menu de "Transporte Mercaderías" en "Emision"
     Then el usuario verifica que el titulo "Transporte Mercaderías" es correcto
     And el usuario verifica que el boton "Aceptar" es correcto

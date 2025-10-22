@@ -49,4 +49,10 @@ public class HomeSteps {
     public void elUsuarioVerificaQueLosIconosDeSonCorrecto(String arg0) {
         genericPage.validarIconos(arg0);
     }
+
+    @And("el usuario verifica que el paginado de {string} es correcto")
+    public void elUsuarioVerificaQueElPaginadoDeEsCorrecto(String arg0) {
+        genericPage.verificarPaginado(arg0);
+
+    }
 }

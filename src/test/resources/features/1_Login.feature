@@ -2,7 +2,7 @@
 Feature: Login
 
   @Regression
-  Scenario: Login
+  Scenario: Verificar inicio de sesión exitoso con credenciales válidas
     Given el usuario ingresa a la web
     When el usuario ingresa usuario
     And el usuario ingresa contraseña
@@ -10,7 +10,7 @@ Feature: Login
     Then el usuario verifica que se logueo correctamente
 
   @branding
-  Scenario: Componentes de Login
+  Scenario: Verificar logo, inputs y botones en la pantalla de Login
     Given el usuario ingresa a la web
     When el usuario se posiciona en la pantalla de login
     Then el usuario verifica que el logo es correcto

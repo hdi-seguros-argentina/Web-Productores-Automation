@@ -4,22 +4,27 @@ import com.core.utility.MasterPage;
 import com.microsoft.playwright.Locator;
 import org.assertj.core.api.SoftAssertions;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static locators.GenericLocators.*;
 import static locators.HomeLocators.GENERIC_TITULO_XPATH;
 
 public class GenericPage extends MasterPage {
     SoftAssertions softAssertions = new SoftAssertions();
-    public static final String COLOR_NEGRO          = "rgb(0, 0, 0)";
-    public static final String COLOR_NEGRO2         = "rgba(0, 0, 0, 0.88)";
-    public static final String COLOR_GRIS           = "rgb(110, 110, 110)";
-    public static final String COLOR_BLANCO         = "rgb(255, 255, 255)";
-    public static final String COLOR_TRANSPARENTE   = "rgba(0, 0, 0, 0)";
-    public static final String COLOR_1              = "rgb(227, 32, 94)";     //Magenta
-    public static final String COLOR_7              = "rgb(232, 69, 121)";    //Magenta claro
-    public static final String COLOR_8              = "rgb(217, 217, 217)";   //Gris claro
-    public static final String COLOR_3              = "rgb(0, 91, 187)";      //Azul
-    public static final String COLOR_NARANJA        = "rgb(219, 99, 1)";
-    public static final String FUENTE_BASE          = "Montserrat, sans-serif";
+    public static final String COLOR_NEGRO = "rgb(0, 0, 0)";
+    public static final String COLOR_NEGRO2 = "rgba(0, 0, 0, 0.88)";
+    public static final String COLOR_GRIS = "rgb(110, 110, 110)";
+    public static final String COLOR_BLANCO = "rgb(255, 255, 255)";
+    public static final String COLOR_TRANSPARENTE = "rgba(0, 0, 0, 0)";
+    public static final String COLOR_1 = "rgb(227, 32, 94)";     //Magenta
+    public static final String COLOR_7 = "rgb(232, 69, 121)";    //Magenta claro
+    public static final String COLOR_8 = "rgb(217, 217, 217)";   //Gris claro
+    public static final String COLOR_3 = "rgb(0, 91, 187)";      //Azul
+    public static final String COLOR_GRIS_FONDO_TEMA = "rgb(250, 250, 250)";
+    public static final String COLOR_GRIS_TEXTO_TEMA = "rgb(157, 157, 157)";
+    public static final String COLOR_NARANJA = "rgb(219, 99, 1)";
+    public static final String FUENTE_BASE = "Montserrat, sans-serif";
 
     public void verificaTitulo(String args) {
         Locator titulo = page.get().locator(String.format(GENERIC_TITULO_XPATH, args)).first();
@@ -221,5 +226,34 @@ public class GenericPage extends MasterPage {
             default:
                 throw new IllegalArgumentException("Nombre de icono no soportado: " + nombreIcono);
         }
+    }
+
+    public void verificarPaginado(String arg0) {
+        Locator totalIntermediarios = page.get().locator(String.format(PAGINADO_TOTAL_XPATH, arg0));
+        Locator paginaActiva = page.get().locator(PAGINADO_PAGINA_ACTIVA_XPATH);
+        Locator selectorPorPagina = page.get().locator(PAGINADO_SELECTOR_XPATH);
+        Locator flechaAnterior = page.get().locator(PAGINADO_FLECHA_ANTERIOR_XPATH);
+        Locator flechaSiguiente = page.get().locator(PAGINADO_FLECHA_SIGUIENTE_XPATH);
+        Locator selectorItem = page.get().locator(PAGINADO_SELECTOR_ITEM_XPATH);
+
+        totalIntermediarios.waitFor();
+        selectorItem.waitFor();
+
+        List<String> seccionesTemaGris = Arrays.asList("quincenas", "cotizaciones", "retenciones", "cuotas");
+
+        String backgroundEsperado = seccionesTemaGris.contains(arg0.toLowerCase()) ? COLOR_GRIS_FONDO_TEMA : COLOR_BLANCO;
+        String colorTextoEsperado = seccionesTemaGris.contains(arg0.toLowerCase()) ? COLOR_GRIS_TEXTO_TEMA : "rgba(0, 0, 0, 0.25)";
+
+        auto_verificarEstilos(totalIntermediarios, COLOR_NEGRO2, COLOR_NEGRO2, COLOR_TRANSPARENTE, FUENTE_BASE);
+        if (paginaActiva.count() > 0) {
+            auto_verificarEstilos(paginaActiva, COLOR_NEGRO2, COLOR_1, backgroundEsperado, FUENTE_BASE);
+        }
+        auto_verificarEstilos(selectorPorPagina, COLOR_NEGRO2, COLOR_1, COLOR_TRANSPARENTE, FUENTE_BASE);
+        auto_verificarEstilos(flechaAnterior, COLOR_NEGRO2, COLOR_NEGRO2, COLOR_TRANSPARENTE, FUENTE_BASE);
+        auto_verificarEstilos(flechaSiguiente, COLOR_NEGRO2, COLOR_NEGRO2, COLOR_TRANSPARENTE, FUENTE_BASE);
+
+        selectorItem.click();
+        page.get().waitForTimeout(200);
+        auto_verificarEstilos(selectorItem, colorTextoEsperado, COLOR_1, COLOR_TRANSPARENTE, FUENTE_BASE);
     }
 }
