@@ -47,3 +47,4 @@ Thumbs.db
 *.wmv
 
 .env
+src/test/resources/Datos/

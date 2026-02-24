@@ -256,4 +256,8 @@ public class GenericPage extends MasterPage {
         page.get().waitForTimeout(200);
         auto_verificarEstilos(selectorItem, colorTextoEsperado, COLOR_1, COLOR_TRANSPARENTE, FUENTE_BASE);
     }
+
+    public void clickEnPopup(){
+        auto_setClickElement(ACEPTAR_BTN_XPATH);
+    }
 }

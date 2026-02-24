@@ -24,6 +24,7 @@ public class HomeSteps {
     @When("el usuario selecciona un intermediario")
     public void elUsuarioSeleccionaUnIntermediario() {
         homePage.seleccionIntermediario();
+        genericPage.clickEnPopup();
     }
 
     @Then("el usuario verifica que el sistema muestra el panel de inicio")
@@ -54,5 +55,10 @@ public class HomeSteps {
     public void elUsuarioVerificaQueElPaginadoDeEsCorrecto(String arg0) {
         genericPage.verificarPaginado(arg0);
 
+    }
+
+    @And("el usuario hace click en aceptar el popup")
+    public void elUsuarioHaceClickEnAceptarElPopup() {
+        genericPage.clickEnPopup();
     }
 }

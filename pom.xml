@@ -16,8 +16,8 @@
 
     <properties>
         <!--suppress UnresolvedMavenProperty -->
-        <tagExecution>@branding</tagExecution>
-        <navigateUrl>https://develop.d34bclgkp7zzc2.amplifyapp.com</navigateUrl>
+        <tagExecution>@Noe</tagExecution>
+        <navigateUrl>https://test-productores.hdi.com.ar/</navigateUrl>
         <selectedBrowser>Chromium</selectedBrowser>
     </properties>
 

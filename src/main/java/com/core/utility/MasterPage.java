@@ -247,4 +247,15 @@ public abstract class MasterPage extends Hooks {
         }
         softAssertions.assertAll();
     }
+
+    public void auto_pressKey(String locator, String key){
+        Hooks.page.get().locator(locator).press(key);
+    }
+
+    public void auto_typeSequentially(String locator, String text){
+        Hooks.page.get().locator(locator).click();
+        Hooks.page.get().locator(locator).press("Control+A");
+        Hooks.page.get().locator(locator).press("Delete");
+        Hooks.page.get().locator(locator).type(text);
+    }
 }

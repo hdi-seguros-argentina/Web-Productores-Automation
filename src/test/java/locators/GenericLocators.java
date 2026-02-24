@@ -32,4 +32,5 @@ public class GenericLocators {
     public static final String PAGINADO_FLECHA_ANTERIOR_XPATH = "//li[contains(@class, 'ant-pagination-prev')]";
     public static final String PAGINADO_FLECHA_SIGUIENTE_XPATH = "//li[contains(@class, 'ant-pagination-next')]";
     public static final String PAGINADO_SELECTOR_ITEM_XPATH = "//span[contains(text(), ' / page') or contains(text(), ' / página')]";
+    public static final String ACEPTAR_BTN_XPATH = "//*[text()=' Aceptar ']";
 }
