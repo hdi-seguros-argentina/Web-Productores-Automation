@@ -2,15 +2,15 @@ package models;
 
 import java.util.List;
 
-public class CotizacionHogar extends CotizacionBase {
+public class CotizacionIncendio extends CotizacionBase {
 
-    private String plan;
+    private String rubro;
     private DatosDelBien datosDelBien;
     private List<Cobertura> cobertura;
     private Emision emision;
 
-    public String getPlan() {
-        return plan;
+    public String getRubro() {
+        return rubro;
     }
 
     public DatosDelBien getDatosDelBien() {

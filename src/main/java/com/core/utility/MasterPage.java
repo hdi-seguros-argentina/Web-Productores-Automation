@@ -58,7 +58,8 @@ public abstract class MasterPage extends Hooks {
         return page.get().title();
     }
 
-    public static void auto_setClickElement(String locator){
+    public void auto_setClickElement(String locator){
+        softAssertions.assertThat(page.get().locator(locator).count()).as("No se encontró el elemento para hacer click [%s]", locator).isGreaterThan(0);
         page.get().click(locator);
     }
 
@@ -72,7 +73,8 @@ public abstract class MasterPage extends Hooks {
                 .setDelay(5000)));
     }
 
-    public static void auto_setTextToInput(String locator, String value){
+    public void auto_setTextToInput(String locator, String value){
+        softAssertions.assertThat(page.get().locator(locator).count()).as("No se encontró el input [%s]", locator).isGreaterThan(0);
         page.get().locator(locator).clear();
         page.get().fill(locator, value);
     }
@@ -119,7 +121,8 @@ public abstract class MasterPage extends Hooks {
         page.get().locator(locator).waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.ATTACHED));
     }
 
-    public static void auto_waitForElementVisibility(String locator){
+    public void auto_waitForElementVisibility(String locator){
+        softAssertions.assertThat(page.get().locator(locator).count()).as("No se encontró el elemento en el DOM con locator: %s", locator).isGreaterThan(0);
         page.get().locator(locator).waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.VISIBLE).setTimeout(80000));
     }
 
@@ -209,8 +212,7 @@ public abstract class MasterPage extends Hooks {
         try {
             page.get().waitForLoadState(loadState);
         } catch (Exception e) {
-            System.err.println(STR."Error al esperar el estado de carga: \{e.getMessage()}");
-        }
+            System.err.println("Error al esperar el estado de carga: " + e.getMessage());        }
     }
 
     protected String auto_getCssValue(Locator locator, String property) {

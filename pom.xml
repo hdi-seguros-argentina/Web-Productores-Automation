@@ -16,7 +16,7 @@
 
     <properties>
         <!--suppress UnresolvedMavenProperty -->
-        <tagExecution>@Noe</tagExecution>
+        <tagExecution>@COTIZACION</tagExecution>
         <navigateUrl>https://test-productores.hdi.com.ar/</navigateUrl>
         <selectedBrowser>Chromium</selectedBrowser>
     </properties>

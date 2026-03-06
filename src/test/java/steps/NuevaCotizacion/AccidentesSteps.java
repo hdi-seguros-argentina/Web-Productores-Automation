@@ -1,16 +1,15 @@
 package steps.NuevaCotizacion;
 
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Then;
 import models.CotizacionAccidentes;
 import models.Persona;
 import pages.NuevaCotizacion.AccidentePage;
 import Utils.JsonLoader;
+import pages.CommonPage;
 
 public class AccidentesSteps{
-
-    private AccidentePage accidentePage = new AccidentePage();
-
+    AccidentePage accidentePage = new AccidentePage();
+    CommonPage commonPage = new CommonPage();
     private CotizacionAccidentes dataAccidentes =
             JsonLoader.load(
                     "Datos/cotizacion_accidentes.json",
@@ -19,76 +18,41 @@ public class AccidentesSteps{
 
     @And("el usuario selecciona ACCIDENTES desde el json")
     public void elUsuarioSeleccionaLaRamaDesdeElJson() {
-        accidentePage.seleccionarRamaAcc(dataAccidentes.getRama());
+        commonPage.seleccionarRama(dataAccidentes.getRama());
     }
 
     @And("el usuario selecciona ACCIDENTES PERSONALES COLECTIV desde el json")
     public void elUsuarioSeleccionaElArticuloDesdeElJson() {
-        accidentePage.seleccionarArticuloAcc(dataAccidentes.getArticulo());
+        commonPage.seleccionarArticulo(dataAccidentes.getArticulo());
     }
 
-    @And("el usuario inicia la cotizacion")
-    public void elUsuarioIniciaLaCotizacion() {
-        accidentePage.iniciarCotizacion();
-    }
+    @And("el usuario realiza la cotizacion de ACCIDENTES PERSONALES COLECTIV")
+    public void elUsuarioRealizaLaCotizacionDeACCIDENTESPERSONALESCOLECTIV() {
+        commonPage.clickIniciarCotizacion();
 
-    @And("el usuario busca el cliente de ACCIDENTES desde el json")
-    public void elUsuarioBuscaElClienteDesdeElJson() {
-        accidentePage.buscarClienteAcc(dataAccidentes.getCliente());
-    }
+        commonPage.buscarCliente(dataAccidentes.getCliente());
+        commonPage.clickBotonContinuar();
 
-    @And("el usuario completa los datos del plan desde el json")
-    public void elUsuarioCompletaLosDatosDelPlanDesdeElJson() {
         accidentePage.seleccionarPlan(dataAccidentes.getPlan());
         accidentePage.seleccionarActividad(dataAccidentes.getActividad());
         accidentePage.ingresarCantidad(dataAccidentes.getCantidadPersonas());
+        accidentePage.ingresarCoberturaMuerte(dataAccidentes.getCobertura().getMuerte());
+
+        commonPage.clickBotonCotizar();
     }
 
-    @And("el usuario completa la cobertura desde el json")
-    public void elUsuarioCompletaLaCoberturaDesdeElJson() {
-        accidentePage.ingresarCoberturaMuerte(
-                dataAccidentes.getCobertura().getMuerte()
-        );
-    }
+    @And("el usuario envia la cotizacion de ACCIDENTES PERSONALES COLECTIV")
+    public void elUsuarioEnviaLaCotizacionDeACCIDENTESPERSONALESCOLECTIV() {
+        commonPage.clickEditarCotizacion();
+        commonPage.clickBotonEmitir();
 
-    @And("el usuario cotiza y guarda la cotizacion de ACCIDENTES")
-    public void elUsuarioCotizaYGuardaLaCotizacion() {
-        accidentePage.cotizar();
-        accidentePage.guardarCotizacion();
-    }
-
-    @And("el usuario emite la cotizacion de ACCIDENTES desde el json")
-    public void elUsuarioEmiteLaPolizaDesdeElJson() {
-        accidentePage.editarCotizacion();
-
-        accidentePage.emitir();
-
-        accidentePage.seleccionarNacionalidadAcc(dataAccidentes.getEmision().getNacionalidad()
-        );
-
-        accidentePage.ingresarNumeroTarjetaAcc(dataAccidentes.getEmision().getTarjeta().getNumero()
-        );
-
-        accidentePage.ingresarVencimientoAcc(dataAccidentes.getEmision().getTarjeta().getVencimiento()
-        );
-    }
-
-    @And("el usuario agrega las personas desde el json")
-    public void elUsuarioAgregaLasPersonasDesdeElJson() {
-
+        commonPage.seleccionarNacionalidad(dataAccidentes.getEmision().getNacionalidad());
+        commonPage.ingresarNumeroTarjeta(dataAccidentes.getEmision().getTarjeta().getNumero());
+        commonPage.ingresarVencimiento(dataAccidentes.getEmision().getTarjeta().getVencimiento());
         for (Persona persona : dataAccidentes.getPersonas()) {
             accidentePage.agregarPersona(persona);
-            accidentePage.guardar();
+            commonPage.clickBotonGuardar();
         }
-    }
-
-    @And("el usuario guarda y envia la poliza")
-    public void elUsuarioGuardaYEnviaLaPoliza() {
-        accidentePage.enviar();
-    }
-
-    @Then("el usuario verifica el envio de la poliza")
-    public void elUsuarioVerificaElEnvioDeLaPoliza() {
-        accidentePage.envioPoliza();
+        commonPage.clickBotonEnviar();
     }
 }

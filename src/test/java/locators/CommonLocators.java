@@ -1,8 +1,8 @@
 package locators;
 
-public class CotizadorNuevaCotizacionLocators {
+public class CommonLocators {
     public static final String RAMA_SELECT="//*[text()='Seleccione un grupo']/ancestor::div[contains(@class,'ant-select')]";
-    public static final String ARTICULO_SELECT="(//*[text()='Seleccione un artículo']/ancestor::div[contains(@class,'ant-select')])[1]";
+    public static final String ARTICULO_SELECT="(//div[contains(@class,'ant-select-selector')])[3]";
     public static final String SELECT_OPCION="//div[contains(@class,'ant-select-item-option-content') and text()='%s']";
     public static final String BOTON_INICIAR_COTIZACION="//button[.//span[text()='Iniciar Cotización']]";
     public static final String BOTON_BUSCAR_CLIENTE="//button[.//span[text()='Buscar cliente']]";
@@ -16,6 +16,7 @@ public class CotizadorNuevaCotizacionLocators {
     public static final String BOTON_COTIZAR="//button[.//span[text()='Cotizar']]";
     public static final String BOTON_GUARDAR_COTIZACION="//button[.//span[text()='Guardar Cotización']]";
     public static final String BOTON_LAPIZ_EDITAR="(//tr[.//td[contains(text(),'COTIZACION SALVADA')]]//button)[1]";
+    public static final String TITULO_NUEVACOTIZACION_XPATH="//h3[text()='Nueva Cotización']";
     public static final String BOTON_RECOTIZAR="//button[.//span[text()='Recotizar']]";
     public static final String BOTON_EMITIR="//button[.//span[text()='Emitir']]";
     public static final String NACIONALIDAD_SELECT="//label[text()='Nacionalidad']/following::div[contains(@class,'ant-select')][1]";
@@ -37,12 +38,8 @@ public class CotizadorNuevaCotizacionLocators {
     public static final String POLIZA_ENVIO_BOTON_ACEPTAR = "//button[.//span[normalize-space()='Aceptar']]";
 
     // Vehiculo
-    public static final String ANIO_SELECT = "//label[normalize-space()='Año Vehículo']/following::div[contains(@class,'ant-select')][1]";
-    public static final String MARCA_SELECT = "//label[normalize-space()='Marca']/following::div[contains(@class,'ant-select')][1]";
+    public static final String SELECT_DESPLEGABLE = "//label[normalize-space()='%s']/following::div[contains(@class,'ant-select')][1]";
     public static final String MARCA_INPUT_SELECT = "//div[contains(@class,'ant-select-open')]//input[contains(@class,'ant-select-selection-search-input')]";
-    public static final String MODELO_SELECT = "//label[normalize-space()='Modelo']/following::div[contains(@class,'ant-select')][1]";
-    public static final String VERSION_SELECT = "//label[normalize-space()='Versión']/following::div[contains(@class,'ant-select')][1]";
-
     // Cobertura
     public static final String RADIO_COBERTURA = "//div[contains(@id,'car-coverages-form')]//input[@value='%s']";
 
@@ -53,11 +50,9 @@ public class CotizadorNuevaCotizacionLocators {
     public static final String CHASIS_INPUT = "//input[contains(@id,'vehicle-info-section-form_chassisNumber')]";
 
     // Datos del bien
-    public static final String PROVINCIA_SELECT = "//input[contains(@id,'property-data-home-form_province')]";
-    public static final String LOCALIDAD_SELECT = "//input[contains(@id,'property-data-home-form_location')]";
     public static final String TIPO_VIVIENDA_SELECT = "//input[contains(@id,'property-data-home-form_type-housing')]";
+    public static final String INPUT_DOMICILIO = "//input[@id='activity-form-1_propertyDataAddress1']";
     public static final String COBERTURA_CHECKBOX = "//span[normalize-space()='%s']/ancestor::label[1]//input[@type='checkbox']";
     public static final String COBERTURA_INPUT = "//span[normalize-space()='%s']/following::input[@role='spinbutton'][1]";
-    public static final String INPUT_DOMICILIO = "//input[@id='activity-form-1_propertyDataAddress1']";
 
 }

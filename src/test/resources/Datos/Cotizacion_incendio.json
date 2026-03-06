@@ -1,0 +1,24 @@
+{
+  "rama": "INCENDIO WEB",
+  "articulo": "INCENDIO VIVIENDAS",
+  "cliente": "ABARIA ADRIANA ALICIA",
+  "rubro": "VIVIENDAS",
+  "datosDelBien": {
+    "provincia": "BUENOS AIRES (01)",
+    "localidad": "------------- (7760-0)"
+  },
+  "cobertura": [
+    {
+      "nombre": "INCENDIO EDIFICIO",
+      "suma": 1000000000
+    }
+  ],
+  "emision": {
+    "nacionalidad": "Argentina",
+    "tarjeta": {
+      "numero": "4223677901518637",
+      "vencimiento": "12/2030"
+    },
+    "domicilio": "123"
+  }
+}

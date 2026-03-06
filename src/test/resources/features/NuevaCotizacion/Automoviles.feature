@@ -1,4 +1,3 @@
-@AUTOMATED
 Feature: Cotizador Autos
 
   Background:
@@ -9,26 +8,17 @@ Feature: Cotizador Autos
     And el usuario ingresa a la home
     And el usuario selecciona un intermediario
 
-  @regresion @Cotizador
-  Scenario: Nueva cotizacion de Automoviles
+  @AUTOMATED @COTIZACION @regresion @Cotizador
+  Scenario: Nueva cotizacion de AUTOMOVILES RC
     When el usuario ingresa al menu de "Nueva Cotización" en "Cotizador"
     And el usuario selecciona AUTOMOVILES desde el json
     And el usuario selecciona PRODUCTO AUTOMOVILES RC desde el json
-    And el usuario inicia la cotizacion
-    And el usuario busca el cliente de AUTOMOVILES desde el json
-    And el usuario completa los datos del vehiculo desde el json
-    And el usuario completa el codigo de la cobertura desde el json
-    And el usuario guarda la cotizacion de AUTOMOVILES
-    And el usuario emite la cotizacion de AUTOMOVILES desde el json
-    And el usuario agrega los datos del automovil desde el json
-    And el usuario guarda y envia la poliza
-    Then el usuario verifica el envio de la poliza
+    And el usuario realiza la cotizacion de AUTOMOVILES RC
+    And el usuario guarda la cotizacion
+    And el usuario envia la cotizacion de AUTOMOVILES
+    Then el usuario verifica el envio de la cotizacion
 
-
-  @regresion @Cotizador
-  Scenario: Cotizacion guardada de Automoviles
+  Scenario: Cotizacion guardada de AUTOMOVILES RC
     When el usuario ingresa al menu de "Cotizaciones Guardadas" en "Cotizador"
-    And el usuario emite la cotizacion de AUTOMOVILES desde el json
-    And el usuario agrega los datos del automovil desde el json
-    And el usuario guarda y envia la poliza
-    Then el usuario verifica el envio de la poliza
+    And el usuario envia la cotizacion de AUTOMOVILES
+    Then el usuario verifica el envio de la cotizacion

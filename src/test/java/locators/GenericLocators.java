@@ -20,10 +20,10 @@ public class GenericLocators {
     public static final String LATERAL_TAB_XPATH = "//h4[text()='%s']";
 
     //ICONOS
-    public static final String POLIZAS_ICONS_XPATH = "(//span[contains(@class,'anticon')])[position() >= 12 and position() < 16]";
-    public static final String SINIESTROS_ICONS_XPATH = "(//span[contains(@class,'anticon')])[position() >= 20 and position() < 24]";
-    public static final String COTIZACIONES_ICONS_XPATH = "(//span[contains(@class,'anticon')])[position() >= 16 and position() < 20]";
-    public static final String SINIESTROSCARTERA_ICONS_XPATH = "(//span[contains(@class,'anticon')])[position() >= 24 and position() < 28]";
+    public static final String POLIZAS_ICONS_XPATH = "(//span[normalize-space()='Pólizas vigentes']/following::div[contains(@class,'home-icons-render__icon-card')])[position() <= 4]//*[name()='path']";
+    public static final String SINIESTROS_ICONS_XPATH = "(//span[normalize-space()='Siniestros denunciados']/following::div[contains(@class,'home-icons-render__icon-card')])[position() <= 4]//*[name()='path']";
+    public static final String COTIZACIONES_ICONS_XPATH = "(//span[normalize-space()='% Cotizaciones web']/following::div[contains(@class,'home-icons-render__icon-card')])[position() <= 4]//*[name()='path']";
+    public static final String SINIESTROSCARTERA_ICONS_XPATH = "(//span[normalize-space()='% Siniestros denunciados vs Cartera vigente']/following::div[contains(@class,'home-icons-render__icon-card')])[position() <= 4]//*[name()='path']";
 
     //PAGINADO
     public static final String PAGINADO_TOTAL_XPATH = "//li[contains(text(), '%s')]";

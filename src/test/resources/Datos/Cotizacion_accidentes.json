@@ -1,0 +1,29 @@
+{
+  "rama": "ACCIDENTES PERSONALES",
+  "articulo": "ACCIDENTES PERSONALES COLECTIV",
+  "cliente": "ABARIA ADRIANA ALICIA",
+  "plan": "ACCIDENTES PERSONALES EMISION POR WEB",
+  "actividad": "ABOGADOS",
+  "cantidadPersonas": 1,
+  "cobertura": {
+    "muerte": 65000000
+  },
+  "emision": {
+    "nacionalidad": "Argentina",
+    "tarjeta": {
+      "numero": "4223677901518637",
+      "vencimiento": "12/2030"
+    }
+  },
+  "personas": [
+    {
+      "apellidoYNombre": "Juan Cruz",
+      "tipoDocumento": "DOC.NAC.IDENTIDAD",
+      "numeroDocumento": "58244375",
+      "cuil": "27582443756",
+      "fechaNacimiento": "01/01/2000",
+      "nacionalidad": "ARGENTINA",
+      "genero": "MASCULINO"
+    }
+  ]
+}

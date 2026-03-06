@@ -1,0 +1,33 @@
+{
+  "rama": "HOGAR",
+  "articulo": "COMBINADO FAMILIAR",
+  "cliente": "ABARIA ADRIANA ALICIA",
+  "plan": "700 - VIVIENDA PERMANENTE PB Y 1ER PISO CON CLAUSULA DE AJUSTE",
+  "datosDelBien": {
+    "provincia": "BUENOS AIRES (01)",
+    "localidad": "------------- (7760-0)",
+    "tipoVivienda": "PERMANENTE"
+  },
+  "cobertura": [
+    {
+      "nombre": "INCENDIO EDIFICIO A PRORRATA",
+      "suma": 1440000000
+    },
+    {
+      "nombre": "ROBO E INCENDIO DOCUMENTOS",
+      "suma": 96000
+    },
+    {
+      "nombre": "ACCIDENTES PERSONALES TITULAR POLIZA",
+      "suma": 240000000
+    }
+  ],
+  "emision": {
+    "nacionalidad": "Argentina",
+    "tarjeta": {
+      "numero": "4223677901518637",
+      "vencimiento": "12/2030"
+    },
+    "domicilio": "123"
+  }
+}

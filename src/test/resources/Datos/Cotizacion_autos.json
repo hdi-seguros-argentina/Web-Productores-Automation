@@ -1,0 +1,39 @@
+{
+  "vehiculo": {
+    "anio": "2025",
+    "marca": "FIAT",
+    "modelo": "CRONOS",
+    "version": "CRONOS 1.3 DRIVE PACK PLUS L/25",
+    "gnc": false,
+    "valorInfoAuto": 0,
+    "Coberturas": "A",
+    "tipoVehiculo": "",
+    "origen": "",
+    "provincia": "",
+    "localidad": "",
+    "zona": "",
+    "clienteIntegral": false
+  },
+  "accesorios": [
+    {
+      "descripcion": "",
+      "precio": 0
+    }
+  ],
+  "datosTecnicos": {
+    "patente": "AA999AU",
+    "numeroMotor": "a6sd4a6sd46asd46",
+    "numeroChasis": "a6sd4a6sd46asd46"
+  },
+  "uso": "PARTICULAR",
+  "emision": {
+    "nacionalidad": "Argentina",
+    "tarjeta": {
+      "numero": "4223677901518637",
+      "vencimiento": "12/2030"
+    }
+  },
+  "rama": "AUTOMOVILES",
+  "articulo": "PRODUCTO AUTOMOVILES RC",
+  "cliente": "ABARIA ADRIANA ALICIA"
+}

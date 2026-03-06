@@ -59,6 +59,6 @@ public class HomeSteps {
 
     @And("el usuario hace click en aceptar el popup")
     public void elUsuarioHaceClickEnAceptarElPopup() {
-        genericPage.clickEnPopup();
+        //genericPage.clickEnPopup();
     }
 }

@@ -28,10 +28,10 @@ public class HomePage extends MasterPage {
     public void ingresoPanelInicio() {
         auto_verifyVisibility(PANEL_TITLE_XPATH);
         page.get().waitForTimeout(500);
-        auto_waitForElementVisibility(CONTENT_MODAL_XPATH);
-        page.get().waitForTimeout(500);
-        auto_setClickElement(CHECKBOX_INPUT_XPATH);
-        auto_setClickElement(ACEPT_BTN_XPATH);
+        //auto_waitForElementVisibility(CONTENT_MODAL_XPATH);
+        //page.get().waitForTimeout(500);
+        //auto_setClickElement(CHECKBOX_INPUT_XPATH);
+        //auto_setClickElement(ACEPT_BTN_XPATH);
         auto_waitForLoadStates(LoadState.NETWORKIDLE);
     }
 

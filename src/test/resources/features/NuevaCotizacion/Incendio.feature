@@ -1,4 +1,4 @@
-Feature: Cotizador AP
+Feature: Cotizador Incendio
 
   Background:
     Given el usuario ingresa a la web
@@ -9,16 +9,16 @@ Feature: Cotizador AP
     And el usuario selecciona un intermediario
 
   @AUTOMATED @COTIZACION @regresion @Cotizador
-  Scenario: Nueva cotizacion de ACCIDENTES PERSONALES COLECTIV
+  Scenario: Nueva cotizacion de INCENDIO VIVIENDAS
     When el usuario ingresa al menu de "Nueva Cotización" en "Cotizador"
-    And el usuario selecciona ACCIDENTES desde el json
-    And el usuario selecciona ACCIDENTES PERSONALES COLECTIV desde el json
-    And el usuario realiza la cotizacion de ACCIDENTES PERSONALES COLECTIV
+    And el usuario selecciona INCENDIO WEB desde el json
+    And el usuario selecciona INCENDIO VIVIENDAS desde el json
+    And el usuario realiza la cotizacion de INCENDIO VIVIENDAS
     And el usuario guarda la cotizacion
-    And el usuario envia la cotizacion de ACCIDENTES PERSONALES COLECTIV
+    And el usuario envia la cotizacion de INCENDIO VIVIENDAS
     Then el usuario verifica el envio de la cotizacion
 
-  Scenario: Cotizacion guardada de ACCIDENTES PERSONALES COLECTIV
+  Scenario: Cotizacion guardada de INCENDIO VIVIENDAS
     When el usuario ingresa al menu de "Cotizaciones Guardadas" en "Cotizador"
-    And el usuario envia la cotizacion de ACCIDENTES PERSONALES COLECTIV
+    And el usuario envia la cotizacion de INCENDIO VIVIENDAS
     Then el usuario verifica el envio de la cotizacion
