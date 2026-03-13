@@ -5,6 +5,7 @@
   "plan": "ACCIDENTES PERSONALES EMISION POR WEB",
   "actividad": "ABOGADOS",
   "cantidadPersonas": 1,
+  "variacion": 5,
   "cobertura": {
     "muerte": 65000000
   },

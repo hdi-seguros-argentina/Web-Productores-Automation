@@ -55,4 +55,22 @@ public class CommonLocators {
     public static final String COBERTURA_CHECKBOX = "//span[normalize-space()='%s']/ancestor::label[1]//input[@type='checkbox']";
     public static final String COBERTURA_INPUT = "//span[normalize-space()='%s']/following::input[@role='spinbutton'][1]";
 
+    // Informacion contacto
+    public static final String INPUT_NOMBRE_APELLIDO_CONTACTO = "//input[@id='contact-data-form-1_fullNameContact1']";
+    public static final String INPUT_TELEFONO_CONTACTO = "//input[@id='contact-data-form-1_phoneNumberContact1']";
+    public static final String INPUT_EMAIL_CONTACTO = "//input[@id='contact-data-form-1_emailContact1']";
+    public static final String INPUT_HORA_DESDE = "//input[@id='contact-data-form-1_hoursForContact1']";
+    public static final String INPUT_HORA_HASTA = "(//input[@date-range='end'])[2]";
+    public static final String BOTON_ACEPTAR_HORA = "//button[.//span[text()='Aceptar']]";
+
+    // Variacion y resumen de cotizacion (todas las ramas)
+    public static final String INPUT_VARIACION = "//input[contains(@id,'variation')]";
+    public static final String COMISION_CAMPO = "//input[contains(@id,'commission')]";
+    public static final String EXTRA_PRIMA_VARIABLE_CAMPO = "//input[contains(@id,'extraVariable')]";
+    public static final String PRIMA_TECNICA_RESUMEN = "//span[contains(normalize-space(),'Prima')]/ancestor::div[contains(@class,'ant-col')][1]//div[contains(@class,'ant-row')][2]//*[self::span or self::div or self::b][1]";
+    public static final String PRIMA_TECNICA_AUTO__RESUMEN = "//span[contains(normalize-space(),'Prima')]/ancestor::div[2]/div[2]/div";
+    public static final String COMISION_RESUMEN = "//span[contains(normalize-space(),'Comisi')]/ancestor::div[contains(@class,'ant-col')][1]//div[contains(@class,'ant-row')][2]//*[self::span or self::div or self::b][1]";
+    public static final String COMISION_AUTO_RESUMEN = "//span[contains(normalize-space(),'Comisi')]/ancestor::div[2]/div[2]/div";
+    public static final String PREMIO_RESUMEN = "//span[contains(normalize-space(),'Premio')]/ancestor::div[contains(@class,'ant-col')][1]//div[contains(@class,'ant-row')][2]//*[self::span or self::div or self::b][1]";
+    public static final String PREMIO_AUTO_RESUMEN = "//span[contains(normalize-space(),'Premio')]/ancestor::div[2]/div[2]/div";
 }

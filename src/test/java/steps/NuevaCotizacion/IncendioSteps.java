@@ -4,10 +4,7 @@ import Utils.JsonLoader;
 import io.cucumber.java.en.And;
 import models.CotizacionIncendio;
 import pages.CommonPage;
-import pages.NuevaCotizacion.IncendioPage;
-
 public class IncendioSteps {
-    IncendioPage incendioPage = new IncendioPage();
     CommonPage commonPage = new CommonPage();
     private CotizacionIncendio dataIncendio =
             JsonLoader.load(
@@ -32,7 +29,7 @@ public class IncendioSteps {
         commonPage.buscarCliente(dataIncendio.getCliente());
         commonPage.clickBotonContinuar();
 
-        incendioPage.seleccionarRubro(dataIncendio.getRubro());
+        commonPage.seleccionarRubro(dataIncendio.getRubro());
 
         commonPage.clickBotonContinuar();
 
@@ -44,11 +41,19 @@ public class IncendioSteps {
         commonPage.completarCoberturas(dataIncendio.getCobertura());
 
         commonPage.clickBotonCotizar();
+
+        Integer variacion = dataIncendio.getVariacion();
+        commonPage.guardarValoresAntesDeVariacion();
+        commonPage.validarCambioVariacion(variacion);
+
+        commonPage.clickBotonRecotizar();
     }
 
     @And("el usuario envia la cotizacion de INCENDIO VIVIENDAS")
     public void elUsuarioEnviaLaCotizacionDeINCENDIOVIVIENDAS() {
         commonPage.clickEditarCotizacion();
+        commonPage.validarVariacionPersistida(dataIncendio.getVariacion());
+        commonPage.validarResumenActualizado();
 
         commonPage.clickBotonEmitir();
 

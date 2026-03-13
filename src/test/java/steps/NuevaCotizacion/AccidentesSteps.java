@@ -39,11 +39,19 @@ public class AccidentesSteps{
         accidentePage.ingresarCoberturaMuerte(dataAccidentes.getCobertura().getMuerte());
 
         commonPage.clickBotonCotizar();
+
+        Integer variacion = dataAccidentes.getVariacion();
+        commonPage.guardarValoresAntesDeVariacion();
+        commonPage.validarCambioVariacion(variacion);
+
+        commonPage.clickBotonRecotizar();
     }
 
     @And("el usuario envia la cotizacion de ACCIDENTES PERSONALES COLECTIV")
     public void elUsuarioEnviaLaCotizacionDeACCIDENTESPERSONALESCOLECTIV() {
         commonPage.clickEditarCotizacion();
+        commonPage.validarVariacionPersistida(dataAccidentes.getVariacion());
+        commonPage.validarResumenActualizado();
         commonPage.clickBotonEmitir();
 
         commonPage.seleccionarNacionalidad(dataAccidentes.getEmision().getNacionalidad());

@@ -62,7 +62,22 @@ public abstract class MasterPage extends Hooks {
         softAssertions.assertThat(page.get().locator(locator).count()).as("No se encontró el elemento para hacer click [%s]", locator).isGreaterThan(0);
         page.get().click(locator);
     }
+    public void clickConReintento(String locator) {
+        Exception ultimoError = null;
 
+        for (int intento = 1; intento <= 3; intento++) {
+            try {
+                auto_waitForElementVisibility(locator);
+                auto_setClickElement(locator);
+                return;
+            } catch (Exception e) {
+                ultimoError = e;
+                auto_waitForElementInvisibility(".ant-spin-spinning");
+            }
+        }
+
+        throw new RuntimeException("No se pudo hacer click luego de 3 intentos: " + locator, ultimoError);
+    }
     public static void auto_setDoubleClickElement(String locator){
         page.get().dblclick(locator);
     }
@@ -89,6 +104,11 @@ public abstract class MasterPage extends Hooks {
 
     public static String auto_getElementText(String locator){
         return page.get().locator(locator).textContent();
+    }
+
+    public static String auto_getElementTextOrValue(String locator){
+        String v = String.valueOf(page.get().locator(locator).evaluate("e => (e instanceof HTMLInputElement || e instanceof HTMLTextAreaElement || e instanceof HTMLSelectElement) ? e.value : e.textContent"));
+        return v == null ? "" : v.trim();
     }
 
     public static String auto_getInputValue(String locator){
@@ -261,3 +281,4 @@ public abstract class MasterPage extends Hooks {
         Hooks.page.get().locator(locator).type(text);
     }
 }
+

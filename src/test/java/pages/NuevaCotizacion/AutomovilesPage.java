@@ -21,7 +21,7 @@ public class AutomovilesPage extends MasterPage {
         auto_setTextToInput(MARCA_INPUT_SELECT, vehiculo.getMarca());
         auto_pressKey(MARCA_INPUT_SELECT, "Enter");
 
-        page.get().waitForTimeout(2000);
+        page.get().waitForTimeout(2500);
         auto_setClickElement(String.format(SELECT_DESPLEGABLE, "Modelo"));
         auto_setClickElement(String.format(SELECT_OPCION, vehiculo.getModelo()));
 
@@ -31,6 +31,7 @@ public class AutomovilesPage extends MasterPage {
     }
 
     public void seleccionarCobertura(String cobertura) {
+        auto_waitForElementVisibility(String.format(RADIO_COBERTURA, cobertura));
         auto_setClickElement(String.format(RADIO_COBERTURA, cobertura));
     }
 

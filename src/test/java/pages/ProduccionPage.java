@@ -29,7 +29,7 @@ public class ProduccionPage extends MasterPage {
         for (int i = 0; i < iconos.size(); i++) {
             Locator icono = iconos.get(i);
             softAssertions.assertThat(auto_getCssValue(icono, "color"))
-                    .as(STR."Color de icono en posición [\{i}] incorrecto")
+                    .as("Color de icono en posición [" + i + "] incorrecto")
                     .isEqualTo(COLOR_1);
         }
         softAssertions.assertAll();

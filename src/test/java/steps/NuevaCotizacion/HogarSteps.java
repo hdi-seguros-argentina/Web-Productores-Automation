@@ -42,6 +42,12 @@ public class HogarSteps {
         commonPage.completarCoberturas(dataHogar.getCobertura());
 
         commonPage.clickBotonCotizar();
+
+        Integer variacion = dataHogar.getVariacion();
+        commonPage.guardarValoresAntesDeVariacion();
+        commonPage.validarCambioVariacion(variacion);
+
+        commonPage.clickBotonRecotizar();
     }
 
     @And("el usuario guarda la cotizacion")
@@ -52,14 +58,16 @@ public class HogarSteps {
     @And("el usuario envia la cotizacion de COMBINADO FAMILIAR")
     public void elUsuarioEnviaCotizacionDeCOMBINADOFAMILIAR() {
         commonPage.clickEditarCotizacion();
-        commonPage.clickBotonRecotizar();
+        commonPage.validarVariacionPersistida(dataHogar.getVariacion());
+        commonPage.validarResumenActualizado();
+        commonPage.clickBotonEmitir();
 
         commonPage.seleccionarNacionalidad(dataHogar.getEmision().getNacionalidad());
         commonPage.ingresarNumeroTarjeta(dataHogar.getEmision().getTarjeta().getNumero());
         commonPage.ingresarVencimiento(dataHogar.getEmision().getTarjeta().getVencimiento());
         commonPage.ingresarDomicilio(dataHogar.getEmision().getDomicilio());
 
-        commonPage.clickBotonEmitir();
+        commonPage.clickBotonEnviar();
     }
 
     @Then("el usuario verifica el envio de la cotizacion")

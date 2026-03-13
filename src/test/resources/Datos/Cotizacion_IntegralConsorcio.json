@@ -1,0 +1,41 @@
+{
+  "rama": "INTEGRAL DE CONSORCIO",
+  "articulo": "INTEGRAL DE CONSORCIO",
+  "cliente": "ABARIA ADRIANA ALICIA",
+
+  "datosDelCliente": {
+    "iva": "RESPONSABLE INSCRIPTO",
+    "tipoDePersona": "CONSORCIO"
+  },
+
+  "datosDelBien": {
+    "provincia": "BUENOS AIRES (01)",
+    "localidad": "------------- (7760-0)"
+  },
+
+  "cobertura": [
+    {
+      "nombre": "INCENDIO EDIFICIO A PRORRATA",
+      "suma": 1000000000
+    },
+    {
+      "nombre": "DAÑOS POR AGUA AL CONTENIDO",
+      "suma": 10000000
+    },
+    {
+      "nombre": "CRISTALES",
+      "suma": 1000000
+    }
+  ],
+
+  "variacion": 5,
+
+  "emision": {
+    "nacionalidad": "Argentina",
+    "tarjeta": {
+      "numero": "4223677901518637",
+      "vencimiento": "12/2030"
+    },
+    "domicilio": "123"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "rama": "INTEGRAL DE COMERCIO WEB",
+  "articulo": "INTEGRAL DE COMERCIO WEB",
+  "cliente": "ABARIA ADRIANA ALICIA",
+
+  "datosDelCliente": {
+    "iva": "RESPONSABLE INSCRIPTO"
+  },
+
+  "rubro": "ACADEMIAS DE BAILE",
+  "variacion": 5,
+
+  "datosDelBien": {
+    "provincia": "BUENOS AIRES (01)",
+    "localidad": "------------- (7760-0)"
+  },
+
+  "cobertura": [
+    {
+      "nombre": "INCENDIO EDIFICIO + HVCT + GRANIZO",
+      "suma": 1000000000
+    },
+    {
+      "nombre": "DAÑOS POR AGUA",
+      "suma": 10000000
+    },
+    {
+      "nombre": "CRISTALES",
+      "suma": 1000000
+    }
+  ],
+
+  "emision": {
+    "nacionalidad": "Argentina",
+    "tarjeta": {
+      "numero": "4223677901518637",
+      "vencimiento": "12/2030"
+    },
+    "domicilio": "123"
+  },
+
+  "informacionDeContacto": {
+    "nombreApellido": "Juan Cruz",
+    "telefono": "2615824437",
+    "email": "juan.cruz@test.com",
+    "horaDesde": "00:00",
+    "horaHasta": "00:00"
+  }
+}

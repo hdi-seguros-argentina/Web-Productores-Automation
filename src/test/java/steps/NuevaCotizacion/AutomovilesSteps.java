@@ -34,11 +34,19 @@ public class AutomovilesSteps {
         commonPage.clickBotonCotizar();
 
         automovilesPage.seleccionarCobertura(dataAutomoviles.getVehiculo().getCoberturas());
+
+        Integer variacion = dataAutomoviles.getVariacion();
+        commonPage.guardarValoresAntesDeVariacion(true);
+        commonPage.validarCambioVariacion(variacion);
+
+        commonPage.clickBotonRecotizar();
     }
 
     @And("el usuario envia la cotizacion de AUTOMOVILES")
     public void elUsuarioEnviaLaCotizacionDeAUTOMOVILES() {
         commonPage.clickEditarCotizacion();
+        commonPage.validarVariacionPersistida(dataAutomoviles.getVariacion());
+        commonPage.validarResumenActualizado(true);
         commonPage.clickBotonEmitir();
 
         commonPage.seleccionarNacionalidad(dataAutomoviles.getEmision().getNacionalidad());

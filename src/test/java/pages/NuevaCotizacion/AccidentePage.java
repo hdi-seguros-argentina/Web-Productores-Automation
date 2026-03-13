@@ -12,7 +12,7 @@ public class AccidentePage extends MasterPage {
     }
 
     public void seleccionarActividad(String actividad) {
-        page.get().waitForTimeout(2000);
+        page.get().waitForTimeout(2500);
         auto_setClickElement(ACTIVIDAD_SELECT);
         auto_waitForElementVisibility(String.format(SELECT_OPCION, actividad));
         auto_setClickElement(String.format(SELECT_OPCION, actividad));

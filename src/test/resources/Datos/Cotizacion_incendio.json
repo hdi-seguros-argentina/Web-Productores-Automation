@@ -3,6 +3,7 @@
   "articulo": "INCENDIO VIVIENDAS",
   "cliente": "ABARIA ADRIANA ALICIA",
   "rubro": "VIVIENDAS",
+  "variacion": 5,
   "datosDelBien": {
     "provincia": "BUENOS AIRES (01)",
     "localidad": "------------- (7760-0)"

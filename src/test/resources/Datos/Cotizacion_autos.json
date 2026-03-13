@@ -21,7 +21,7 @@
     }
   ],
   "datosTecnicos": {
-    "patente": "AA999AU",
+    "patente": "AA999AY",
     "numeroMotor": "a6sd4a6sd46asd46",
     "numeroChasis": "a6sd4a6sd46asd46"
   },
@@ -35,5 +35,6 @@
   },
   "rama": "AUTOMOVILES",
   "articulo": "PRODUCTO AUTOMOVILES RC",
-  "cliente": "ABARIA ADRIANA ALICIA"
+  "cliente": "ABARIA ADRIANA ALICIA",
+  "variacion": 5
 }
