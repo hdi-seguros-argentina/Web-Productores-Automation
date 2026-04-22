@@ -56,6 +56,22 @@ public class AccidentesSteps{
 
         commonPage.seleccionarNacionalidad(dataAccidentes.getEmision().getNacionalidad());
         commonPage.ingresarNumeroTarjeta(dataAccidentes.getEmision().getTarjeta().getNumero());
+        commonPage.seleccionarEmpresaTarjeta(dataAccidentes.getEmision().getTarjeta().getCredito());
+        commonPage.ingresarVencimiento(dataAccidentes.getEmision().getTarjeta().getVencimiento());
+        for (Persona persona : dataAccidentes.getPersonas()) {
+            accidentePage.agregarPersona(persona);
+            commonPage.clickBotonGuardar();
+        }
+        commonPage.clickBotonEnviar();
+    }
+
+    @And("el usuario envia la cotizacion de ACCIDENTES PERSONALES COLECTIV sin guardar")
+    public void elUsuarioEnviaLaCotizacionDeACCIDENTESPERSONALESCOLECTIVSinGuardar() {
+        commonPage.clickBotonEmitir();
+
+        commonPage.seleccionarNacionalidad(dataAccidentes.getEmision().getNacionalidad());
+        commonPage.ingresarNumeroTarjeta(dataAccidentes.getEmision().getTarjeta().getNumero());
+        commonPage.seleccionarEmpresaTarjeta(dataAccidentes.getEmision().getTarjeta().getCredito());
         commonPage.ingresarVencimiento(dataAccidentes.getEmision().getTarjeta().getVencimiento());
         for (Persona persona : dataAccidentes.getPersonas()) {
             accidentePage.agregarPersona(persona);

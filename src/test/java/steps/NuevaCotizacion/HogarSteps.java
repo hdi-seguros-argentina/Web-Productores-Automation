@@ -64,6 +64,20 @@ public class HogarSteps {
 
         commonPage.seleccionarNacionalidad(dataHogar.getEmision().getNacionalidad());
         commonPage.ingresarNumeroTarjeta(dataHogar.getEmision().getTarjeta().getNumero());
+        commonPage.seleccionarEmpresaTarjeta(dataHogar.getEmision().getTarjeta().getCredito());
+        commonPage.ingresarVencimiento(dataHogar.getEmision().getTarjeta().getVencimiento());
+        commonPage.ingresarDomicilio(dataHogar.getEmision().getDomicilio());
+
+        commonPage.clickBotonEnviar();
+    }
+
+    @And("el usuario envia la cotizacion de COMBINADO FAMILIAR sin guardar")
+    public void elUsuarioEnviaCotizacionDeCOMBINADOFAMILIARSinGuardar() {
+        commonPage.clickBotonEmitir();
+
+        commonPage.seleccionarNacionalidad(dataHogar.getEmision().getNacionalidad());
+        commonPage.ingresarNumeroTarjeta(dataHogar.getEmision().getTarjeta().getNumero());
+        commonPage.seleccionarEmpresaTarjeta(dataHogar.getEmision().getTarjeta().getCredito());
         commonPage.ingresarVencimiento(dataHogar.getEmision().getTarjeta().getVencimiento());
         commonPage.ingresarDomicilio(dataHogar.getEmision().getDomicilio());
 

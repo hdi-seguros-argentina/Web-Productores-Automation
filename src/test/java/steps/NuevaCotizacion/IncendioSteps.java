@@ -59,6 +59,20 @@ public class IncendioSteps {
 
         commonPage.seleccionarNacionalidad(dataIncendio.getEmision().getNacionalidad());
         commonPage.ingresarNumeroTarjeta(dataIncendio.getEmision().getTarjeta().getNumero());
+        commonPage.seleccionarEmpresaTarjeta(dataIncendio.getEmision().getTarjeta().getCredito());
+        commonPage.ingresarVencimiento(dataIncendio.getEmision().getTarjeta().getVencimiento());
+        commonPage.ingresarDomicilio(dataIncendio.getEmision().getDomicilio());
+
+        commonPage.clickBotonEnviar();
+    }
+
+    @And("el usuario envia la cotizacion de INCENDIO VIVIENDAS sin guardar")
+    public void elUsuarioEnviaLaCotizacionDeINCENDIOVIVIENDASSinGuardar() {
+        commonPage.clickBotonEmitir();
+
+        commonPage.seleccionarNacionalidad(dataIncendio.getEmision().getNacionalidad());
+        commonPage.ingresarNumeroTarjeta(dataIncendio.getEmision().getTarjeta().getNumero());
+        commonPage.seleccionarEmpresaTarjeta(dataIncendio.getEmision().getTarjeta().getCredito());
         commonPage.ingresarVencimiento(dataIncendio.getEmision().getTarjeta().getVencimiento());
         commonPage.ingresarDomicilio(dataIncendio.getEmision().getDomicilio());
 

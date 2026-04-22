@@ -19,7 +19,7 @@ Feature: Cotizador
     And el usuario verifica que el input "ACCIDENTES PERSONALES COLECTIV" es correcto
     And el usuario verifica que el boton "Iniciar Cotización" es correcto
 
-  @branding @Noe
+  @branding
   Scenario: Cotizador > Cotizaciones Guardadas: muestra filtros y paginado
     When el usuario ingresa al menu de "Cotizaciones Guardadas" en "Cotizador"
     Then el usuario verifica que el titulo "Cotizaciones Guardadas" es correcto

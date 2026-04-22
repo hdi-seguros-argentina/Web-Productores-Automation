@@ -21,7 +21,7 @@
     }
   ],
   "datosTecnicos": {
-    "patente": "AA999BM",
+    "patente": "AA999BQ",
     "numeroMotor": "a6sd4a6sd46asd46",
     "numeroChasis": "a6sd4a6sd46asd46"
   },
@@ -29,6 +29,7 @@
   "emision": {
     "nacionalidad": "Argentina",
     "tarjeta": {
+      "credito": "VISA ARGENTINA SA",
       "numero": "4223677901518637",
       "vencimiento": "12/2030"
     }

@@ -1,3 +1,4 @@
+@NUEVACOTIZACION
 Feature: Cotizador Robo
 
   Background:
@@ -8,12 +9,21 @@ Feature: Cotizador Robo
     And el usuario ingresa a la home
     And el usuario selecciona un intermediario
 
-  @AUTOMATED @COTIZACION @regresion @Cotizador
-  Scenario: Nueva cotizacion de ROBO WEB
+  @AUTOMATED @COTIZACIONRETOME @regresion @Cotizador
+  Scenario: Nueva cotizacion con retome de ROBO WEB
     When el usuario ingresa al menu de "Nueva Cotización" en "Cotizador"
     And el usuario selecciona ROBO desde el json
     And el usuario selecciona ROBO WEB desde el json
     And el usuario realiza la cotizacion de ROBO WEB
     And el usuario guarda la cotizacion
     And el usuario envia la cotizacion de ROBO WEB
+    Then el usuario verifica el envio de la cotizacion
+
+  @AUTOMATED @COTIZACIONNUEVA @regresion @Cotizador
+  Scenario: Nueva cotizacion de ROBO WEB
+    When el usuario ingresa al menu de "Nueva Cotización" en "Cotizador"
+    And el usuario selecciona ROBO desde el json
+    And el usuario selecciona ROBO WEB desde el json
+    And el usuario realiza la cotizacion de ROBO WEB
+    And el usuario envia la cotizacion de ROBO WEB sin guardar
     Then el usuario verifica el envio de la cotizacion

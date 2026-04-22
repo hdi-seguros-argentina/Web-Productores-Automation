@@ -1,3 +1,4 @@
+@NUEVACOTIZACION
 Feature: Cotizador Incendio
 
   Background:
@@ -8,12 +9,21 @@ Feature: Cotizador Incendio
     And el usuario ingresa a la home
     And el usuario selecciona un intermediario
 
-  @AUTOMATED @COTIZACION @regresion @Cotizador
-  Scenario: Nueva cotizacion de INCENDIO VIVIENDAS
+  @AUTOMATED @COTIZACIONRETOME @regresion @Cotizador
+  Scenario: Nueva cotizacion con retome de INCENDIO VIVIENDAS
     When el usuario ingresa al menu de "Nueva Cotización" en "Cotizador"
     And el usuario selecciona INCENDIO WEB desde el json
     And el usuario selecciona INCENDIO VIVIENDAS desde el json
     And el usuario realiza la cotizacion de INCENDIO VIVIENDAS
     And el usuario guarda la cotizacion
     And el usuario envia la cotizacion de INCENDIO VIVIENDAS
+    Then el usuario verifica el envio de la cotizacion
+
+  @AUTOMATED @COTIZACIONNUEVA @regresion @Cotizador
+  Scenario: Nueva cotizacion de INCENDIO VIVIENDAS
+    When el usuario ingresa al menu de "Nueva Cotización" en "Cotizador"
+    And el usuario selecciona INCENDIO WEB desde el json
+    And el usuario selecciona INCENDIO VIVIENDAS desde el json
+    And el usuario realiza la cotizacion de INCENDIO VIVIENDAS
+    And el usuario envia la cotizacion de INCENDIO VIVIENDAS sin guardar
     Then el usuario verifica el envio de la cotizacion

@@ -65,6 +65,23 @@ public class IntegralComercioSteps {
 
         commonPage.seleccionarNacionalidad(dataIntegralComercio.getEmision().getNacionalidad());
         commonPage.ingresarNumeroTarjeta(dataIntegralComercio.getEmision().getTarjeta().getNumero());
+        commonPage.seleccionarEmpresaTarjeta(dataIntegralComercio.getEmision().getTarjeta().getCredito());
+        commonPage.ingresarVencimiento(dataIntegralComercio.getEmision().getTarjeta().getVencimiento());
+        commonPage.ingresarDomicilio(dataIntegralComercio.getEmision().getDomicilio());
+
+        InformacionDeContacto contacto = dataIntegralComercio.getInformacionDeContacto();
+        commonPage.completarInformacionContacto(contacto);
+
+        commonPage.clickBotonEnviar();
+    }
+
+    @And("el usuario envia la cotizacion de INTEGRAL DE COMERCIO WEB sin guardar")
+    public void elUsuarioEnviaLaCotizacionDeINTEGRALDECOMERCIOWEBSinGuardar() {
+        commonPage.clickBotonEmitir();
+
+        commonPage.seleccionarNacionalidad(dataIntegralComercio.getEmision().getNacionalidad());
+        commonPage.ingresarNumeroTarjeta(dataIntegralComercio.getEmision().getTarjeta().getNumero());
+        commonPage.seleccionarEmpresaTarjeta(dataIntegralComercio.getEmision().getTarjeta().getCredito());
         commonPage.ingresarVencimiento(dataIntegralComercio.getEmision().getTarjeta().getVencimiento());
         commonPage.ingresarDomicilio(dataIntegralComercio.getEmision().getDomicilio());
 

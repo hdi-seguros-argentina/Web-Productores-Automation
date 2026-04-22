@@ -24,7 +24,6 @@ public class AccidentePage extends MasterPage {
     }
 
     public void agregarPersona(Persona persona) {
-
         auto_setClickElement(BOTON_AGREGAR_PERSONA);
 
         auto_setTextToInput(INPUT_APELLIDO_NOMBRE, persona.getApellidoYNombre());

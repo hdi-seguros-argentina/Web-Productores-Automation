@@ -59,6 +59,20 @@ public class IntegralConsorcioSteps {
 
         commonPage.seleccionarNacionalidad(dataIntegralConsorcio.getEmision().getNacionalidad());
         commonPage.ingresarNumeroTarjeta(dataIntegralConsorcio.getEmision().getTarjeta().getNumero());
+        commonPage.seleccionarEmpresaTarjeta(dataIntegralConsorcio.getEmision().getTarjeta().getCredito());
+        commonPage.ingresarVencimiento(dataIntegralConsorcio.getEmision().getTarjeta().getVencimiento());
+        commonPage.ingresarDomicilio(dataIntegralConsorcio.getEmision().getDomicilio());
+
+        commonPage.clickBotonEnviar();
+    }
+
+    @And("el usuario envia la cotizacion de INTEGRAL DE CONSORCIO sin guardar")
+    public void elUsuarioEnviaLaCotizacionDeINTEGRALDECONSORCIOSinGuardar() {
+        commonPage.clickBotonEmitir();
+
+        commonPage.seleccionarNacionalidad(dataIntegralConsorcio.getEmision().getNacionalidad());
+        commonPage.ingresarNumeroTarjeta(dataIntegralConsorcio.getEmision().getTarjeta().getNumero());
+        commonPage.seleccionarEmpresaTarjeta(dataIntegralConsorcio.getEmision().getTarjeta().getCredito());
         commonPage.ingresarVencimiento(dataIntegralConsorcio.getEmision().getTarjeta().getVencimiento());
         commonPage.ingresarDomicilio(dataIntegralConsorcio.getEmision().getDomicilio());
 

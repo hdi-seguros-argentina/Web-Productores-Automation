@@ -51,6 +51,26 @@ public class AutomovilesSteps {
 
         commonPage.seleccionarNacionalidad(dataAutomoviles.getEmision().getNacionalidad());
         commonPage.ingresarNumeroTarjeta(dataAutomoviles.getEmision().getTarjeta().getNumero());
+        commonPage.seleccionarEmpresaTarjeta(dataAutomoviles.getEmision().getTarjeta().getCredito());
+        commonPage.ingresarVencimiento(dataAutomoviles.getEmision().getTarjeta().getVencimiento());
+
+        String patenteOriginal = dataAutomoviles.getDatosTecnicos().getPatente();
+        String patenteNueva = automovilesPage.incrementarPatente(patenteOriginal);
+
+        dataAutomoviles.getDatosTecnicos().setPatente(patenteNueva);
+        automovilesPage.completarDatosTecnicos(dataAutomoviles);
+        automovilesPage.guardarJsonActualizado(dataAutomoviles);
+
+        commonPage.clickBotonEnviar();
+    }
+
+    @And("el usuario envia la cotizacion de AUTOMOVILES sin guardar")
+    public void elUsuarioEnviaLaCotizacionDeAUTOMOVILESSinGuardar() {
+        commonPage.clickBotonEmitir();
+
+        commonPage.seleccionarNacionalidad(dataAutomoviles.getEmision().getNacionalidad());
+        commonPage.ingresarNumeroTarjeta(dataAutomoviles.getEmision().getTarjeta().getNumero());
+        commonPage.seleccionarEmpresaTarjeta(dataAutomoviles.getEmision().getTarjeta().getCredito());
         commonPage.ingresarVencimiento(dataAutomoviles.getEmision().getTarjeta().getVencimiento());
 
         String patenteOriginal = dataAutomoviles.getDatosTecnicos().getPatente();

@@ -69,22 +69,36 @@ public class CommonPage extends MasterPage {
         auto_typeSequentially(INPUT_TARJETA, numero);
         auto_pressKey(INPUT_TARJETA, "Enter");
         page.get().waitForTimeout(300);
+    }
 
-        String opcionTarjeta = TARJETA_CREDITO_OPCION_VISA;
-        if (page.get().locator(opcionTarjeta).first().isVisible()) {
-            auto_setClickElement(opcionTarjeta);
+    public void seleccionarEmpresaTarjeta(String empresaTarjeta) {
+        String empresa = (empresaTarjeta == null || empresaTarjeta.isBlank()) ? "VISA ARGENTINA SA" : empresaTarjeta;
+
+        Locator empresaSeleccionada = page.get().locator(String.format(TARJETA_CREDITO_SELECCIONADA, empresa)).first();
+        if (empresaSeleccionada.count() > 0 && empresaSeleccionada.isVisible()) {
             return;
         }
 
-        Locator selectorTarjeta = page.get().locator(TARJETA_CREDITO_SELECT).first();
-        if (!selectorTarjeta.isVisible()) {
+        auto_setClickElement(TARJETA_CREDITO_SELECT);
+        page.get().waitForTimeout(200);
+
+        Locator opcionPorTitle = page.get().locator(String.format(TARJETA_CREDITO_OPCION, empresa)).first();
+        if (opcionPorTitle.count() > 0 && opcionPorTitle.isVisible()) {
+            opcionPorTitle.click();
             return;
         }
 
-        selectorTarjeta.click();
-        if (page.get().locator(opcionTarjeta).first().isVisible()) {
-            auto_setClickElement(opcionTarjeta);
+        Locator opcionPorTexto = page.get().locator(String.format(TARJETA_CREDITO_OPCION_POR_TEXTO, empresa)).first();
+        if (opcionPorTexto.count() > 0 && opcionPorTexto.isVisible()) {
+            opcionPorTexto.click();
+            return;
         }
+
+        if (empresaSeleccionada.count() > 0 && empresaSeleccionada.isVisible()) {
+            return;
+        }
+
+        throw new RuntimeException("No se pudo seleccionar la empresa de tarjeta: " + empresa);
     }
 
     public void ingresarVencimiento(String vencimiento) {

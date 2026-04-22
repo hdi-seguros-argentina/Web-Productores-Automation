@@ -1,3 +1,4 @@
+@NUEVACOTIZACION
 Feature: Cotizador Integral comercio
 
   Background:
@@ -8,12 +9,21 @@ Feature: Cotizador Integral comercio
     And el usuario ingresa a la home
     And el usuario selecciona un intermediario
 
-  @AUTOMATED @COTIZACION @regresion @Cotizador
-  Scenario: Nueva cotizacion de INTEGRAL CONSORCIO WEB
+  @AUTOMATED @COTIZACIONRETOME @regresion @Cotizador
+  Scenario: Nueva cotizacion con retome de INTEGRAL CONSORCIO WEB
     When el usuario ingresa al menu de "Nueva Cotización" en "Cotizador"
     And el usuario selecciona INTEGRAL DE CONSORCIO desde el json
     And el usuario selecciona INTEGRAL DE CONSORCIO WEB desde el json
     And el usuario realiza la cotizacion de INTEGRAL DE CONSORCIO
     And el usuario guarda la cotizacion
     And el usuario envia la cotizacion de INTEGRAL DE CONSORCIO
+    Then el usuario verifica el envio de la cotizacion
+
+  @AUTOMATED @COTIZACIONNUEVA @regresion @Cotizador
+  Scenario: Nueva cotizacion de INTEGRAL CONSORCIO WEB
+    When el usuario ingresa al menu de "Nueva Cotización" en "Cotizador"
+    And el usuario selecciona INTEGRAL DE CONSORCIO desde el json
+    And el usuario selecciona INTEGRAL DE CONSORCIO WEB desde el json
+    And el usuario realiza la cotizacion de INTEGRAL DE CONSORCIO
+    And el usuario envia la cotizacion de INTEGRAL DE CONSORCIO sin guardar
     Then el usuario verifica el envio de la cotizacion

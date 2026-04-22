@@ -46,7 +46,7 @@ Feature: Siniestros
     And el usuario verifica que el boton "Borrar Filtros" es correcto
 
 
-  @branding @Noe
+  @branding
   Scenario: Siniestros > Nueva Denuncia por Póliza: muestra campos y acciones requeridas
     When el usuario ingresa al menu de "Nueva denuncia" en "Siniestros"
     Then el usuario verifica que el titulo "Nueva Denuncia" es correcto
