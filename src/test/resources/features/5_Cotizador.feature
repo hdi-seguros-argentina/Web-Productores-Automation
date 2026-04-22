@@ -1,4 +1,4 @@
-@AUTOMATED
+@AUTOMATED @Cotizador
 Feature: Cotizador
 
   Background:
@@ -11,7 +11,7 @@ Feature: Cotizador
     Then el usuario verifica que el sistema muestra el panel de inicio
 
   @branding
-  Scenario: Verificar inputs y botón en la pantalla Nueva Cotización
+  Scenario: Cotizador > Nueva Cotización: muestra selector de grupo y acción de inicio
     When el usuario ingresa al menu de "Nueva Cotización" en "Cotizador"
     Then el usuario verifica que el titulo "Nueva Cotización" es correcto
     And el usuario verifica que el input "Seleccione un grupo" es correcto
@@ -19,8 +19,8 @@ Feature: Cotizador
     And el usuario verifica que el input "ACCIDENTES PERSONALES COLECTIV" es correcto
     And el usuario verifica que el boton "Iniciar Cotización" es correcto
 
-  @branding
-  Scenario: Verificar inputs, botones y paginado en Cotizaciones Guardadas
+  @branding @Noe
+  Scenario: Cotizador > Cotizaciones Guardadas: muestra filtros y paginado
     When el usuario ingresa al menu de "Cotizaciones Guardadas" en "Cotizador"
     Then el usuario verifica que el titulo "Cotizaciones Guardadas" es correcto
     And el usuario verifica que el input "Apellido y Nombre" es correcto

@@ -1,4 +1,4 @@
-Feature: Cotizador Hogar
+Feature: Cotizador Robo
 
   Background:
     Given el usuario ingresa a la web
@@ -9,11 +9,11 @@ Feature: Cotizador Hogar
     And el usuario selecciona un intermediario
 
   @AUTOMATED @COTIZACION @regresion @Cotizador
-  Scenario: Nueva cotizacion de COMBINADO FAMILIAR
+  Scenario: Nueva cotizacion de ROBO WEB
     When el usuario ingresa al menu de "Nueva Cotización" en "Cotizador"
-    And el usuario selecciona HOGAR desde el json
-    And el usuario selecciona COMBINADO FAMILIAR desde el json
-    And el usuario realiza la cotizacion de COMBINADO FAMILIAR
+    And el usuario selecciona ROBO desde el json
+    And el usuario selecciona ROBO WEB desde el json
+    And el usuario realiza la cotizacion de ROBO WEB
     And el usuario guarda la cotizacion
-    And el usuario envia la cotizacion de COMBINADO FAMILIAR
+    And el usuario envia la cotizacion de ROBO WEB
     Then el usuario verifica el envio de la cotizacion

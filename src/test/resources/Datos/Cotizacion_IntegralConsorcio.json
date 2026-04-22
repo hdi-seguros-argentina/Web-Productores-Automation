@@ -1,11 +1,11 @@
 {
   "rama": "INTEGRAL DE CONSORCIO",
   "articulo": "INTEGRAL DE CONSORCIO",
-  "cliente": "ABARIA ADRIANA ALICIA",
+  "cliente": "ACORAZADO S.A.",
 
   "datosDelCliente": {
     "iva": "RESPONSABLE INSCRIPTO",
-    "tipoDePersona": "CONSORCIO"
+    "tipoDePersona": "JURIDICA"
   },
 
   "datosDelBien": {

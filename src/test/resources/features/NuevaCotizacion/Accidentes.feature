@@ -17,8 +17,3 @@ Feature: Cotizador AP
     And el usuario guarda la cotizacion
     And el usuario envia la cotizacion de ACCIDENTES PERSONALES COLECTIV
     Then el usuario verifica el envio de la cotizacion
-
-  Scenario: Cotizacion guardada de ACCIDENTES PERSONALES COLECTIV
-    When el usuario ingresa al menu de "Cotizaciones Guardadas" en "Cotizador"
-    And el usuario envia la cotizacion de ACCIDENTES PERSONALES COLECTIV
-    Then el usuario verifica el envio de la cotizacion

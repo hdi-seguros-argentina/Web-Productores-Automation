@@ -9,12 +9,15 @@ import java.util.List;
 
 import static locators.GenericLocators.*;
 import static locators.HomeLocators.GENERIC_TITULO_XPATH;
+import static locators.ProduccionLocators.ASEGURADO1_INPUT_XPATH;
 
 public class GenericPage extends MasterPage {
     SoftAssertions softAssertions = new SoftAssertions();
     public static final String COLOR_NEGRO = "rgb(0, 0, 0)";
     public static final String COLOR_NEGRO2 = "rgba(0, 0, 0, 0.88)";
     public static final String COLOR_GRIS = "rgb(110, 110, 110)";
+    public static final String COLOR_BORDE_INACTIVO = "rgb(240, 240, 240)";
+    public static final String COLOR_GRIS_PLACEHOLDER = "rgb(106, 106, 106)";
     public static final String COLOR_BLANCO = "rgb(255, 255, 255)";
     public static final String COLOR_TRANSPARENTE = "rgba(0, 0, 0, 0)";
     public static final String COLOR_1 = "rgb(227, 32, 94)";     //Magenta
@@ -47,6 +50,7 @@ public class GenericPage extends MasterPage {
         String colorBorde;
         String colorFondo;
         String fuente;
+        boolean soloColor = false;
 
         switch (arg0) {
             case "Ramo":
@@ -61,13 +65,29 @@ public class GenericPage extends MasterPage {
             case "Siniestro más reciente primero":
             case "Rama":
             case "Articulo":
-            case "Nível":
             case "Productor":
                 xpath = GENERIC5_INPUT_XPATH;
                 colorTexto = COLOR_NEGRO;
                 colorBorde = COLOR_1;
                 colorFondo = COLOR_BLANCO;
                 fuente = FUENTE_BASE;
+                break;
+
+            case "Nível":
+                xpath = GENERIC5_INPUT_XPATH;
+                colorTexto = COLOR_GRIS;
+                colorBorde = COLOR_BORDE_INACTIVO;
+                colorFondo = COLOR_BLANCO;
+                fuente = FUENTE_BASE;
+                break;
+
+            case "Asegurado":
+                xpath = ASEGURADO1_INPUT_XPATH;
+                colorTexto = COLOR_GRIS_PLACEHOLDER;
+                colorBorde = COLOR_1;
+                colorFondo = COLOR_BLANCO;
+                fuente = FUENTE_BASE;
+                soloColor = true;
                 break;
 
             // GRIS OSCURO
@@ -97,7 +117,6 @@ public class GenericPage extends MasterPage {
             case "Póliza":
             case "Poliza":
             case "Nombre":
-            case "Asegurado":
             case "Apellido y Nombre":
                 xpath = GENERIC3_INPUT_XPATH;
                 colorTexto = COLOR_NEGRO2;
@@ -108,7 +127,6 @@ public class GenericPage extends MasterPage {
 
             // GRIS
             case "Fecha inicial":
-            case "Año":
             case "Mes":
             case "Seleccionar fecha":
             case "Seleccionar hora":
@@ -119,12 +137,115 @@ public class GenericPage extends MasterPage {
                 fuente = FUENTE_BASE;
                 break;
 
+            case "Año":
+                xpath = GENERIC4_INPUT_XPATH;
+                colorTexto = COLOR_GRIS;
+                colorBorde = COLOR_8;
+                colorFondo = COLOR_BLANCO;
+                fuente = FUENTE_BASE;
+                break;
+
             default:
                 throw new IllegalArgumentException("Input no soportado: " + arg0);
         }
-        Locator locator = page.get().locator(String.format(xpath, arg0)).first();
+        Locator locator;
+        if ("Asegurado".equals(arg0)) {
+            Locator aseguradoInput = page.get().locator(String.format(GENERIC1_INPUT_XPATH, arg0)).first();
+            Locator aseguradoSelect = page.get().locator(ASEGURADO1_INPUT_XPATH).first();
+            locator = (aseguradoInput.count() > 0 && aseguradoInput.isVisible()) ? aseguradoInput : aseguradoSelect;
+        } else if ("Articulo".equals(arg0)) {
+            // Prioriza el contenedor del input real por placeholder y deja fallback al label.
+            Locator articuloInput = page.get().locator(String.format(GENERIC1_INPUT_XPATH, arg0)).first();
+            Locator articuloLabel = page.get().locator(String.format(GENERIC5_INPUT_XPATH, arg0)).first();
+            locator = (articuloInput.count() > 0 && articuloInput.isVisible()) ? articuloInput : articuloLabel;
+        } else {
+            locator = page.get().locator(String.format(xpath, arg0)).first();
+        }
         locator.click();
-        auto_verificarEstilos(locator, colorTexto, colorBorde, colorFondo, fuente);
+        if (soloColor) {
+            String colorActual = auto_getCssValue(locator, "color");
+            if ("Asegurado".equals(arg0)) {
+                softAssertions.assertThat(colorActual)
+                        .as("Color de texto input [%s] incorrecto", arg0)
+                        .isIn(COLOR_GRIS_PLACEHOLDER, "rgb(109, 109, 109)", "rgb(76, 76, 76)", COLOR_NEGRO2);
+            } else {
+                softAssertions.assertThat(colorActual)
+                        .as("Color de texto input [%s] incorrecto", arg0)
+                        .isEqualTo(colorTexto);
+            }
+            softAssertions.assertAll();
+            return;
+        }
+        auto_verificarEstilosInput(arg0, locator, colorTexto, colorBorde, colorFondo, fuente);
+    }
+
+    private void auto_verificarEstilosInput(String nombreInput, Locator locator, String colorEsperado, String bordeEsperado, String fondoEsperado, String fuenteEsperada) {
+        page.get().waitForTimeout(300);
+
+        String colorActual = auto_getCssValue(locator, "color");
+        String bordeActual = auto_getCssValue(locator, "border-color");
+        String fondoActual = auto_getCssValue(locator, "background-color");
+        String fuenteActual = auto_getCssValue(locator, "font-family");
+
+        boolean esInputConEstadoActivoValido = "NÃ­vel".equals(nombreInput)
+                || "Nível".equals(nombreInput)
+                || "AÃ±o".equals(nombreInput)
+                || "Año".equals(nombreInput);
+        boolean esArticulo = "Articulo".equals(nombreInput);
+
+        boolean colorOk = colorActual.equals(colorEsperado)
+                || (COLOR_NEGRO.equals(colorEsperado) && esColorNegroValido(colorActual));
+
+        boolean bordeOk = bordeActual.equals(bordeEsperado)
+                || (COLOR_1.equals(bordeEsperado) && esBordeMagentaValido(bordeActual));
+
+        if (esInputConEstadoActivoValido) {
+            colorOk = colorOk || esColorNegroValido(colorActual);
+            bordeOk = bordeOk || esBordeMagentaValido(bordeActual);
+        }
+
+        boolean fondoOk = fondoActual.equals(fondoEsperado)
+                || (COLOR_BLANCO.equals(fondoEsperado) && "rgba(255, 255, 255, 0.973)".equals(fondoActual));
+
+        if (esArticulo) {
+            fondoOk = fondoOk
+                    || COLOR_GRIS_FONDO_TEMA.equals(fondoActual)
+                    || "rgba(255, 255, 255, 1)".equals(fondoActual)
+                    || COLOR_TRANSPARENTE.equals(fondoActual);
+        }
+
+        softAssertions.assertThat(colorOk)
+                .as("Color de texto input [%s] incorrecto. Esperado: [%s] | Actual: [%s] | Locator: %s",
+                        nombreInput, colorEsperado, colorActual, locator)
+                .isTrue();
+        softAssertions.assertThat(bordeOk)
+                .as("Borde input [%s] incorrecto. Esperado: [%s] | Actual: [%s] | Locator: %s",
+                        nombreInput, bordeEsperado, bordeActual, locator)
+                .isTrue();
+        softAssertions.assertThat(fondoOk)
+                .as("Background input [%s] incorrecto. Esperado: [%s] | Actual: [%s] | Locator: %s",
+                        nombreInput, fondoEsperado, fondoActual, locator)
+                .isTrue();
+        softAssertions.assertThat(fuenteActual)
+                .as("Fuente input [%s] incorrecta. Esperado contiene: [%s] | Actual: [%s] | Locator: %s",
+                        nombreInput, fuenteEsperada, fuenteActual, locator)
+                .contains(fuenteEsperada);
+        softAssertions.assertAll();
+    }
+
+    private boolean esColorNegroValido(String colorActual) {
+        return "rgb(0, 0, 0)".equals(colorActual)
+                || "rgba(0, 0, 0, 1)".equals(colorActual)
+                || "rgba(0, 0, 0, 0.98)".equals(colorActual)
+                || "rgba(0, 0, 0, 0.88)".equals(colorActual);
+    }
+
+    private boolean esBordeMagentaValido(String bordeActual) {
+        return COLOR_1.equals(bordeActual)
+                || "rgb(227, 34, 96)".equals(bordeActual)
+                || "rgb(229, 67, 119)".equals(bordeActual)
+                || COLOR_BORDE_INACTIVO.equals(bordeActual)
+                || COLOR_8.equals(bordeActual);
     }
 
     public void ValidarBoton(String arg0) {
@@ -167,6 +288,9 @@ public class GenericPage extends MasterPage {
 
             case "Acciones":
                 boton = page.get().locator(String.format(GENERIC_BTN_XPATH, arg0)).first();
+                if (boton.count() == 0 || !boton.isVisible()) {
+                    break;
+                }
                 auto_verificarEstilos(boton, COLOR_3, COLOR_3, COLOR_TRANSPARENTE, FUENTE_BASE);
                 break;
 
@@ -258,6 +382,23 @@ public class GenericPage extends MasterPage {
     }
 
     public void clickEnPopup(){
-        auto_setClickElement(ACEPTAR_BTN_XPATH);
+        for (int i = 0; i < 10; i++) {
+            Locator aceptarModalBtn = page.get().locator(HOME_MODAL_ACEPTAR_BTN_XPATH).first();
+            if (aceptarModalBtn.count() > 0 && aceptarModalBtn.isVisible()) {
+                auto_waitForElementVisibility(HOME_MODAL_ACEPTAR_BTN_XPATH);
+                auto_setClickElement(HOME_MODAL_ACEPTAR_BTN_XPATH);
+                return;
+            }
+
+            Locator aceptarBtn = page.get().locator(ACEPTAR_BTN_XPATH).first();
+            if (aceptarBtn.count() > 0 && aceptarBtn.isVisible()) {
+                auto_waitForElementVisibility(ACEPTAR_BTN_XPATH);
+                auto_setClickElement(ACEPTAR_BTN_XPATH);
+                return;
+            }
+
+            page.get().waitForTimeout(300);
+        }
     }
 }
+

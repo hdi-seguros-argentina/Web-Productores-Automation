@@ -4,8 +4,9 @@ public class ProduccionLocators {
     public static final String PRODUCCION_MENU_XPATH = "//span[text()='Produccion']";
     public static final String LISTADOPOLIZAS_MENU_XPATH = "//span[text()='Listado de Polizas']";
     public static final String FECHA_DESPLEGABLE_XPATH = "//input[@placeholder='Fecha inicial']/ancestor::div[2]";
-    public static final String ASEGURADO1_INPUT_XPATH = "//input[@placeholder='Asegurado']";
+    public static final String ASEGURADO1_INPUT_XPATH = "(//*[normalize-space()='Asegurado']/ancestor::div[1])[2]";
     public static final String ACCESODIRECTO_ICONS_XPATH = "//span[text()='Accesos directos']/ancestor::div[2]/div[2]//span[@role='img']";
+    public static final String RAMO_NUMERO_POLIZA_RADIO_XPATH = "//label[contains(@class,'ant-radio-wrapper')][.//span[contains(normalize-space(),'Ramo y') and (contains(normalize-space(),'Poliza') or contains(normalize-space(),'Póliza'))]]";
     public static final String RAMO_DESPLEGABLE_XPATH = "//span[text()='Ramo']/ancestor::div[1]";
     public static final String RAMO_DESPLEGABLE1_XPATH = "//*[text()='%s']";
     public static final String GENERIC_BOTON_XPATH = "(//span[text()='%s'])[1]";

@@ -6,11 +6,6 @@ import static locators.CommonLocators.*;
 
 public class AccidentePage extends MasterPage {
 
-    public void seleccionarPlan(String plan) {
-        auto_setClickElement(PLAN_SELECT);
-        auto_setClickElement(String.format(SELECT_OPCION, plan));
-    }
-
     public void seleccionarActividad(String actividad) {
         page.get().waitForTimeout(2500);
         auto_setClickElement(ACTIVIDAD_SELECT);

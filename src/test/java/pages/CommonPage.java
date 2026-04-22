@@ -1,6 +1,7 @@
 package pages;
 
 import com.core.utility.MasterPage;
+import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.options.LoadState;
 import models.Cobertura;
 import models.InformacionDeContacto;
@@ -67,6 +68,23 @@ public class CommonPage extends MasterPage {
     public void ingresarNumeroTarjeta(String numero) {
         auto_typeSequentially(INPUT_TARJETA, numero);
         auto_pressKey(INPUT_TARJETA, "Enter");
+        page.get().waitForTimeout(300);
+
+        String opcionTarjeta = TARJETA_CREDITO_OPCION_VISA;
+        if (page.get().locator(opcionTarjeta).first().isVisible()) {
+            auto_setClickElement(opcionTarjeta);
+            return;
+        }
+
+        Locator selectorTarjeta = page.get().locator(TARJETA_CREDITO_SELECT).first();
+        if (!selectorTarjeta.isVisible()) {
+            return;
+        }
+
+        selectorTarjeta.click();
+        if (page.get().locator(opcionTarjeta).first().isVisible()) {
+            auto_setClickElement(opcionTarjeta);
+        }
     }
 
     public void ingresarVencimiento(String vencimiento) {
@@ -78,6 +96,7 @@ public class CommonPage extends MasterPage {
     }
 
     public void guardarCotizacion() {
+        auto_waitForElementVisibility(BOTON_GUARDAR_COTIZACION);
         auto_setClickElement(BOTON_GUARDAR_COTIZACION);
     }
 
@@ -110,9 +129,16 @@ public class CommonPage extends MasterPage {
     }
 
     public void verificaEnvioCotizacion() {
-        auto_waitForElementVisibility(POLIZA_ENVIO_TITULO);
-        auto_waitForElementVisibility(POLIZA_ENVIO_TEXTO);
-        auto_waitForElementVisibility(POLIZA_ENVIO_BOTON_ACEPTAR);
+        softAssertions.assertThatCode(() -> auto_waitForElementVisibility(POLIZA_ENVIO_TITULO))
+                .as("No se pudo enviar la cotizacion")
+                .doesNotThrowAnyException();
+        softAssertions.assertThatCode(() -> auto_waitForElementVisibility(POLIZA_ENVIO_TEXTO))
+                .as("No se visualiza el texto de envio de cotizacion")
+                .doesNotThrowAnyException();
+        softAssertions.assertThatCode(() -> auto_waitForElementVisibility(POLIZA_ENVIO_BOTON_ACEPTAR))
+                .as("No se visualiza el boton Aceptar en el envio de cotizacion")
+                .doesNotThrowAnyException();
+        softAssertions.assertAll();
     }
 
     public void seleccionarProvincia(String provincia) {
@@ -157,11 +183,16 @@ public class CommonPage extends MasterPage {
     }
 
     public void guardarValoresAntesDeVariacion(boolean esAuto) {
+        String locatorPrima = esAuto ? PRIMA_TECNICA_AUTO__RESUMEN : PRIMA_TECNICA_RESUMEN;
+        String locatorComision = esAuto ? COMISION_AUTO_RESUMEN : COMISION_RESUMEN;
+        String locatorPremio = esAuto ? PREMIO_AUTO_RESUMEN : PREMIO_RESUMEN;
+
+        auto_waitForElementInvisibility(".ant-spin-spinning");
         comisionAntes = auto_getElementTextOrValue(COMISION_CAMPO);
         extraPrimaAntes = auto_getElementTextOrValue(EXTRA_PRIMA_VARIABLE_CAMPO);
-        primaTecnicaResumen = auto_getElementTextOrValue(esAuto ? PRIMA_TECNICA_AUTO__RESUMEN : PRIMA_TECNICA_RESUMEN);
-        comisionResumen = auto_getElementTextOrValue(esAuto ? COMISION_AUTO_RESUMEN : COMISION_RESUMEN);
-        premioResumen = auto_getElementTextOrValue(esAuto ? PREMIO_AUTO_RESUMEN : PREMIO_RESUMEN);
+        primaTecnicaResumen = esperarValorResumenValido(locatorPrima, "Prima tecnica");
+        comisionResumen = esperarValorResumenValido(locatorComision, "Comision");
+        premioResumen = esperarValorResumenValido(locatorPremio, "Premio");
     }
 
     public void validarCambioVariacion(Integer variacion) {
@@ -183,6 +214,8 @@ public class CommonPage extends MasterPage {
     }
 
     public void validarVariacionPersistida(Integer variacionEsperada) {
+        page.get().waitForTimeout(1000);
+
         auto_waitForElementVisibility(INPUT_VARIACION);
 
         String variacionActual = auto_getElementTextOrValue(INPUT_VARIACION);
@@ -202,13 +235,14 @@ public class CommonPage extends MasterPage {
         String locatorComision = esAuto ? COMISION_AUTO_RESUMEN : COMISION_RESUMEN;
         String locatorPremio = esAuto ? PREMIO_AUTO_RESUMEN : PREMIO_RESUMEN;
 
+        auto_waitForElementInvisibility(".ant-spin-spinning");
         auto_waitForElementVisibility(locatorPrima);
         auto_waitForElementVisibility(locatorComision);
         auto_waitForElementVisibility(locatorPremio);
 
-        String primaTecnicaActual = auto_getElementTextOrValue(locatorPrima);
-        String comisionActual = auto_getElementTextOrValue(locatorComision);
-        String premioActual = auto_getElementTextOrValue(locatorPremio);
+        String primaTecnicaActual = esperarValorResumenValido(locatorPrima, "Prima tecnica");
+        String comisionActual = esperarValorResumenValido(locatorComision, "Comision");
+        String premioActual = esperarValorResumenValido(locatorPremio, "Premio");
 
         softAssertions.assertThat(primaTecnicaActual)
                 .as("La prima tecnica del resumen debe mantenerse sin cambios")
@@ -221,7 +255,6 @@ public class CommonPage extends MasterPage {
         softAssertions.assertThat(premioActual)
                 .as("El premio del resumen debe actualizarse")
                 .isNotEqualTo(premioResumen);
-
         softAssertions.assertAll();
     }
 
@@ -231,7 +264,9 @@ public class CommonPage extends MasterPage {
 
     public void seleccionarRubro(String rubro) {
         page.get().waitForTimeout(1000);
+        auto_waitForElementVisibility(String.format(SELECT_DESPLEGABLE, "Rubro"));
         auto_setClickElement(String.format(SELECT_DESPLEGABLE, "Rubro"));
+        auto_waitForElementVisibility(String.format(SELECT_OPCION, rubro));
         auto_setClickElement(String.format(SELECT_OPCION, rubro));
     }
 
@@ -249,4 +284,24 @@ public class CommonPage extends MasterPage {
         auto_pressKey(INPUT_HORA_HASTA, "Enter");
     }
 
+    private String esperarValorResumenValido(String locator, String campo) {
+        auto_waitForElementVisibility(locator);
+        String ultimoValor = "";
+        String patronValido = "(?i)^(?!recotizar$|cotizar$|emitir$).*[0-9].*$";
+
+        for (int i = 0; i < 75; i++) {
+            String valor = auto_getElementTextOrValue(locator);
+            ultimoValor = valor == null ? "" : valor.trim();
+            if (ultimoValor.matches(patronValido)) return ultimoValor;
+            page.get().waitForTimeout(200);
+        }
+        softAssertions.assertThat(ultimoValor)
+                .as("No se obtuvo un valor valido para " + campo + ". Ultimo valor leido: " + ultimoValor)
+                .matches(patronValido);
+        return ultimoValor;
+    }
+    public void seleccionarPlan(String plan) {
+        auto_setClickElement(PLAN_SELECT);
+        auto_setClickElement(String.format(SELECT_OPCION, plan));
+    }
 }

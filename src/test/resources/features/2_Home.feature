@@ -1,4 +1,4 @@
-@AUTOMATED
+@AUTOMATED @Home
 Feature: Home
 
   Background:
@@ -8,13 +8,13 @@ Feature: Home
     And el usuario hace click en el boton de login
 
   @Regression
-  Scenario: Verificar selección de intermediario y visualización del panel de inicio
+  Scenario: Home: permite seleccionar intermediario y acceder al panel de inicio
     Given el usuario ingresa a la home
     When el usuario selecciona un intermediario
     Then el usuario verifica que el sistema muestra el panel de inicio
 
   @branding
-  Scenario: Verificar inputs, botones y header en la pantalla Home
+  Scenario: Home: muestra header, filtros y acciones con estilos esperados
     Given el usuario ingresa a la home
     When el usuario se posiciona en la pantalla de home
     Then el usuario verifica que el header el correcto
@@ -26,7 +26,7 @@ Feature: Home
     And el usuario verifica que el boton "Borrar Filtros" es correcto
 
   @branding
-  Scenario: Verificar listado de intermediarios, botones de acción y paginado
+  Scenario: Home: lista intermediarios y muestra acciones de búsqueda y paginado
     Given el usuario ingresa a la home
     When el usuario ingresa "Ortuondo" en el input
     Then el usuario verifica que el boton "Borrar Filtros" es correcto
@@ -34,7 +34,7 @@ Feature: Home
     And el usuario verifica que el paginado de "intermediarios" es correcto
 
   @branding
-  Scenario: Verificar títulos e íconos del panel de inicio por intermediario
+  Scenario: Home: muestra título e íconos correctos del panel de inicio
     Given el usuario ingresa a la home
     When el usuario selecciona un intermediario
     Then el usuario verifica que el sistema muestra el panel de inicio

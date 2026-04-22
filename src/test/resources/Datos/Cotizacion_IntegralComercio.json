@@ -21,8 +21,12 @@
       "suma": 1000000000
     },
     {
-      "nombre": "DAÑOS POR AGUA",
+      "nombre": "INCENDIO CONTENIDO O MOB. C/HVCT+GRANIZO",
       "suma": 10000000
+    },
+    {
+      "nombre": "ROBO CONTENIDO GENERAL",
+      "suma": 1000000
     },
     {
       "nombre": "CRISTALES",

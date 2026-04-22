@@ -1,8 +1,8 @@
-@AUTOMATED
+@AUTOMATED @Login
 Feature: Login
 
   @Regression
-  Scenario: Verificar inicio de sesión exitoso con credenciales válidas
+  Scenario: Login: permite iniciar sesión con credenciales válidas
     Given el usuario ingresa a la web
     When el usuario ingresa usuario
     And el usuario ingresa contraseña
@@ -10,7 +10,7 @@ Feature: Login
     Then el usuario verifica que se logueo correctamente
 
   @branding
-  Scenario: Verificar logo, inputs y botones en la pantalla de Login
+  Scenario: Login: muestra branding y controles esperados en pantalla inicial
     Given el usuario ingresa a la web
     When el usuario se posiciona en la pantalla de login
     Then el usuario verifica que el logo es correcto

@@ -1,4 +1,4 @@
-@AUTOMATED
+@AUTOMATED @Emision
 Feature: Emision
 
   Background:
@@ -11,7 +11,7 @@ Feature: Emision
     Then el usuario verifica que el sistema muestra el panel de inicio
 
   @branding
-  Scenario: Verificar tabs, botones y paginado en Endosos Aumento de Suma
+  Scenario: Emisión > Endosos Aumento de Suma: muestra tabs, acciones y paginado
     When el usuario ingresa al menu de "Endosos Aumento de Suma" en "Emision"
     And el usuario verifica que el boton "Aceptar" es correcto
     And el usuario verifica que el boton "Cancelar" es correcto
@@ -23,7 +23,7 @@ Feature: Emision
     And el usuario verifica que el paginado de "endosos" es correcto
 
   @branding
-  Scenario: Verificar título y botón Aceptar en Transporte de Mercaderías
+  Scenario: Emisión > Transporte Mercaderías: muestra título y acción Aceptar
     When el usuario ingresa al menu de "Transporte Mercaderías" en "Emision"
     Then el usuario verifica que el titulo "Transporte Mercaderías" es correcto
     And el usuario verifica que el boton "Aceptar" es correcto

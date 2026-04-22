@@ -4,6 +4,8 @@ import com.microsoft.playwright.Locator;
 import org.assertj.core.api.SoftAssertions;
 import java.util.List;
 
+import static locators.CommonLocators.SELECT_DESPLEGABLE;
+import static locators.CommonLocators.SELECT_OPCION;
 import static locators.GenericLocators.*;
 import static locators.ProduccionLocators.*;
 public class ProduccionPage extends MasterPage {
@@ -38,6 +40,11 @@ public class ProduccionPage extends MasterPage {
     public void seleccionRamo(String arg0){
         auto_setClickElement(RAMO_DESPLEGABLE_XPATH);
         auto_setClickElement(String.format(RAMO_DESPLEGABLE1_XPATH, arg0));
+    }
+
+    public void seleccionTipoBusquedaRamoNumeroPoliza() {
+        auto_waitForElementVisibility(RAMO_NUMERO_POLIZA_RADIO_XPATH);
+        auto_setClickElement(RAMO_NUMERO_POLIZA_RADIO_XPATH);
     }
 
     public void ingresoNumeroPoliza(String arg0){

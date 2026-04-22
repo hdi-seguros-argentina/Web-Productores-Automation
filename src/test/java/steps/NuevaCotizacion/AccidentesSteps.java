@@ -33,7 +33,7 @@ public class AccidentesSteps{
         commonPage.buscarCliente(dataAccidentes.getCliente());
         commonPage.clickBotonContinuar();
 
-        accidentePage.seleccionarPlan(dataAccidentes.getPlan());
+        commonPage.seleccionarPlan(dataAccidentes.getPlan());
         accidentePage.seleccionarActividad(dataAccidentes.getActividad());
         accidentePage.ingresarCantidad(dataAccidentes.getCantidadPersonas());
         accidentePage.ingresarCoberturaMuerte(dataAccidentes.getCobertura().getMuerte());

@@ -21,7 +21,9 @@ public class CommonLocators {
     public static final String BOTON_EMITIR="//button[.//span[text()='Emitir']]";
     public static final String NACIONALIDAD_SELECT="//label[text()='Nacionalidad']/following::div[contains(@class,'ant-select')][1]";
     public static final String NACIONALIDAD_INPUT_SELECT="//input[@id='client-data-form_nationality']";
+    public static final String TARJETA_CREDITO_SELECT="//input[@id='payment-method-form_companyCreditCard']/ancestor::div[contains(@class,'ant-select')][1] | //label[contains(normalize-space(),'Tarjeta de') and (contains(normalize-space(),'Crédito') or contains(normalize-space(),'Credito'))]/following::div[contains(@class,'ant-select')][1]";
     public static final String INPUT_TARJETA="//label[text()='NÃºmero de Tarjeta']/following::input[1]";
+    public static final String TARJETA_CREDITO_OPCION_VISA="//div[contains(@class,'ant-select-item-option-content') and normalize-space()='VISA ARGENTINA SA']";
     public static final String INPUT_VENCIMIENTO="//label[text()='Vencimiento']/following::input[1]";
     public static final String BOTON_AGREGAR_PERSONA="//button[.//span[text()='Agregar Persona']]";
     public static final String INPUT_APELLIDO_NOMBRE="(//input[@placeholder='Apellido y nombre'])[2]";

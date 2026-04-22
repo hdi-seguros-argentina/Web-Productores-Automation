@@ -1,0 +1,29 @@
+{
+  "rama": "ROBO",
+  "articulo": "ROBO WEB",
+  "cliente": "ACORAZADO S.A.",
+  "plan": "10 - ROBO E INCENDIO BICICLETAS REP.ARG",
+
+  "datosDelBien": {
+    "provincia": "BUENOS AIRES (01)",
+    "localidad": "------------- (7760-0)"
+  },
+
+  "cobertura": [
+    {
+      "nombre": "ROBO EN INCENDIO BICICLETAS REP.ARG",
+      "suma": 100000
+    }
+  ],
+
+  "variacion": 5,
+
+  "emision": {
+    "nacionalidad": "Argentina",
+    "tarjeta": {
+      "numero": "4223677901518637",
+      "vencimiento": "12/2030"
+    },
+    "domicilio": "123"
+  }
+}

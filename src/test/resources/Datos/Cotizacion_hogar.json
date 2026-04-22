@@ -11,21 +11,22 @@
   },
   "cobertura": [
     {
-      "nombre": "INCENDIO CONTENIDO GRAL CON GRANIZO",
-      "suma": 480000000
-    },
-    {
-      "nombre": "ROBO E INCENDIO DOCUMENTOS",
-      "suma": 96000
+      "nombre": "INCENDIO EDIFICIO A PRORRATA",
+      "suma": 100000000
     },
     {
       "nombre": "ROBO E INCENDIO EN DOMICILIO ARMAS",
-      "suma": 8640000
+      "suma": 1000000
+    },
+    {
+      "nombre": "JUGADORES DE GOLF- TODO RIESGO EQUIPOS",
+      "suma": 1000000
     }
   ],
   "emision": {
     "nacionalidad": "Argentina",
     "tarjeta": {
+      "credito": "VISA ARGENTINA SA",
       "numero": "4223677901518637",
       "vencimiento": "12/2030"
     },

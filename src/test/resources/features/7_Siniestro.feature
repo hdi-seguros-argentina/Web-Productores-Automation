@@ -1,4 +1,4 @@
-@AUTOMATED
+@AUTOMATED @Siniestros
 Feature: Siniestros
 
   Background:
@@ -11,7 +11,7 @@ Feature: Siniestros
     Then el usuario verifica que el sistema muestra el panel de inicio
 
   @branding
-  Scenario: Verificar inputs y paginado en la pantalla Listado de Siniestros
+  Scenario: Siniestros > Listado de Siniestros: muestra filtros y paginado
     When el usuario ingresa al menu de "Listado de Siniestros" en "Siniestros"
     Then el usuario verifica que el titulo "Listado de Siniestros" es correcto
     And el usuario verifica que el input "Bien Siniestrado" es correcto
@@ -23,7 +23,7 @@ Feature: Siniestros
     And el usuario verifica que el paginado de "siniestros" es correcto
 
   @branding
-  Scenario Outline: Verificar radio-botones dinámicos "<boton>" en la pantalla Nueva Denuncia
+  Scenario Outline: Siniestros > Nueva Denuncia: alterna radio-botones "<boton>" y mantiene acciones
     When el usuario ingresa al menu de "Nueva denuncia" en "Siniestros"
     And el usuario selecciona "<boton>"
     And el usuario verifica que el radio-boton "<boton>" es correcto
@@ -34,7 +34,7 @@ Feature: Siniestros
       | Póliza  |
 
   @branding
-  Scenario: Verificar inputs y botones en Nueva Denuncia con búsqueda por Patente
+  Scenario: Siniestros > Nueva Denuncia por Patente: muestra campos y acciones requeridas
     When el usuario ingresa al menu de "Nueva denuncia" en "Siniestros"
     Then el usuario verifica que el titulo "Nueva Denuncia" es correcto
     Then el usuario verifica que el subtitulo "Búsqueda de la Póliza" es correcto
@@ -46,8 +46,8 @@ Feature: Siniestros
     And el usuario verifica que el boton "Borrar Filtros" es correcto
 
 
-  @branding
-  Scenario: Verificar inputs y botones en Nueva Denuncia con búsqueda por Póliza
+  @branding @Noe
+  Scenario: Siniestros > Nueva Denuncia por Póliza: muestra campos y acciones requeridas
     When el usuario ingresa al menu de "Nueva denuncia" en "Siniestros"
     Then el usuario verifica que el titulo "Nueva Denuncia" es correcto
     Then el usuario verifica que el subtitulo "Búsqueda de la Póliza" es correcto

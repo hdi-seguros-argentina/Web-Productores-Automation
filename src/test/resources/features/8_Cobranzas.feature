@@ -1,4 +1,4 @@
-@AUTOMATED
+@AUTOMATED @Cobranzas
 Feature: Cobranzas
 
   Background:
@@ -11,14 +11,14 @@ Feature: Cobranzas
     Then el usuario verifica que el sistema muestra el panel de inicio
 
   @branding
-  Scenario: Verificar título y botón en la pantalla Preliquidación inicial
+  Scenario: Cobranzas > Preliquidación inicial: muestra encabezado y acción Continuar
     When el usuario ingresa al menu de "Preliquidación" en "Cobranzas"
     Then el usuario verifica que el titulo "Preliquidación" es correcto
     Then el usuario verifica que el subtitulo "Generación de preliquidación" es correcto
     And el usuario verifica que el boton "Continuar" es correcto
 
   @branding
-  Scenario Outline: Verificar radio-botones dinámicos "<boton>" en Preliquidación inicial
+  Scenario Outline: Cobranzas > Preliquidación inicial: alterna radio-botones "<boton>"
     When el usuario ingresa al menu de "Preliquidación" en "Cobranzas"
     And el usuario selecciona "<boton>"
     Then el usuario verifica que el radio-boton "<boton>" es correcto
@@ -29,7 +29,7 @@ Feature: Cobranzas
       | NO    |
 
   @branding
-  Scenario: Verificar inputs, botones y paginado en Preliquidación con selección "SI"
+  Scenario: Cobranzas > Preliquidación incluyendo cuotas con débito automático: muestra filtros, resumen y paginado
     When el usuario ingresa al menu de "Preliquidación" en "Cobranzas"
     And el usuario selecciona "SI"
     And el usuario hace clic en el boton "Continuar"
@@ -47,7 +47,7 @@ Feature: Cobranzas
     And el usuario verifica que el paginado de "cuotas" es correcto
 
   @branding
-  Scenario: Verificar inputs, botones y paginado en Preliquidación con selección "NO"
+  Scenario: Cobranzas > Preliquidación excluyendo cuotas con débito automático: muestra filtros, resumen y paginado
     When el usuario ingresa al menu de "Preliquidación" en "Cobranzas"
     And el usuario selecciona "NO"
     And el usuario hace clic en el boton "Continuar"
@@ -65,23 +65,23 @@ Feature: Cobranzas
     And el usuario verifica que el paginado de "cuotas" es correcto
 
   @branding
-  Scenario: Verificar título y tab en Preliquidaciones Guardadas y Enviadas
-    When el usuario ingresa al menu de "Preliquidaciones guardadas y enviadas." en "Cobranzas"
-    Then el usuario verifica que el subtitulo "Preliquidaciones guardadas y enviadas." es correcto
+  Scenario: Cobranzas > Preliquidaciones guardadas y enviadas: muestra encabezado principal
+    When el usuario ingresa al menu de "Preliquidaciones guardadas y enviadas" en "Cobranzas"
+    Then el usuario verifica que el subtitulo "Preliquidaciones guardadas y enviadas" es correcto
 
   @branding
-  Scenario: Verificar componentes en la sección Preliquidaciones Guardadas
+  Scenario: Cobranzas > Preliquidaciones Guardadas: valida estructura de componentes
 
   @branding
-  Scenario: Verificar componentes en la sección Preliquidaciones Enviadas
+  Scenario: Cobranzas > Preliquidaciones Enviadas: valida estructura de componentes
 
   @branding
-  Scenario: Verificar paginado en la pantalla Pólizas con Deuda Vencida
+  Scenario: Cobranzas > Pólizas con Deuda Vencida: muestra título y paginado
     When el usuario ingresa al menu de "Pólizas con Deuda Vencida" en "Cobranzas"
     Then el usuario verifica que el titulo "Pólizas con Deuda Vencida" es correcto
     And el usuario verifica que el paginado de "polizas" es correcto
 
   @branding
-  Scenario: Verificar título en la pantalla Rechazo de Débitos Automáticos
+  Scenario: Cobranzas > Rechazo de Débitos Automáticos: muestra título de pantalla
     When el usuario ingresa al menu de "Rechazo de débitos automáticos" en "Cobranzas"
     Then el usuario verifica que el titulo "Rechazos de débitos automaticos" es correcto

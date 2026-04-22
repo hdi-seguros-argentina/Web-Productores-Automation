@@ -22,6 +22,11 @@ public class ProduccionSteps {
         produccionPage.seleccionRamo(arg0);
     }
 
+    @And("el usuario selecciona el radio Ramo y Numero de Poliza")
+    public void elUsuarioSeleccionaElRadioRamoYNumeroDePoliza() {
+        produccionPage.seleccionTipoBusquedaRamoNumeroPoliza();
+    }
+
     @And("el usuario selecciona {string} en Número de póliza")
     public void elUsuarioSeleccionaEnNúmeroDePóliza(String arg0) {
         produccionPage.ingresoNumeroPoliza(arg0);
