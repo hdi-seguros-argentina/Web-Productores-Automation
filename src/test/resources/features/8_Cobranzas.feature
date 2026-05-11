@@ -12,14 +12,14 @@ Feature: Cobranzas
 
   @branding
   Scenario: Cobranzas > Preliquidación inicial: muestra encabezado y acción Continuar
-    When el usuario ingresa al menu de "Preliquidación" en "Cobranzas"
+    When el usuario ingresa al menu de "Preliquidacion" en "Cobranzas"
     Then el usuario verifica que el titulo "Preliquidación" es correcto
     Then el usuario verifica que el subtitulo "Generación de preliquidación" es correcto
     And el usuario verifica que el boton "Continuar" es correcto
 
   @branding
   Scenario Outline: Cobranzas > Preliquidación inicial: alterna radio-botones "<boton>"
-    When el usuario ingresa al menu de "Preliquidación" en "Cobranzas"
+    When el usuario ingresa al menu de "Preliquidacion" en "Cobranzas"
     And el usuario selecciona "<boton>"
     Then el usuario verifica que el radio-boton "<boton>" es correcto
     And el usuario verifica que el boton "Continuar" es correcto
@@ -30,7 +30,7 @@ Feature: Cobranzas
 
   @branding
   Scenario: Cobranzas > Preliquidación incluyendo cuotas con débito automático: muestra filtros, resumen y paginado
-    When el usuario ingresa al menu de "Preliquidación" en "Cobranzas"
+    When el usuario ingresa al menu de "Preliquidacion" en "Cobranzas"
     And el usuario selecciona "SI"
     And el usuario hace clic en el boton "Continuar"
     And el usuario ingresa a la pantalla de "Preliquidación"
@@ -48,7 +48,7 @@ Feature: Cobranzas
 
   @branding
   Scenario: Cobranzas > Preliquidación excluyendo cuotas con débito automático: muestra filtros, resumen y paginado
-    When el usuario ingresa al menu de "Preliquidación" en "Cobranzas"
+    When el usuario ingresa al menu de "Preliquidacion" en "Cobranzas"
     And el usuario selecciona "NO"
     And el usuario hace clic en el boton "Continuar"
     And el usuario ingresa a la pantalla de "Preliquidación"
@@ -77,11 +77,11 @@ Feature: Cobranzas
 
   @branding
   Scenario: Cobranzas > Pólizas con Deuda Vencida: muestra título y paginado
-    When el usuario ingresa al menu de "Pólizas con Deuda Vencida" en "Cobranzas"
-    Then el usuario verifica que el titulo "Pólizas con Deuda Vencida" es correcto
+    When el usuario ingresa al menu de "Polizas con Deuda Vencida" en "Cobranzas"
+    Then el usuario verifica que el titulo "Polizas con Deuda Vencida" es correcto
     And el usuario verifica que el paginado de "polizas" es correcto
 
   @branding
   Scenario: Cobranzas > Rechazo de Débitos Automáticos: muestra título de pantalla
-    When el usuario ingresa al menu de "Rechazo de débitos automáticos" en "Cobranzas"
-    Then el usuario verifica que el titulo "Rechazos de débitos automaticos" es correcto
+    When el usuario ingresa al menu de "Rechazo de debitos automaticos" en "Cobranzas"
+    Then el usuario verifica que el titulo "Rechazo de debitos automaticos" es correcto

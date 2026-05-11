@@ -23,7 +23,7 @@ public class RoboSteps {
         commonPage.seleccionarArticulo(dataRobo.getArticulo());
     }
 
-    @And("el usuario realiza la cotizacion de ROBO WEB")
+    @And("el usuario realiza la cotización de ROBO WEB")
     public void elUsuarioRealizaLaCotizacionDeROBOWEB() {
         commonPage.clickIniciarCotizacion();
 
@@ -49,10 +49,11 @@ public class RoboSteps {
         commonPage.clickBotonRecotizar();
     }
 
-    @And("el usuario envia la cotizacion de ROBO WEB")
+    @And("el usuario envia la cotización de ROBO WEB")
     public void elUsuarioEnviaLaCotizacionDeROBOWEB() {
         commonPage.clickEditarCotizacion();
         commonPage.validarVariacionPersistida(dataRobo.getVariacion());
+
         commonPage.validarResumenActualizado();
 
         commonPage.clickBotonEmitir();
@@ -67,7 +68,36 @@ public class RoboSteps {
 
     }
 
-    @And("el usuario envia la cotizacion de ROBO WEB sin guardar")
+    @And("el usuario emite la cotización de ROBO WEB")
+    public void elUsuarioEmiteLaCotizacionDeROBOWEB() {
+        commonPage.clickEditarCotizacion();
+        commonPage.validarResumenActualizado();
+        commonPage.clickBotonEmitir();
+
+        commonPage.seleccionarNacionalidad(dataRobo.getEmision().getNacionalidad());
+        commonPage.ingresarNumeroTarjeta(dataRobo.getEmision().getTarjeta().getNumero());
+        commonPage.seleccionarEmpresaTarjeta(dataRobo.getEmision().getTarjeta().getCredito());
+        commonPage.ingresarVencimiento(dataRobo.getEmision().getTarjeta().getVencimiento());
+        commonPage.ingresarDomicilio(dataRobo.getEmision().getDomicilio());
+        commonPage.clickBotonEnviar();
+    }
+
+    @And("el usuario emite la cotización de ROBO WEB validando variación de comisión")
+    public void elUsuarioEmiteLaCotizacionDeROBOWEBValidandoVariacion() {
+        commonPage.clickEditarCotizacion();
+        commonPage.validarSubaYBajaDeComisionYExtraPrima(dataRobo.getVariacion());
+        commonPage.validarResumenActualizado();
+        commonPage.clickBotonEmitir();
+
+        commonPage.seleccionarNacionalidad(dataRobo.getEmision().getNacionalidad());
+        commonPage.ingresarNumeroTarjeta(dataRobo.getEmision().getTarjeta().getNumero());
+        commonPage.seleccionarEmpresaTarjeta(dataRobo.getEmision().getTarjeta().getCredito());
+        commonPage.ingresarVencimiento(dataRobo.getEmision().getTarjeta().getVencimiento());
+        commonPage.ingresarDomicilio(dataRobo.getEmision().getDomicilio());
+        commonPage.clickBotonEnviar();
+    }
+
+    @And("el usuario envia la cotización de ROBO WEB sin guardar")
     public void elUsuarioEnviaLaCotizacionDeROBOWEBSinGuardar() {
         commonPage.clickBotonEmitir();
 
@@ -80,3 +110,5 @@ public class RoboSteps {
         commonPage.clickBotonEnviar();
     }
 }
+
+

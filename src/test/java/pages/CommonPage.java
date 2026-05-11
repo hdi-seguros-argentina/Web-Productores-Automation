@@ -101,6 +101,14 @@ public class CommonPage extends MasterPage {
         throw new RuntimeException("No se pudo seleccionar la empresa de tarjeta: " + empresa);
     }
 
+    public void seleccionarMetodoPago(String metodoPago) {
+        String valorActual = auto_getElementTextOrValue(METODO_PAGO_VALOR_ACTUAL);
+        auto_setClickElement(METODO_PAGO_SELECT);
+        if (valorActual != null && valorActual.trim().equalsIgnoreCase("undefined")) {
+            auto_setClickElement(String.format(SELECT_OPCION, metodoPago));
+        }
+    }
+
     public void ingresarVencimiento(String vencimiento) {
         auto_setTextToInput(INPUT_VENCIMIENTO, vencimiento);
     }
@@ -110,8 +118,14 @@ public class CommonPage extends MasterPage {
     }
 
     public void guardarCotizacion() {
-        auto_waitForElementVisibility(BOTON_GUARDAR_COTIZACION);
-        auto_setClickElement(BOTON_GUARDAR_COTIZACION);
+        try {
+            auto_waitForElementVisibility(BOTON_GUARDAR_COTIZACION);
+            clickConReintento(BOTON_GUARDAR_COTIZACION);
+        } catch (Exception e) {
+            page.get().waitForTimeout(1500);
+            auto_waitForElementVisibility(BOTON_GUARDAR_COTIZACION);
+            clickConReintento(BOTON_GUARDAR_COTIZACION);
+        }
     }
 
     public void clickEditarCotizacion() {
@@ -144,13 +158,13 @@ public class CommonPage extends MasterPage {
 
     public void verificaEnvioCotizacion() {
         softAssertions.assertThatCode(() -> auto_waitForElementVisibility(POLIZA_ENVIO_TITULO))
-                .as("No se pudo enviar la cotizacion")
+                .as("No se pudo enviar la cotización")
                 .doesNotThrowAnyException();
         softAssertions.assertThatCode(() -> auto_waitForElementVisibility(POLIZA_ENVIO_TEXTO))
-                .as("No se visualiza el texto de envio de cotizacion")
+                .as("No se visualiza el texto de envío de cotización")
                 .doesNotThrowAnyException();
         softAssertions.assertThatCode(() -> auto_waitForElementVisibility(POLIZA_ENVIO_BOTON_ACEPTAR))
-                .as("No se visualiza el boton Aceptar en el envio de cotizacion")
+                .as("No se visualiza el boton Aceptar en el envío de cotización")
                 .doesNotThrowAnyException();
         softAssertions.assertAll();
     }
@@ -161,10 +175,24 @@ public class CommonPage extends MasterPage {
     }
 
     public void seleccionarLocalidad(String localidad) {
-        page.get().waitForTimeout(4000);
+        String desplegableLocalidad = String.format(SELECT_DESPLEGABLE, "Localidad");
+        String opcionLocalidad = String.format(SELECT_OPCION, localidad);
+        String contenidoVisibleLocalidad = desplegableLocalidad
+                + "//span[contains(@class,'ant-select-selection-item') or contains(@class,'ant-select-selection-placeholder')]";
 
-        clickConReintento(String.format(SELECT_DESPLEGABLE, "Localidad"));
-        clickConReintento(String.format(SELECT_OPCION, localidad));
+        auto_waitForElementInvisibility(".ant-spin-spinning");
+        auto_waitForElementVisibility(contenidoVisibleLocalidad);
+
+        try {
+            clickConReintento(desplegableLocalidad);
+            clickConReintento(opcionLocalidad);
+        } catch (Exception e) {
+            page.get().waitForTimeout(1500);
+            auto_waitForElementInvisibility(".ant-spin-spinning");
+            auto_waitForElementVisibility(contenidoVisibleLocalidad);
+            clickConReintento(desplegableLocalidad);
+            clickConReintento(opcionLocalidad);
+        }
     }
 
     public void seleccionarCobertura(String nombreCobertura) {
@@ -205,7 +233,7 @@ public class CommonPage extends MasterPage {
         comisionAntes = auto_getElementTextOrValue(COMISION_CAMPO);
         extraPrimaAntes = auto_getElementTextOrValue(EXTRA_PRIMA_VARIABLE_CAMPO);
         primaTecnicaResumen = esperarValorResumenValido(locatorPrima, "Prima tecnica");
-        comisionResumen = esperarValorResumenValido(locatorComision, "Comision");
+        comisionResumen = esperarValorResumenValido(locatorComision, "Comisión");
         premioResumen = esperarValorResumenValido(locatorPremio, "Premio");
     }
 
@@ -219,12 +247,13 @@ public class CommonPage extends MasterPage {
         String extraPrimaDespues = auto_getElementTextOrValue(EXTRA_PRIMA_VARIABLE_CAMPO);
 
         softAssertions.assertThat(comisionDespues)
-                .as("La comision debe cambiar al modificar la variacion")
+                .as("La comisión debe cambiar al modificar La variación")
                 .isNotEqualTo(comisionAntes);
 
         softAssertions.assertThat(extraPrimaDespues)
-                .as("La extra prima variable debe cambiar al modificar la variacion")
+                .as("La extra prima variable debe cambiar al modificar La variación")
                 .isNotEqualTo(extraPrimaAntes);
+        softAssertions.assertAll();
     }
 
     public void validarVariacionPersistida(Integer variacionEsperada) {
@@ -236,8 +265,48 @@ public class CommonPage extends MasterPage {
         String esperado = String.valueOf(variacionEsperada).trim();
 
         softAssertions.assertThat(variacionActual == null ? "" : variacionActual.trim())
-                .as("La variacion debe persistir luego de editar cotizacion")
+                .as("La variación debe persistir luego de editar cotización")
                 .isEqualTo(esperado);
+        softAssertions.assertAll();
+    }
+
+    public void validarSubaYBajaDeComisionYExtraPrima(Integer variacionBase) {
+        auto_waitForElementVisibility(INPUT_VARIACION);
+        auto_waitForElementVisibility(COMISION_CAMPO);
+        auto_waitForElementVisibility(EXTRA_PRIMA_VARIABLE_CAMPO);
+
+        double comisionBase = parseNumeroMonetario(auto_getElementTextOrValue(COMISION_CAMPO), "Comisión base");
+        double extraBase = parseNumeroMonetario(auto_getElementTextOrValue(EXTRA_PRIMA_VARIABLE_CAMPO), "Extra prima base");
+
+        int variacionMasUno = variacionBase + 1;
+        auto_setTextToInput(INPUT_VARIACION, String.valueOf(variacionMasUno));
+        clickBotonRecotizar();
+        page.get().waitForTimeout(2000);
+
+        double comisionMasUno = parseNumeroMonetario(auto_getElementTextOrValue(COMISION_CAMPO), "Comisión +1");
+        double extraMasUno = parseNumeroMonetario(auto_getElementTextOrValue(EXTRA_PRIMA_VARIABLE_CAMPO), "Extra prima +1");
+
+        softAssertions.assertThat(comisionMasUno)
+                .as("La comisión debe subir al aumentar 1 punto La variación")
+                .isGreaterThan(comisionBase);
+        softAssertions.assertThat(extraMasUno)
+                .as("La extra prima variable debe subir al aumentar 1 punto La variación")
+                .isGreaterThan(extraBase);
+
+        auto_setTextToInput(INPUT_VARIACION, String.valueOf(variacionBase));
+        clickBotonRecotizar();
+        page.get().waitForTimeout(2000);
+
+        double comisionRestablecida = parseNumeroMonetario(auto_getElementTextOrValue(COMISION_CAMPO), "Comisión restablecida");
+        double extraRestablecida = parseNumeroMonetario(auto_getElementTextOrValue(EXTRA_PRIMA_VARIABLE_CAMPO), "Extra prima restablecida");
+
+        softAssertions.assertThat(comisionRestablecida)
+                .as("La comisión debe bajar al volver 1 punto La variación")
+                .isLessThan(comisionMasUno);
+        softAssertions.assertThat(extraRestablecida)
+                .as("La extra prima variable debe bajar al volver 1 punto La variación")
+                .isLessThan(extraMasUno);
+        softAssertions.assertAll();
     }
 
     public void validarResumenActualizado() {
@@ -255,7 +324,7 @@ public class CommonPage extends MasterPage {
         auto_waitForElementVisibility(locatorPremio);
 
         String primaTecnicaActual = esperarValorResumenValido(locatorPrima, "Prima tecnica");
-        String comisionActual = esperarValorResumenValido(locatorComision, "Comision");
+        String comisionActual = esperarValorResumenValido(locatorComision, "Comisión");
         String premioActual = esperarValorResumenValido(locatorPremio, "Premio");
 
         softAssertions.assertThat(primaTecnicaActual)
@@ -263,7 +332,7 @@ public class CommonPage extends MasterPage {
                 .isEqualTo(primaTecnicaResumen);
 
         softAssertions.assertThat(comisionActual)
-                .as("La comision del resumen debe actualizarse")
+                .as("La comisión del resumen debe actualizarse")
                 .isNotEqualTo(comisionResumen);
 
         softAssertions.assertThat(premioActual)
@@ -314,8 +383,37 @@ public class CommonPage extends MasterPage {
                 .matches(patronValido);
         return ultimoValor;
     }
+
+    private double parseNumeroMonetario(String valorOriginal, String campo) {
+        String valor = valorOriginal == null ? "" : valorOriginal.trim();
+        String limpio = valor.replaceAll("[^0-9,.-]", "");
+
+        if (limpio.isEmpty() || limpio.equals("-") || limpio.equals(",") || limpio.equals(".")) {
+            throw new RuntimeException("No se pudo parsear el campo " + campo + ". Valor original: " + valorOriginal);
+        }
+
+        int ultimaComa = limpio.lastIndexOf(',');
+        int ultimoPunto = limpio.lastIndexOf('.');
+        if (ultimaComa > ultimoPunto) {
+            limpio = limpio.replace(".", "");
+            limpio = limpio.replace(",", ".");
+        } else if (ultimoPunto > ultimaComa) {
+            limpio = limpio.replace(",", "");
+        } else {
+            limpio = limpio.replace(",", "");
+        }
+
+        try {
+            return Double.parseDouble(limpio);
+        } catch (NumberFormatException e) {
+            throw new RuntimeException("No se pudo parsear el campo " + campo + ". Valor original: " + valorOriginal, e);
+        }
+    }
+
     public void seleccionarPlan(String plan) {
         auto_setClickElement(PLAN_SELECT);
         auto_setClickElement(String.format(SELECT_OPCION, plan));
     }
 }
+
+

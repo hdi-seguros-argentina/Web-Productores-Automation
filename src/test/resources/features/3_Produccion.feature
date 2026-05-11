@@ -12,7 +12,7 @@ Feature: Produccion
 
   @branding
   Scenario: Producción > Listado de Pólizas: muestra filtros y acciones principales
-    When el usuario ingresa al menu de Listado de polizas en Produccion
+    When el usuario ingresa al menu de "Listado de Polizas" en "Produccion"
     Then el usuario verifica que el titulo "Listado de Pólizas" es correcto
     And el usuario verifica que el input "Productor" es correcto
     And el usuario verifica que el input "Fecha inicial" es correcto
@@ -23,35 +23,33 @@ Feature: Produccion
 
   @branding
   Scenario: Producción > Listado de Pólizas: muestra íconos de acceso directo
-    When el usuario ingresa al menu de Listado de polizas en Produccion
+    When el usuario ingresa al menu de "Listado de Polizas" en "Produccion"
     Then el usuario verifica que los iconos de acceso directo son correctos
 
   @branding
   Scenario: Producción > Listado de Pólizas: muestra botón Acciones y paginado operativo
-    When el usuario ingresa al menu de Listado de polizas en Produccion
+    When el usuario ingresa al menu de "Listado de Polizas" en "Produccion"
     Then el usuario verifica que el boton "Acciones" es correcto
     And el usuario verifica que el paginado de "pólizas" es correcto
 
   @branding
   Scenario: Producción > Listado de Pólizas: permite abrir el detalle de una póliza
-    When el usuario ingresa al menu de Listado de polizas en Produccion
+    When el usuario ingresa al menu de "Listado de Polizas" en "Produccion"
     And el usuario selecciona el radio Ramo y Numero de Poliza
     And el usuario selecciona "ACC. PERSONALES COL." en Ramo
     And el usuario selecciona "240431" en Número de póliza
     And el usuario hace clic en el boton "Filtrar"
-    And el usuario hace clic en el boton "Acciones"
     And el usuario hace clic en el boton "Ver póliza"
     Then el usuario verifica que el boton de Poliza es correcto
     And el usuario verifica que el icono de info es correcto
 
   @branding
   Scenario: Producción > Detalle de Póliza: muestra tabs y títulos de secciones
-    When el usuario ingresa al menu de Listado de polizas en Produccion
+    When el usuario ingresa al menu de "Listado de Polizas" en "Produccion"
     And el usuario selecciona el radio Ramo y Numero de Poliza
     And el usuario selecciona "ACC. PERSONALES COL." en Ramo
     And el usuario selecciona "240431" en Número de póliza
     And el usuario hace clic en el boton "Filtrar"
-    And el usuario hace clic en el boton "Acciones"
     And el usuario hace clic en el boton "Ver póliza"
     Then el usuario verifica que la tab "Principal" es correcta
     And el usuario verifica que la tab "Datos generales" es correcta

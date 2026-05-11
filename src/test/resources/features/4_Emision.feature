@@ -24,6 +24,6 @@ Feature: Emision
 
   @branding
   Scenario: Emisión > Transporte Mercaderías: muestra título y acción Aceptar
-    When el usuario ingresa al menu de "Transporte Mercaderías" en "Emision"
+    When el usuario ingresa al menu de "Transporte Mercaderias" en "Emision"
     Then el usuario verifica que el titulo "Transporte Mercaderías" es correcto
     And el usuario verifica que el boton "Aceptar" es correcto

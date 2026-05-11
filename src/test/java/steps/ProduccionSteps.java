@@ -66,4 +66,10 @@ public class ProduccionSteps {
     public void elUsuarioIngresaAlMenuDeEn(String arg0, String arg1) {
         produccionPage.ingresarAWeb(arg0, arg1);
     }
+
+    @And("el usuario obtiene una póliza vigente del ramo {string}")
+    public void elUsuarioObtieneUnaPolizaVigenteDelRamo(String ramo) {
+        produccionPage.guardarPolizaVigenteDelRamoEnJson(ramo);
+    }
 }
+

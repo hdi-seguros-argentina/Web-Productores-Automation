@@ -18,3 +18,4 @@ public class HogarPage extends MasterPage {
         auto_setClickElement(String.format(SELECT_OPCION, tipoVivienda));
     }
 }
+

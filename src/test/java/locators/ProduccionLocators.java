@@ -1,12 +1,12 @@
 package locators;
 
 public class ProduccionLocators {
-    public static final String PRODUCCION_MENU_XPATH = "//span[text()='Produccion']";
-    public static final String LISTADOPOLIZAS_MENU_XPATH = "//span[text()='Listado de Polizas']";
+    public static final String PRODUCCION_MENU_XPATH = "//span[text()='Producción']";
+    public static final String LISTADOPOLIZAS_MENU_XPATH = "//span[text()='Listado de Pólizas']";
     public static final String FECHA_DESPLEGABLE_XPATH = "//input[@placeholder='Fecha inicial']/ancestor::div[2]";
     public static final String ASEGURADO1_INPUT_XPATH = "(//*[normalize-space()='Asegurado']/ancestor::div[1])[2]";
     public static final String ACCESODIRECTO_ICONS_XPATH = "//span[text()='Accesos directos']/ancestor::div[2]/div[2]//span[@role='img']";
-    public static final String RAMO_NUMERO_POLIZA_RADIO_XPATH = "//label[contains(@class,'ant-radio-wrapper')][.//span[contains(normalize-space(),'Ramo y') and (contains(normalize-space(),'Poliza') or contains(normalize-space(),'Póliza'))]]";
+    public static final String RAMO_NUMERO_POLIZA_RADIO_XPATH = "//label[contains(@class,'ant-radio-wrapper')][.//span[contains(normalize-space(),'Ramo y') and (contains(normalize-space(),'Póliza') or contains(normalize-space(),'Póliza'))]]";
     public static final String RAMO_DESPLEGABLE_XPATH = "//span[text()='Ramo']/ancestor::div[1]";
     public static final String RAMO_DESPLEGABLE1_XPATH = "//*[text()='%s']";
     public static final String GENERIC_BOTON_XPATH = "(//span[text()='%s'])[1]";
@@ -17,4 +17,8 @@ public class ProduccionLocators {
     public static final String POLIZA_PANEL_XPATH = "//a[text()='%s']";
     public static final String GENERIC_MENU_XPATH = "//span[text()='%s']";
     public static final String GENERIC_SUBMENU_XPATH = "//span[text()='%s']";
+    public static final String BOTON_FILTRAR = "//button[contains(@class,'filters-buttons')][.//span[normalize-space()='Filtrar']]";
+    public static final String CARD_POLIZA_VIGENTE_XPATH = "//div[contains(@class,'ant-card-body')][.//span[normalize-space()='Vigente']]";
+    public static final String CARD_POLIZA_NUMERO_RELATIVE_XPATH = "xpath=.//span[normalize-space()='Póliza' or normalize-space()='Póliza']/ancestor::div[1]/following-sibling::div[1]//strong";
 }
+

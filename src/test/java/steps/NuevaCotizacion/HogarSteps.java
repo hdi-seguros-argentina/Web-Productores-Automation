@@ -26,7 +26,7 @@ public class HogarSteps {
         commonPage.seleccionarArticulo(dataHogar.getArticulo());
     }
 
-    @And("el usuario realiza la cotizacion de COMBINADO FAMILIAR")
+    @And("el usuario realiza la cotización de COMBINADO FAMILIAR")
     public void elUsuarioRealizaLaCotizacionDeCOMBINADOFAMILIAR() {
         commonPage.clickIniciarCotizacion();
 
@@ -50,12 +50,12 @@ public class HogarSteps {
         commonPage.clickBotonRecotizar();
     }
 
-    @And("el usuario guarda la cotizacion")
+    @And("el usuario guarda la cotización")
     public void elUsuarioGuardaCotizacion() {
         commonPage.guardarCotizacion();
     }
 
-    @And("el usuario envia la cotizacion de COMBINADO FAMILIAR")
+    @And("el usuario envia la cotización de COMBINADO FAMILIAR")
     public void elUsuarioEnviaCotizacionDeCOMBINADOFAMILIAR() {
         commonPage.clickEditarCotizacion();
         commonPage.validarVariacionPersistida(dataHogar.getVariacion());
@@ -71,7 +71,36 @@ public class HogarSteps {
         commonPage.clickBotonEnviar();
     }
 
-    @And("el usuario envia la cotizacion de COMBINADO FAMILIAR sin guardar")
+    @And("el usuario emite la cotización de COMBINADO FAMILIAR")
+    public void elUsuarioEmiteCotizacionDeCOMBINADOFAMILIAR() {
+        commonPage.clickEditarCotizacion();
+        commonPage.validarResumenActualizado();
+        commonPage.clickBotonEmitir();
+
+        commonPage.seleccionarNacionalidad(dataHogar.getEmision().getNacionalidad());
+        commonPage.ingresarNumeroTarjeta(dataHogar.getEmision().getTarjeta().getNumero());
+        commonPage.seleccionarEmpresaTarjeta(dataHogar.getEmision().getTarjeta().getCredito());
+        commonPage.ingresarVencimiento(dataHogar.getEmision().getTarjeta().getVencimiento());
+        commonPage.ingresarDomicilio(dataHogar.getEmision().getDomicilio());
+        commonPage.clickBotonEnviar();
+    }
+
+    @And("el usuario emite la cotización de COMBINADO FAMILIAR validando variación de comisión")
+    public void elUsuarioEmiteCotizacionDeCOMBINADOFAMILIARValidandoVariacion() {
+        commonPage.clickEditarCotizacion();
+        commonPage.validarSubaYBajaDeComisionYExtraPrima(dataHogar.getVariacion());
+        commonPage.validarResumenActualizado();
+        commonPage.clickBotonEmitir();
+
+        commonPage.seleccionarNacionalidad(dataHogar.getEmision().getNacionalidad());
+        commonPage.ingresarNumeroTarjeta(dataHogar.getEmision().getTarjeta().getNumero());
+        commonPage.seleccionarEmpresaTarjeta(dataHogar.getEmision().getTarjeta().getCredito());
+        commonPage.ingresarVencimiento(dataHogar.getEmision().getTarjeta().getVencimiento());
+        commonPage.ingresarDomicilio(dataHogar.getEmision().getDomicilio());
+        commonPage.clickBotonEnviar();
+    }
+
+    @And("el usuario envia la cotización de COMBINADO FAMILIAR sin guardar")
     public void elUsuarioEnviaCotizacionDeCOMBINADOFAMILIARSinGuardar() {
         commonPage.clickBotonEmitir();
 
@@ -84,8 +113,10 @@ public class HogarSteps {
         commonPage.clickBotonEnviar();
     }
 
-    @Then("el usuario verifica el envio de la cotizacion")
+    @Then("el usuario verifica el envío de la cotización")
     public void elUsuarioVerificaElEnvioDeLaCotizacion() {
         commonPage.verificaEnvioCotizacion();
     }
 }
+
+

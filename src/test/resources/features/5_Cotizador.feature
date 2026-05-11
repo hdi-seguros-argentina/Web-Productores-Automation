@@ -12,7 +12,7 @@ Feature: Cotizador
 
   @branding
   Scenario: Cotizador > Nueva Cotización: muestra selector de grupo y acción de inicio
-    When el usuario ingresa al menu de "Nueva Cotización" en "Cotizador"
+    When el usuario ingresa al menu de "Nueva Cotizacion" en "Cotizador"
     Then el usuario verifica que el titulo "Nueva Cotización" es correcto
     And el usuario verifica que el input "Seleccione un grupo" es correcto
     And el usuario selecciona "ACCIDENTES PERSONALES" en grupo

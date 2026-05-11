@@ -23,7 +23,7 @@ public class IntegralConsorcioSteps {
         commonPage.seleccionarArticulo(dataIntegralConsorcio.getArticulo());
     }
 
-    @And("el usuario realiza la cotizacion de INTEGRAL DE CONSORCIO")
+    @And("el usuario realiza la cotización de INTEGRAL DE CONSORCIO")
     public void elUsuarioRealizaLaCotizacionDeINTEGRALDECONSORCIO() {
         commonPage.clickIniciarCotizacion();
 
@@ -49,10 +49,11 @@ public class IntegralConsorcioSteps {
         commonPage.clickBotonRecotizar();
     }
 
-    @And("el usuario envia la cotizacion de INTEGRAL DE CONSORCIO")
+    @And("el usuario envia la cotización de INTEGRAL DE CONSORCIO")
     public void elUsuarioEnviaLaCotizacionDeINTEGRALDECONSORCIO() {
         commonPage.clickEditarCotizacion();
         commonPage.validarVariacionPersistida(dataIntegralConsorcio.getVariacion());
+
         commonPage.validarResumenActualizado();
 
         commonPage.clickBotonEmitir();
@@ -66,7 +67,36 @@ public class IntegralConsorcioSteps {
         commonPage.clickBotonEnviar();
     }
 
-    @And("el usuario envia la cotizacion de INTEGRAL DE CONSORCIO sin guardar")
+    @And("el usuario emite la cotización de INTEGRAL DE CONSORCIO")
+    public void elUsuarioEmiteLaCotizacionDeINTEGRALDECONSORCIO() {
+        commonPage.clickEditarCotizacion();
+        commonPage.validarResumenActualizado();
+        commonPage.clickBotonEmitir();
+
+        commonPage.seleccionarNacionalidad(dataIntegralConsorcio.getEmision().getNacionalidad());
+        commonPage.ingresarNumeroTarjeta(dataIntegralConsorcio.getEmision().getTarjeta().getNumero());
+        commonPage.seleccionarEmpresaTarjeta(dataIntegralConsorcio.getEmision().getTarjeta().getCredito());
+        commonPage.ingresarVencimiento(dataIntegralConsorcio.getEmision().getTarjeta().getVencimiento());
+        commonPage.ingresarDomicilio(dataIntegralConsorcio.getEmision().getDomicilio());
+        commonPage.clickBotonEnviar();
+    }
+
+    @And("el usuario emite la cotización de INTEGRAL DE CONSORCIO validando variación de comisión")
+    public void elUsuarioEmiteLaCotizacionDeINTEGRALDECONSORCIOValidandoVariacion() {
+        commonPage.clickEditarCotizacion();
+        commonPage.validarSubaYBajaDeComisionYExtraPrima(dataIntegralConsorcio.getVariacion());
+        commonPage.validarResumenActualizado();
+        commonPage.clickBotonEmitir();
+
+        commonPage.seleccionarNacionalidad(dataIntegralConsorcio.getEmision().getNacionalidad());
+        commonPage.ingresarNumeroTarjeta(dataIntegralConsorcio.getEmision().getTarjeta().getNumero());
+        commonPage.seleccionarEmpresaTarjeta(dataIntegralConsorcio.getEmision().getTarjeta().getCredito());
+        commonPage.ingresarVencimiento(dataIntegralConsorcio.getEmision().getTarjeta().getVencimiento());
+        commonPage.ingresarDomicilio(dataIntegralConsorcio.getEmision().getDomicilio());
+        commonPage.clickBotonEnviar();
+    }
+
+    @And("el usuario envia la cotización de INTEGRAL DE CONSORCIO sin guardar")
     public void elUsuarioEnviaLaCotizacionDeINTEGRALDECONSORCIOSinGuardar() {
         commonPage.clickBotonEmitir();
 
@@ -79,3 +109,5 @@ public class IntegralConsorcioSteps {
         commonPage.clickBotonEnviar();
     }
 }
+
+

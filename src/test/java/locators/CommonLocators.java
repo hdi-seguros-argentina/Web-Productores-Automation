@@ -16,12 +16,14 @@ public class CommonLocators {
     public static final String BOTON_COTIZAR="//button[.//span[text()='Cotizar']]";
     public static final String BOTON_GUARDAR_COTIZACION="//button[.//span[text()='Guardar Cotización']]";
     public static final String BOTON_LAPIZ_EDITAR="(//tr[.//td[contains(text(),'COTIZACION SALVADA')]]//button)[1]";
-    public static final String TITULO_NUEVACOTIZACION_XPATH="//h3[text()='Nueva Cotización']";
+    public static final String TITULO_NUEVACOTIZACION_XPATH="//h3[text()='Nueva cotización']";
     public static final String BOTON_RECOTIZAR="//button[.//span[text()='Recotizar']]";
     public static final String BOTON_EMITIR="//button[.//span[text()='Emitir']]";
     public static final String NACIONALIDAD_SELECT="//label[text()='Nacionalidad']/following::div[contains(@class,'ant-select')][1]";
     public static final String NACIONALIDAD_INPUT_SELECT="//input[@id='client-data-form_nationality']";
     public static final String TARJETA_CREDITO_SELECT="//input[@id='payment-method-form_companyCreditCard']/ancestor::div[contains(@class,'ant-select')][1]";
+    public static final String METODO_PAGO_SELECT="//input[@id='payment-methods-form_paymentMethod']/ancestor::div[contains(@class,'ant-select')][1]";
+    public static final String METODO_PAGO_VALOR_ACTUAL="//input[@id='payment-methods-form_paymentMethod']/ancestor::div[contains(@class,'ant-select')][1]//*[contains(@class,'ant-select-selection-item') or contains(@class,'ant-select-selection-placeholder')][1]";
     public static final String TARJETA_CREDITO_OPCION="//div[contains(@class,'rc-virtual-list-holder-inner')]//div[contains(@class,'ant-select-item-option') and @title='%s']";
     public static final String TARJETA_CREDITO_OPCION_POR_TEXTO="//div[contains(@class,'rc-virtual-list-holder-inner')]//div[contains(@class,'ant-select-item-option-content') and normalize-space()='%s']";
     public static final String TARJETA_CREDITO_SELECCIONADA="//input[@id='payment-method-form_companyCreditCard']/ancestor::div[contains(@class,'ant-select')][1]//span[contains(@class,'ant-select-selection-item') and @title='%s']";
@@ -67,7 +69,7 @@ public class CommonLocators {
     public static final String INPUT_HORA_HASTA = "(//input[@date-range='end'])[2]";
     public static final String BOTON_ACEPTAR_HORA = "//button[.//span[text()='Aceptar']]";
 
-    // Variacion y resumen de cotizacion (todas las ramas)
+    // Variacion y resumen de cotización (todas las ramas)
     public static final String INPUT_VARIACION = "//input[contains(@id,'variation')]";
     public static final String COMISION_CAMPO = "//input[contains(@id,'commission')]";
     public static final String EXTRA_PRIMA_VARIABLE_CAMPO = "//input[contains(@id,'extraVariable')]";
@@ -78,3 +80,4 @@ public class CommonLocators {
     public static final String PREMIO_RESUMEN = "//span[contains(normalize-space(),'Premio')]/ancestor::div[contains(@class,'ant-col')][1]//div[contains(@class,'ant-row')][2]//*[self::span or self::div or self::b][1]";
     public static final String PREMIO_AUTO_RESUMEN = "//span[contains(normalize-space(),'Premio')]/ancestor::div[2]/div[2]/div";
 }
+

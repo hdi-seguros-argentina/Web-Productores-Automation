@@ -16,7 +16,7 @@
 
     <properties>
         <!--suppress UnresolvedMavenProperty -->
-        <tagExecution>@NUEVACOTIZACION</tagExecution>
+        <tagExecution>@AUTOMATED</tagExecution>
         <navigateUrl>https://test-productores.hdi.com.ar/</navigateUrl>
         <selectedBrowser>Chromium</selectedBrowser>
     </properties>

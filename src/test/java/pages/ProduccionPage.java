@@ -1,7 +1,13 @@
 package pages;
 import com.core.utility.MasterPage;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.microsoft.playwright.ElementHandle;
 import com.microsoft.playwright.Locator;
+import models.SiniestroPolizaData;
 import org.assertj.core.api.SoftAssertions;
+
+import java.io.FileWriter;
 import java.util.List;
 
 import static locators.CommonLocators.SELECT_DESPLEGABLE;
@@ -154,4 +160,53 @@ public class ProduccionPage extends MasterPage {
         auto_setClickElement(String.format(GENERIC_MENU_XPATH, arg1));
         auto_setClickElement(String.format(GENERIC_SUBMENU_XPATH, arg0));
     }
+
+    public void guardarPolizaVigenteDelRamoEnJson(String ramo) {
+        ingresaListadoPolizas();
+        seleccionTipoBusquedaRamoNumeroPoliza();
+        seleccionRamo(ramo);
+        auto_setClickElement(BOTON_FILTRAR);
+        page.get().waitForTimeout(2000);
+
+        auto_waitForElementVisibility(CARD_POLIZA_VIGENTE_XPATH);
+
+        List<ElementHandle> cardsVigentes = page.get().locator(CARD_POLIZA_VIGENTE_XPATH).elementHandles();
+        String poliza = "";
+        for (ElementHandle card : cardsVigentes) {
+            String textoCard = card.textContent() == null ? "" : card.textContent().toUpperCase();
+            if (!textoCard.contains(ramo.toUpperCase())) {
+                continue;
+            }
+            ElementHandle polizaHandle = card.querySelector(CARD_POLIZA_NUMERO_RELATIVE_XPATH);
+            if (polizaHandle != null) {
+                poliza = polizaHandle.textContent().trim();
+                if (!poliza.isEmpty()) {
+                    break;
+                }
+            }
+        }
+
+        if (poliza.isEmpty()) {
+            throw new RuntimeException("No se encontro una poliza vigente para el ramo: " + ramo);
+        }
+
+        String nombreJson = obtenerNombreJsonSiniestro(ramo);
+        SiniestroPolizaData data = new SiniestroPolizaData(ramo, poliza);
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        try (FileWriter writer = new FileWriter("src/test/resources/Datos/" + nombreJson)) {
+            gson.toJson(data, writer);
+        } catch (Exception e) {
+            throw new RuntimeException("No se pudo guardar el json de poliza vigente: " + nombreJson, e);
+        }
+    }
+
+    private String obtenerNombreJsonSiniestro(String ramo) {
+        String ramoNormalizado = ramo == null ? "" : ramo.trim().toUpperCase();
+        return switch (ramoNormalizado) {
+            case "AUTOMOVILES" -> "siniestro_automoviles.json";
+            case "AUTOS - RESP. CIVIL" -> "siniestro_autos_resp_civil.json";
+            default -> throw new RuntimeException("No hay json configurado para el ramo: " + ramo);
+        };
+    }
 }
+

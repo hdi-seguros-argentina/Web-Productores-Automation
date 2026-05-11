@@ -26,7 +26,7 @@ public class AccidentesSteps{
         commonPage.seleccionarArticulo(dataAccidentes.getArticulo());
     }
 
-    @And("el usuario realiza la cotizacion de ACCIDENTES PERSONALES COLECTIV")
+    @And("el usuario realiza la cotización de ACCIDENTES PERSONALES COLECTIV")
     public void elUsuarioRealizaLaCotizacionDeACCIDENTESPERSONALESCOLECTIV() {
         commonPage.clickIniciarCotizacion();
 
@@ -47,7 +47,7 @@ public class AccidentesSteps{
         commonPage.clickBotonRecotizar();
     }
 
-    @And("el usuario envia la cotizacion de ACCIDENTES PERSONALES COLECTIV")
+    @And("el usuario envia la cotización de ACCIDENTES PERSONALES COLECTIV con persistencia de comisión")
     public void elUsuarioEnviaLaCotizacionDeACCIDENTESPERSONALESCOLECTIV() {
         commonPage.clickEditarCotizacion();
         commonPage.validarVariacionPersistida(dataAccidentes.getVariacion());
@@ -65,7 +65,43 @@ public class AccidentesSteps{
         commonPage.clickBotonEnviar();
     }
 
-    @And("el usuario envia la cotizacion de ACCIDENTES PERSONALES COLECTIV sin guardar")
+    @And("el usuario emite la cotización de ACCIDENTES PERSONALES COLECTIV")
+    public void elUsuarioEmiteLaCotizacionDeACCIDENTESPERSONALESCOLECTIVSinValidarVariacion() {
+        commonPage.clickEditarCotizacion();
+        commonPage.validarResumenActualizado();
+        commonPage.clickBotonEmitir();
+
+        commonPage.seleccionarNacionalidad(dataAccidentes.getEmision().getNacionalidad());
+        commonPage.ingresarNumeroTarjeta(dataAccidentes.getEmision().getTarjeta().getNumero());
+        commonPage.seleccionarEmpresaTarjeta(dataAccidentes.getEmision().getTarjeta().getCredito());
+        commonPage.ingresarVencimiento(dataAccidentes.getEmision().getTarjeta().getVencimiento());
+        for (Persona persona : dataAccidentes.getPersonas()) {
+            accidentePage.agregarPersona(persona);
+            commonPage.clickBotonGuardar();
+        }
+        commonPage.clickBotonEnviar();
+    }
+
+    @And("el usuario emite la cotización de ACCIDENTES PERSONALES COLECTIV validando variación de comisión")
+    public void elUsuarioValidaLaVariacionDeACCIDENTESPERSONALESCOLECTIV() {
+        commonPage.clickEditarCotizacion();
+        commonPage.seleccionarMetodoPago("DEB BANCARIO 1 CUOTA AP");
+        commonPage.validarSubaYBajaDeComisionYExtraPrima(dataAccidentes.getVariacion());
+        commonPage.validarResumenActualizado();
+        commonPage.clickBotonEmitir();
+
+        commonPage.seleccionarNacionalidad(dataAccidentes.getEmision().getNacionalidad());
+        commonPage.ingresarNumeroTarjeta(dataAccidentes.getEmision().getTarjeta().getNumero());
+        commonPage.seleccionarEmpresaTarjeta(dataAccidentes.getEmision().getTarjeta().getCredito());
+        commonPage.ingresarVencimiento(dataAccidentes.getEmision().getTarjeta().getVencimiento());
+        for (Persona persona : dataAccidentes.getPersonas()) {
+            accidentePage.agregarPersona(persona);
+            commonPage.clickBotonGuardar();
+        }
+        commonPage.clickBotonEnviar();
+    }
+
+    @And("el usuario envia la cotización de ACCIDENTES PERSONALES COLECTIV sin guardar")
     public void elUsuarioEnviaLaCotizacionDeACCIDENTESPERSONALESCOLECTIVSinGuardar() {
         commonPage.clickBotonEmitir();
 
@@ -80,3 +116,4 @@ public class AccidentesSteps{
         commonPage.clickBotonEnviar();
     }
 }
+

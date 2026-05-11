@@ -14,4 +14,10 @@ public class SiniestroSteps {
     public void elUsuarioVerificaQueElRadioBotonEsCorrecto(String arg0) {
         siniestroPage.verificaRadioBotonCorrecto(arg0);
     }
+
+    @And("el usuario completa la busqueda de póliza vigente del ramo {string}")
+    public void elUsuarioCompletaLaBusquedaDePolizaVigenteDelRamo(String ramo) {
+        siniestroPage.completarBusquedaPorPolizaVigente(ramo);
+    }
 }
+

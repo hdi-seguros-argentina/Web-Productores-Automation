@@ -26,7 +26,7 @@ public class IntegralComercioSteps {
 
     }
 
-    @And("el usuario realiza la cotizacion de INTEGRAL DE COMERCIO WEB")
+    @And("el usuario realiza la cotización de INTEGRAL DE COMERCIO WEB")
     public void elUsuarioRealizaLaCotizacionDeINTEGRALDECOMERCIOWEB() {
         commonPage.clickIniciarCotizacion();
 
@@ -55,10 +55,11 @@ public class IntegralComercioSteps {
         commonPage.clickBotonRecotizar();
     }
 
-    @And("el usuario envia la cotizacion de INTEGRAL DE COMERCIO WEB")
+    @And("el usuario envia la cotización de INTEGRAL DE COMERCIO WEB")
     public void elUsuarioEnviaLaCotizacionDeINTEGRALDECOMERCIOWEB() {
         commonPage.clickEditarCotizacion();
         commonPage.validarVariacionPersistida(dataIntegralComercio.getVariacion());
+
         commonPage.validarResumenActualizado();
 
         commonPage.clickBotonEmitir();
@@ -75,7 +76,40 @@ public class IntegralComercioSteps {
         commonPage.clickBotonEnviar();
     }
 
-    @And("el usuario envia la cotizacion de INTEGRAL DE COMERCIO WEB sin guardar")
+    @And("el usuario emite la cotización de INTEGRAL DE COMERCIO WEB")
+    public void elUsuarioEmiteLaCotizacionDeINTEGRALDECOMERCIOWEB() {
+        commonPage.clickEditarCotizacion();
+        commonPage.validarResumenActualizado();
+        commonPage.clickBotonEmitir();
+
+        commonPage.seleccionarNacionalidad(dataIntegralComercio.getEmision().getNacionalidad());
+        commonPage.ingresarNumeroTarjeta(dataIntegralComercio.getEmision().getTarjeta().getNumero());
+        commonPage.seleccionarEmpresaTarjeta(dataIntegralComercio.getEmision().getTarjeta().getCredito());
+        commonPage.ingresarVencimiento(dataIntegralComercio.getEmision().getTarjeta().getVencimiento());
+        commonPage.ingresarDomicilio(dataIntegralComercio.getEmision().getDomicilio());
+        InformacionDeContacto contacto = dataIntegralComercio.getInformacionDeContacto();
+        commonPage.completarInformacionContacto(contacto);
+        commonPage.clickBotonEnviar();
+    }
+
+    @And("el usuario emite la cotización de INTEGRAL DE COMERCIO WEB validando variación de comisión")
+    public void elUsuarioEmiteLaCotizacionDeINTEGRALDECOMERCIOWEBValidandoVariacion() {
+        commonPage.clickEditarCotizacion();
+        commonPage.validarSubaYBajaDeComisionYExtraPrima(dataIntegralComercio.getVariacion());
+        commonPage.validarResumenActualizado();
+        commonPage.clickBotonEmitir();
+
+        commonPage.seleccionarNacionalidad(dataIntegralComercio.getEmision().getNacionalidad());
+        commonPage.ingresarNumeroTarjeta(dataIntegralComercio.getEmision().getTarjeta().getNumero());
+        commonPage.seleccionarEmpresaTarjeta(dataIntegralComercio.getEmision().getTarjeta().getCredito());
+        commonPage.ingresarVencimiento(dataIntegralComercio.getEmision().getTarjeta().getVencimiento());
+        commonPage.ingresarDomicilio(dataIntegralComercio.getEmision().getDomicilio());
+        InformacionDeContacto contacto = dataIntegralComercio.getInformacionDeContacto();
+        commonPage.completarInformacionContacto(contacto);
+        commonPage.clickBotonEnviar();
+    }
+
+    @And("el usuario envia la cotización de INTEGRAL DE COMERCIO WEB sin guardar")
     public void elUsuarioEnviaLaCotizacionDeINTEGRALDECOMERCIOWEBSinGuardar() {
         commonPage.clickBotonEmitir();
 
@@ -91,3 +125,5 @@ public class IntegralComercioSteps {
         commonPage.clickBotonEnviar();
     }
 }
+
+

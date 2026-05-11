@@ -10,20 +10,45 @@ Feature: Cotizador Incendio
     And el usuario selecciona un intermediario
 
   @AUTOMATED @COTIZACIONRETOME @regresion @Cotizador
-  Scenario: Nueva cotizacion con retome de INCENDIO VIVIENDAS
-    When el usuario ingresa al menu de "Nueva Cotización" en "Cotizador"
+  Scenario: Emision de INCENDIO VIVIENDAS en retome
+    When el usuario ingresa al menu de "Nueva Cotizacion" en "Cotizador"
     And el usuario selecciona INCENDIO WEB desde el json
     And el usuario selecciona INCENDIO VIVIENDAS desde el json
-    And el usuario realiza la cotizacion de INCENDIO VIVIENDAS
-    And el usuario guarda la cotizacion
-    And el usuario envia la cotizacion de INCENDIO VIVIENDAS
-    Then el usuario verifica el envio de la cotizacion
+    And el usuario realiza la cotización de INCENDIO VIVIENDAS
+    And el usuario guarda la cotización
+    And el usuario emite la cotización de INCENDIO VIVIENDAS
+    Then el usuario verifica el envío de la cotización
+
+  @AUTOMATED @COTIZACIONRETOME @regresion @Cotizador
+  Scenario: Persistencia de variación en retome de INCENDIO VIVIENDAS
+    When el usuario ingresa al menu de "Nueva Cotizacion" en "Cotizador"
+    And el usuario selecciona INCENDIO WEB desde el json
+    And el usuario selecciona INCENDIO VIVIENDAS desde el json
+    And el usuario realiza la cotización de INCENDIO VIVIENDAS
+    And el usuario guarda la cotización
+    And el usuario envia la cotización de INCENDIO VIVIENDAS
+    Then el usuario verifica el envío de la cotización
+
+  @AUTOMATED @COTIZACIONRETOME @regresion @Cotizador @variacion
+  Scenario: Variación en retome de INCENDIO VIVIENDAS
+    When el usuario ingresa al menu de "Nueva Cotizacion" en "Cotizador"
+    And el usuario selecciona INCENDIO WEB desde el json
+    And el usuario selecciona INCENDIO VIVIENDAS desde el json
+    And el usuario realiza la cotización de INCENDIO VIVIENDAS
+    And el usuario guarda la cotización
+    And el usuario emite la cotización de INCENDIO VIVIENDAS validando variación de comisión
+    Then el usuario verifica el envío de la cotización
 
   @AUTOMATED @COTIZACIONNUEVA @regresion @Cotizador
-  Scenario: Nueva cotizacion de INCENDIO VIVIENDAS
-    When el usuario ingresa al menu de "Nueva Cotización" en "Cotizador"
+  Scenario: Nueva Cotización de INCENDIO VIVIENDAS
+    When el usuario ingresa al menu de "Nueva Cotizacion" en "Cotizador"
     And el usuario selecciona INCENDIO WEB desde el json
     And el usuario selecciona INCENDIO VIVIENDAS desde el json
-    And el usuario realiza la cotizacion de INCENDIO VIVIENDAS
-    And el usuario envia la cotizacion de INCENDIO VIVIENDAS sin guardar
-    Then el usuario verifica el envio de la cotizacion
+    And el usuario realiza la cotización de INCENDIO VIVIENDAS
+    And el usuario envia la cotización de INCENDIO VIVIENDAS sin guardar
+    Then el usuario verifica el envío de la cotización
+
+
+
+
+
