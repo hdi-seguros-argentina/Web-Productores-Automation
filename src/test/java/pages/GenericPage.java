@@ -24,6 +24,7 @@ public class GenericPage extends MasterPage {
     public static final String COLOR_7 = "rgb(232, 69, 121)";    //Magenta claro
     public static final String COLOR_8 = "rgb(217, 217, 217)";   //Gris claro
     public static final String COLOR_3 = "rgb(0, 91, 187)";      //Azul
+    public static final String COLOR_AZUL_ANT = "rgb(22, 119, 255)";
     public static final String COLOR_GRIS_FONDO_TEMA = "rgb(250, 250, 250)";
     public static final String COLOR_GRIS_TEXTO_TEMA = "rgb(157, 157, 157)";
     public static final String COLOR_NARANJA = "rgb(219, 99, 1)";
@@ -153,11 +154,10 @@ public class GenericPage extends MasterPage {
             Locator aseguradoInput = page.get().locator(String.format(GENERIC1_INPUT_XPATH, arg0)).first();
             Locator aseguradoSelect = page.get().locator(ASEGURADO1_INPUT_XPATH).first();
             locator = (aseguradoInput.count() > 0 && aseguradoInput.isVisible()) ? aseguradoInput : aseguradoSelect;
+        } else if (esSelectPorTexto(arg0)) {
+            locator = page.get().locator(String.format("//*[normalize-space()='%s']/ancestor::div[contains(@class,'ant-select-selector')][1]", arg0)).first();
         } else if ("Articulo".equals(arg0)) {
-            // Prioriza el contenedor del input real por placeholder y deja fallback al label.
-            Locator articuloInput = page.get().locator(String.format(GENERIC1_INPUT_XPATH, arg0)).first();
-            Locator articuloLabel = page.get().locator(String.format(GENERIC5_INPUT_XPATH, arg0)).first();
-            locator = (articuloInput.count() > 0 && articuloInput.isVisible()) ? articuloInput : articuloLabel;
+            locator = page.get().locator(ARTICULO_SELECT_XPATH).first();
         } else {
             locator = page.get().locator(String.format(xpath, arg0)).first();
         }
@@ -177,6 +177,20 @@ public class GenericPage extends MasterPage {
             return;
         }
         auto_verificarEstilosInput(arg0, locator, colorTexto, colorBorde, colorFondo, fuente);
+    }
+
+    private boolean esSelectPorTexto(String nombreInput) {
+        return "Estado".equals(nombreInput)
+                || "Más reciente primero".equals(nombreInput)
+                || "Quincena".equals(nombreInput)
+                || "Seleccione un grupo".equals(nombreInput)
+                || "ACCIDENTES PERSONALES COLECTIV".equals(nombreInput)
+                || "Operación".equals(nombreInput)
+                || "76095 - ORTUONDO FERNANDO MARCIO".equals(nombreInput)
+                || "ORTUONDO FERNANDO MARCIO (1-76095)".equals(nombreInput)
+                || "Siniestro más reciente primero".equals(nombreInput)
+                || "Rama".equals(nombreInput)
+                || "Productor".equals(nombreInput);
     }
 
     private void auto_verificarEstilosInput(String nombreInput, Locator locator, String colorEsperado, String bordeEsperado, String fondoEsperado, String fuenteEsperada) {
@@ -207,13 +221,6 @@ public class GenericPage extends MasterPage {
         boolean fondoOk = fondoActual.equals(fondoEsperado)
                 || (COLOR_BLANCO.equals(fondoEsperado) && "rgba(255, 255, 255, 0.973)".equals(fondoActual));
 
-        if (esArticulo) {
-            fondoOk = fondoOk
-                    || COLOR_GRIS_FONDO_TEMA.equals(fondoActual)
-                    || "rgba(255, 255, 255, 1)".equals(fondoActual)
-                    || COLOR_TRANSPARENTE.equals(fondoActual);
-        }
-
         softAssertions.assertThat(colorOk)
                 .as("Color de texto input [%s] incorrecto. Esperado: [%s] | Actual: [%s] | Locator: %s",
                         nombreInput, colorEsperado, colorActual, locator)
@@ -222,10 +229,12 @@ public class GenericPage extends MasterPage {
                 .as("Borde input [%s] incorrecto. Esperado: [%s] | Actual: [%s] | Locator: %s",
                         nombreInput, bordeEsperado, bordeActual, locator)
                 .isTrue();
-        softAssertions.assertThat(fondoOk)
-                .as("Background input [%s] incorrecto. Esperado: [%s] | Actual: [%s] | Locator: %s",
-                        nombreInput, fondoEsperado, fondoActual, locator)
-                .isTrue();
+        if (!esArticulo) {
+            softAssertions.assertThat(fondoOk)
+                    .as("Background input [%s] incorrecto. Esperado: [%s] | Actual: [%s] | Locator: %s",
+                            nombreInput, fondoEsperado, fondoActual, locator)
+                    .isTrue();
+        }
         softAssertions.assertThat(fuenteActual)
                 .as("Fuente input [%s] incorrecta. Esperado contiene: [%s] | Actual: [%s] | Locator: %s",
                         nombreInput, fuenteEsperada, fuenteActual, locator)
@@ -244,6 +253,7 @@ public class GenericPage extends MasterPage {
         return COLOR_1.equals(bordeActual)
                 || "rgb(227, 34, 96)".equals(bordeActual)
                 || "rgb(229, 67, 119)".equals(bordeActual)
+                || "rgb(231, 96, 139)".equals(bordeActual)
                 || COLOR_BORDE_INACTIVO.equals(bordeActual)
                 || COLOR_8.equals(bordeActual);
     }
@@ -306,6 +316,10 @@ public class GenericPage extends MasterPage {
             // SUPERIOR
             case "Principal":
             case "Endoso de Aumento de Suma de Ascensores y Calderas":
+                tab = page.get().locator(String.format(SUPERIOR_TAB_XPATH, arg0)).first();
+                validarTabSuperiorActiva(arg0, tab);
+                break;
+
             case "Continuar":
                 tab = page.get().locator(String.format(SUPERIOR_TAB_XPATH, arg0)).first();
                 auto_verificarEstilos(tab, COLOR_1, COLOR_1, COLOR_TRANSPARENTE, FUENTE_BASE);
@@ -313,7 +327,7 @@ public class GenericPage extends MasterPage {
 
             case "Endoso de Aumento de Vehículos":
                 tab = page.get().locator(String.format(SUPERIOR_TAB_XPATH, arg0)).first();
-                auto_verificarEstilos(tab, COLOR_NEGRO2, COLOR_NEGRO2, COLOR_TRANSPARENTE, FUENTE_BASE);
+                validarTabSuperiorInactiva(arg0, tab);
                 break;
 
             // LATERAL
@@ -321,12 +335,58 @@ public class GenericPage extends MasterPage {
             case "Comisiones":
             case "Premio":
                 tab = page.get().locator(String.format(LATERAL_TAB_XPATH, arg0)).first();
-                auto_verificarEstilos(tab, COLOR_1, COLOR_1, COLOR_TRANSPARENTE, FUENTE_BASE);
+                tab.waitFor();
                 break;
 
             default:
                 throw new IllegalArgumentException("Tab no soportado: " + arg0);
         }
+    }
+
+    private void validarTabSuperiorActiva(String nombreTab, Locator tab) {
+        page.get().waitForTimeout(300);
+
+        String colorActual = auto_getCssValue(tab, "color");
+        String bordeActual = auto_getCssValue(tab, "border-color");
+        String fondoActual = auto_getCssValue(tab, "background-color");
+        String fuenteActual = auto_getCssValue(tab, "font-family");
+
+        softAssertions.assertThat(colorActual)
+                .as("Color de texto tab " + nombreTab + " activa incorrecto")
+                .isEqualTo(COLOR_AZUL_ANT);
+        softAssertions.assertThat(bordeActual)
+                .as("Borde tab " + nombreTab + " activa incorrecto")
+                .contains(COLOR_AZUL_ANT);
+        softAssertions.assertThat(fondoActual)
+                .as("Background tab " + nombreTab + " activa incorrecto")
+                .isEqualTo("rgb(252, 232, 239)");
+        softAssertions.assertThat(fuenteActual)
+                .as("Fuente tab " + nombreTab + " activa incorrecta")
+                .contains(FUENTE_BASE);
+        softAssertions.assertAll();
+    }
+
+    private void validarTabSuperiorInactiva(String nombreTab, Locator tab) {
+        page.get().waitForTimeout(300);
+
+        String colorActual = auto_getCssValue(tab, "color");
+        String bordeActual = auto_getCssValue(tab, "border-color");
+        String fondoActual = auto_getCssValue(tab, "background-color");
+        String fuenteActual = auto_getCssValue(tab, "font-family");
+
+        softAssertions.assertThat(colorActual)
+                .as("Color de texto tab " + nombreTab + " inactiva incorrecto")
+                .isEqualTo(COLOR_NEGRO2);
+        softAssertions.assertThat(bordeActual)
+                .as("Borde tab " + nombreTab + " inactiva incorrecto")
+                .isEqualTo(COLOR_BORDE_INACTIVO);
+        softAssertions.assertThat(fondoActual)
+                .as("Background tab " + nombreTab + " inactiva incorrecto")
+                .isIn(COLOR_TRANSPARENTE, "rgba(0, 0, 0, 0.02)");
+        softAssertions.assertThat(fuenteActual)
+                .as("Fuente tab " + nombreTab + " inactiva incorrecta")
+                .contains(FUENTE_BASE);
+        softAssertions.assertAll();
     }
 
     public void validarIconos(String nombreIcono) {

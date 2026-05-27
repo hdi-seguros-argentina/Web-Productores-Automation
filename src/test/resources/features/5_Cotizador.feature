@@ -1,4 +1,4 @@
-@AUTOMATED @Cotizador
+﻿@AUTOMATED @Cotizador
 Feature: Cotizador
 
   Background:
@@ -8,7 +8,6 @@ Feature: Cotizador
     And el usuario hace click en el boton de login
     And el usuario ingresa a la home
     And el usuario selecciona un intermediario
-    Then el usuario verifica que el sistema muestra el panel de inicio
 
   @branding
   Scenario: Cotizador > Nueva Cotización: muestra selector de grupo y acción de inicio

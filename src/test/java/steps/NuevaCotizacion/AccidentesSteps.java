@@ -12,7 +12,7 @@ public class AccidentesSteps{
     CommonPage commonPage = new CommonPage();
     private CotizacionAccidentes dataAccidentes =
             JsonLoader.load(
-                    "Datos/cotizacion_accidentes.json",
+                    "Datos/Cotizacion_accidentes.json",
                     CotizacionAccidentes.class
             );
 
@@ -36,10 +36,13 @@ public class AccidentesSteps{
         commonPage.seleccionarPlan(dataAccidentes.getPlan());
         accidentePage.seleccionarActividad(dataAccidentes.getActividad());
         accidentePage.ingresarCantidad(dataAccidentes.getCantidadPersonas());
-        accidentePage.ingresarCoberturaMuerte(dataAccidentes.getCobertura().getMuerte());
+        commonPage.completarCoberturas(dataAccidentes.getCobertura());
 
         commonPage.clickBotonCotizar();
+    }
 
+    @And("el usuario modifica la variación de ACCIDENTES PERSONALES COLECTIV desde el json")
+    public void elUsuarioModificaLaVariacionDeACCIDENTESPERSONALESCOLECTIVDesdeElJson() {
         Integer variacion = dataAccidentes.getVariacion();
         commonPage.guardarValoresAntesDeVariacion();
         commonPage.validarCambioVariacion(variacion);
@@ -68,7 +71,6 @@ public class AccidentesSteps{
     @And("el usuario emite la cotización de ACCIDENTES PERSONALES COLECTIV")
     public void elUsuarioEmiteLaCotizacionDeACCIDENTESPERSONALESCOLECTIVSinValidarVariacion() {
         commonPage.clickEditarCotizacion();
-        commonPage.validarResumenActualizado();
         commonPage.clickBotonEmitir();
 
         commonPage.seleccionarNacionalidad(dataAccidentes.getEmision().getNacionalidad());

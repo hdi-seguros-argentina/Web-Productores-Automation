@@ -4,20 +4,21 @@ import com.microsoft.playwright.Locator;
 
 public class GenericLocators {
     //INPUT
-    public static final String GENERIC_INPUT_XPATH = "(//*[text()='%s']/parent::*)[1]";
+    public static final String GENERIC_INPUT_XPATH = "(//*[normalize-space()='%s']/parent::*)[1]";
     public static final String GENERIC1_INPUT_XPATH = "//*[@placeholder='%s']/parent::*";
     public static final String GENERIC2_INPUT_XPATH = "//*[@placeholder='%s']/ancestor::div[3]";
     public static final String GENERIC3_INPUT_XPATH = "//*[@placeholder='%s']/ancestor::span[1]";
     public static final String GENERIC4_INPUT_XPATH = "//*[@placeholder='%s']/ancestor::div[2]";
-    public static final String GENERIC5_INPUT_XPATH = "//*[text()='%s']/ancestor::div[1]";
+    public static final String GENERIC5_INPUT_XPATH = "//*[normalize-space()='%s']/ancestor::div[1]";
+    public static final String ARTICULO_SELECT_XPATH = "//input[@id='article']/ancestor::div[contains(@class,'ant-select-selector')][1]";
 
 
     //BUTTON
-    public static final String GENERIC_BTN_XPATH = "//*[text()='%s']/ancestor::button";
+    public static final String GENERIC_BTN_XPATH = "//*[normalize-space()='%s']/ancestor::button";
 
     //TAB
-    public static final String SUPERIOR_TAB_XPATH = "//div[text()='%s']";
-    public static final String LATERAL_TAB_XPATH = "//h4[text()='%s']";
+    public static final String SUPERIOR_TAB_XPATH = "//div[normalize-space()='%s']";
+    public static final String LATERAL_TAB_XPATH = "//h4[normalize-space()='%s']";
 
     //ICONOS
     public static final String POLIZAS_ICONS_XPATH = "(//span[normalize-space()='Pólizas vigentes']/following::div[contains(@class,'home-icons-render__icon-card')])[position() <= 4]//*[name()='path']";

@@ -1,4 +1,4 @@
-@NUEVACOTIZACION
+﻿@NUEVACOTIZACION
 Feature: Cotizador Integral comercio
 
   Background:
@@ -10,8 +10,8 @@ Feature: Cotizador Integral comercio
     And el usuario selecciona un intermediario
 
   @AUTOMATED @COTIZACIONRETOME @regresion @Cotizador
-  Scenario: Emision de INTEGRAL CONSORCIO WEB en retome
-    When el usuario ingresa al menu de "Nueva Cotizacion" en "Cotizador"
+  Scenario: Cotizador > Nueva Cotización > INTEGRAL CONSORCIO WEB: permite emitir cotización en retome
+    When el usuario ingresa al menu de "Nueva Cotización" en "Cotizador"
     And el usuario selecciona INTEGRAL DE CONSORCIO desde el json
     And el usuario selecciona INTEGRAL DE CONSORCIO WEB desde el json
     And el usuario realiza la cotización de INTEGRAL DE CONSORCIO
@@ -20,17 +20,18 @@ Feature: Cotizador Integral comercio
     Then el usuario verifica el envío de la cotización
 
   @AUTOMATED @COTIZACIONRETOME @regresion @Cotizador
-  Scenario: Persistencia de variación en retome de INTEGRAL CONSORCIO WEB
+  Scenario: Cotizador > Nueva Cotización > INTEGRAL CONSORCIO WEB: persiste variación en retome
     When el usuario ingresa al menu de "Nueva Cotizacion" en "Cotizador"
     And el usuario selecciona INTEGRAL DE CONSORCIO desde el json
     And el usuario selecciona INTEGRAL DE CONSORCIO WEB desde el json
     And el usuario realiza la cotización de INTEGRAL DE CONSORCIO
+    And el usuario modifica la variación de INTEGRAL DE CONSORCIO desde el json
     And el usuario guarda la cotización
     And el usuario envia la cotización de INTEGRAL DE CONSORCIO
     Then el usuario verifica el envío de la cotización
 
   @AUTOMATED @COTIZACIONRETOME @regresion @Cotizador @variacion
-  Scenario: Variación en retome de INTEGRAL CONSORCIO WEB
+  Scenario: Cotizador > Nueva Cotización > INTEGRAL CONSORCIO WEB: permite variar cotización en retome
     When el usuario ingresa al menu de "Nueva Cotizacion" en "Cotizador"
     And el usuario selecciona INTEGRAL DE CONSORCIO desde el json
     And el usuario selecciona INTEGRAL DE CONSORCIO WEB desde el json
@@ -40,7 +41,7 @@ Feature: Cotizador Integral comercio
     Then el usuario verifica el envío de la cotización
 
   @AUTOMATED @COTIZACIONNUEVA @regresion @Cotizador
-  Scenario: Nueva Cotización de INTEGRAL CONSORCIO WEB
+  Scenario: Cotizador > Nueva Cotización > INTEGRAL CONSORCIO WEB: permite generar nueva cotización
     When el usuario ingresa al menu de "Nueva Cotizacion" en "Cotizador"
     And el usuario selecciona INTEGRAL DE CONSORCIO desde el json
     And el usuario selecciona INTEGRAL DE CONSORCIO WEB desde el json

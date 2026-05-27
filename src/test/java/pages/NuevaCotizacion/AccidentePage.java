@@ -2,6 +2,7 @@ package pages.NuevaCotizacion;
 
 import com.core.utility.MasterPage;
 import models.Persona;
+
 import static locators.CommonLocators.*;
 
 public class AccidentePage extends MasterPage {
@@ -17,10 +18,6 @@ public class AccidentePage extends MasterPage {
         auto_setTextToInput(INPUT_CANTIDAD, String.valueOf(cantidad));
         auto_setClickElement(BOTON_AGREGAR);
         auto_setClickElement(BOTON_CONTINUAR);
-    }
-
-    public void ingresarCoberturaMuerte(long monto) {
-        auto_setTextToInput(INPUT_COBERTURA_MUERTE, String.valueOf(monto));
     }
 
     public void agregarPersona(Persona persona) {

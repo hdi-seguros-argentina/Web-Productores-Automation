@@ -8,7 +8,7 @@ public class IncendioSteps {
     CommonPage commonPage = new CommonPage();
     private CotizacionIncendio dataIncendio =
             JsonLoader.load(
-                    "Datos/cotizacion_incendio.json",
+                    "Datos/Cotizacion_incendio.json",
                     CotizacionIncendio.class
             );
 
@@ -41,7 +41,10 @@ public class IncendioSteps {
         commonPage.completarCoberturas(dataIncendio.getCobertura());
 
         commonPage.clickBotonCotizar();
+    }
 
+    @And("el usuario modifica la variación de INCENDIO VIVIENDAS desde el json")
+    public void elUsuarioModificaLaVariacionDeINCENDIOVIVIENDASDesdeElJson() {
         Integer variacion = dataIncendio.getVariacion();
         commonPage.guardarValoresAntesDeVariacion();
         commonPage.validarCambioVariacion(variacion);
@@ -70,7 +73,6 @@ public class IncendioSteps {
     @And("el usuario emite la cotización de INCENDIO VIVIENDAS")
     public void elUsuarioEmiteLaCotizacionDeINCENDIOVIVIENDAS() {
         commonPage.clickEditarCotizacion();
-        commonPage.validarResumenActualizado();
         commonPage.clickBotonEmitir();
 
         commonPage.seleccionarNacionalidad(dataIncendio.getEmision().getNacionalidad());

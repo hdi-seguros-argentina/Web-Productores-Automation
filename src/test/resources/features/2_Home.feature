@@ -1,4 +1,4 @@
-@AUTOMATED @Home
+﻿@AUTOMATED @Home
 Feature: Home
 
   Background:

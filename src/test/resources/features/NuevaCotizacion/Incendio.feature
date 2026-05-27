@@ -1,4 +1,4 @@
-@NUEVACOTIZACION
+﻿@NUEVACOTIZACION
 Feature: Cotizador Incendio
 
   Background:
@@ -10,7 +10,7 @@ Feature: Cotizador Incendio
     And el usuario selecciona un intermediario
 
   @AUTOMATED @COTIZACIONRETOME @regresion @Cotizador
-  Scenario: Emision de INCENDIO VIVIENDAS en retome
+  Scenario: Cotizador > Nueva Cotización > INCENDIO VIVIENDAS: permite emitir cotización en retome
     When el usuario ingresa al menu de "Nueva Cotizacion" en "Cotizador"
     And el usuario selecciona INCENDIO WEB desde el json
     And el usuario selecciona INCENDIO VIVIENDAS desde el json
@@ -20,17 +20,18 @@ Feature: Cotizador Incendio
     Then el usuario verifica el envío de la cotización
 
   @AUTOMATED @COTIZACIONRETOME @regresion @Cotizador
-  Scenario: Persistencia de variación en retome de INCENDIO VIVIENDAS
+  Scenario: Cotizador > Nueva Cotización > INCENDIO VIVIENDAS: persiste variación en retome
     When el usuario ingresa al menu de "Nueva Cotizacion" en "Cotizador"
     And el usuario selecciona INCENDIO WEB desde el json
     And el usuario selecciona INCENDIO VIVIENDAS desde el json
     And el usuario realiza la cotización de INCENDIO VIVIENDAS
+    And el usuario modifica la variación de INCENDIO VIVIENDAS desde el json
     And el usuario guarda la cotización
     And el usuario envia la cotización de INCENDIO VIVIENDAS
     Then el usuario verifica el envío de la cotización
 
   @AUTOMATED @COTIZACIONRETOME @regresion @Cotizador @variacion
-  Scenario: Variación en retome de INCENDIO VIVIENDAS
+  Scenario: Cotizador > Nueva Cotización > INCENDIO VIVIENDAS: permite variar cotización en retome
     When el usuario ingresa al menu de "Nueva Cotizacion" en "Cotizador"
     And el usuario selecciona INCENDIO WEB desde el json
     And el usuario selecciona INCENDIO VIVIENDAS desde el json
@@ -40,7 +41,7 @@ Feature: Cotizador Incendio
     Then el usuario verifica el envío de la cotización
 
   @AUTOMATED @COTIZACIONNUEVA @regresion @Cotizador
-  Scenario: Nueva Cotización de INCENDIO VIVIENDAS
+  Scenario: Cotizador > Nueva Cotización > INCENDIO VIVIENDAS: permite generar nueva cotización
     When el usuario ingresa al menu de "Nueva Cotizacion" en "Cotizador"
     And el usuario selecciona INCENDIO WEB desde el json
     And el usuario selecciona INCENDIO VIVIENDAS desde el json

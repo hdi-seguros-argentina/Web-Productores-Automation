@@ -6,9 +6,12 @@
   "actividad": "ABOGADOS",
   "cantidadPersonas": 1,
   "variacion": 5,
-  "cobertura": {
-    "muerte": 65000000
-  },
+  "cobertura": [
+    {
+      "nombre": "MUERTE",
+      "suma": 65000000
+    }
+  ],
   "emision": {
     "nacionalidad": "Argentina",
     "tarjeta": {

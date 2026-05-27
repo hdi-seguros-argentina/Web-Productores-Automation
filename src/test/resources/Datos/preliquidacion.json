@@ -1,0 +1,6 @@
+{
+  "rama": "AUTOMOVILES",
+  "formaPago": "Deposito bancario",
+  "banco": "GALICIA (0070999020000051878944)",
+  "comprobantePath": "src/test/resources/Datos/archivos/comprobante_preliquidacion.png"
+}

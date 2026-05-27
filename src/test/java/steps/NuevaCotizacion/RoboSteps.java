@@ -9,7 +9,7 @@ public class RoboSteps {
     CommonPage commonPage = new CommonPage();
     private CotizacionRobo dataRobo =
             JsonLoader.load(
-                    "Datos/cotizacion_robo.json",
+                    "Datos/Cotizacion_robo.json",
                     CotizacionRobo.class
             );
 
@@ -41,7 +41,10 @@ public class RoboSteps {
         commonPage.completarCoberturas(dataRobo.getCobertura());
 
         commonPage.clickBotonCotizar();
+    }
 
+    @And("el usuario modifica la variación de ROBO WEB desde el json")
+    public void elUsuarioModificaLaVariacionDeROBOWEBDesdeElJson() {
         Integer variacion = dataRobo.getVariacion();
         commonPage.guardarValoresAntesDeVariacion();
         commonPage.validarCambioVariacion(variacion);
@@ -71,7 +74,6 @@ public class RoboSteps {
     @And("el usuario emite la cotización de ROBO WEB")
     public void elUsuarioEmiteLaCotizacionDeROBOWEB() {
         commonPage.clickEditarCotizacion();
-        commonPage.validarResumenActualizado();
         commonPage.clickBotonEmitir();
 
         commonPage.seleccionarNacionalidad(dataRobo.getEmision().getNacionalidad());

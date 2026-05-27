@@ -1,4 +1,4 @@
-@AUTOMATED @CuentaCorriente
+﻿@AUTOMATED @CuentaCorriente
 Feature: Cuenta Corriente
 
   Background:
@@ -8,7 +8,6 @@ Feature: Cuenta Corriente
     And el usuario hace click en el boton de login
     And el usuario ingresa a la home
     And el usuario selecciona un intermediario
-    Then el usuario verifica que el sistema muestra el panel de inicio
 
   @branding
   Scenario: Cuenta Corriente > Facturas pendientes: muestra filtros y paginado

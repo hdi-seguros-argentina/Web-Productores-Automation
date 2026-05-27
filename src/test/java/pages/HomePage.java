@@ -17,6 +17,9 @@ public class HomePage extends MasterPage {
     }
 
     public void seleccionIntermediario() {
+        page.get().waitForTimeout(35000);
+        auto_waitForElementInvisibility("(//div[contains(@class,'ant-skeleton')])[1]");
+
         auto_waitForElementVisibility("//*[text()='1 / 76018']");
         auto_setTextToInput(NAME_INPUT_XPATH, "Ortuondo");
         auto_setClickElement(FILTER_BTN_XPATH);
@@ -27,8 +30,20 @@ public class HomePage extends MasterPage {
 
     public void ingresoPanelInicio() {
         auto_verifyVisibility(PANEL_TITLE_XPATH);
-        page.get().waitForTimeout(500);
-        auto_waitForLoadStates(LoadState.NETWORKIDLE);
+        auto_verifyVisibility(PANEL_BREADCRUMB_XPATH);
+        auto_verifyVisibility(SOPORTE_IT_XPATH);
+        auto_verifyVisibility(CARTERA_VIGENTE_TITULO_XPATH);
+        auto_verifyVisibility(CARTERA_VIGENTE_GRAFICO_XPATH);
+        auto_verifyVisibility(PRODUCCION_VIGENTE_TITULO_XPATH);
+        auto_verifyVisibility(PRODUCCION_VIGENTE_GRAFICO_XPATH);
+        auto_verifyVisibility(POLIZAS_VIGENTES_SECCION_XPATH);
+        auto_verifyVisibility(COTIZACIONES_WEB_SECCION_XPATH);
+        auto_verifyVisibility(SINIESTROS_DENUNCIADOS_SECCION_XPATH);
+        auto_verifyVisibility(SINIESTROS_CARTERA_SECCION_XPATH);
+        auto_verifyVisibility(AUTOS_INDICADOR_XPATH);
+        auto_verifyVisibility(HOGAR_INDICADOR_XPATH);
+        auto_verifyVisibility(VIDA_INDICADOR_XPATH);
+        auto_verifyVisibility(RESTO_INDICADOR_XPATH);
     }
 
     public void validarHeader() {
@@ -42,6 +57,8 @@ public class HomePage extends MasterPage {
     }
 
     public void ingresarValor(String arg0) {
+        page.get().waitForTimeout(35000);
+        auto_waitForElementInvisibility("(//div[contains(@class,'ant-skeleton')])[1]");
         auto_waitForElementVisibility("//*[text()='1 / 76018']");
         auto_setTextToInput(NAME_INPUT_XPATH, arg0);
         auto_setClickElement(FILTER_BTN_XPATH);

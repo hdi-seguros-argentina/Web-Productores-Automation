@@ -8,7 +8,6 @@ Feature: Cobranzas
     And el usuario hace click en el boton de login
     And el usuario ingresa a la home
     And el usuario selecciona un intermediario
-    Then el usuario verifica que el sistema muestra el panel de inicio
 
   @branding
   Scenario: Cobranzas > Preliquidación inicial: muestra encabezado y acción Continuar
@@ -46,6 +45,23 @@ Feature: Cobranzas
     And el usuario verifica que el boton "Continuar" es correcto
     And el usuario verifica que el paginado de "cuotas" es correcto
 
+  @regresion
+  Scenario: Cobranzas > Preliquidación incluyendo cuotas con débito automático: confirma pago con depósito bancario
+    When el usuario ingresa al menu de "Preliquidacion" en "Cobranzas"
+    And el usuario selecciona "SI"
+    And el usuario hace clic en el boton "Continuar"
+    And el usuario ingresa a la pantalla de "Preliquidación"
+    Then el usuario verifica la pantalla principal de preliquidacion
+    And el usuario filtra preliquidacion por rama desde el json y selecciona una cuota
+    And el usuario continua desde principal de preliquidacion
+    Then el usuario verifica la pantalla de cuotas seleccionadas
+    And el usuario selecciona la cuota y continua
+    Then el usuario verifica la pantalla de confirmacion de preliquidacion
+    And el usuario completa la forma de pago de preliquidacion desde el json
+    And el usuario verifica que la forma de pago fue agregada
+    And el usuario confirma el pago de preliquidacion
+    Then el usuario verifica que la preliquidacion fue enviada correctamente
+
   @branding
   Scenario: Cobranzas > Preliquidación excluyendo cuotas con débito automático: muestra filtros, resumen y paginado
     When el usuario ingresa al menu de "Preliquidacion" en "Cobranzas"
@@ -71,9 +87,13 @@ Feature: Cobranzas
 
   @branding
   Scenario: Cobranzas > Preliquidaciones Guardadas: valida estructura de componentes
+    When el usuario ingresa al menu de "Preliquidaciones guardadas y enviadas" en "Cobranzas"
+    Then el usuario verifica la tab de preliquidaciones "Preliquidaciones Guardadas" y su filtro por numero
 
   @branding
   Scenario: Cobranzas > Preliquidaciones Enviadas: valida estructura de componentes
+    When el usuario ingresa al menu de "Preliquidaciones guardadas y enviadas" en "Cobranzas"
+    Then el usuario verifica la tab de preliquidaciones "Preliquidaciones Enviadas" y su filtro por numero
 
   @branding
   Scenario: Cobranzas > Pólizas con Deuda Vencida: muestra título y paginado

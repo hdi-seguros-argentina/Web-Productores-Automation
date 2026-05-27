@@ -21,7 +21,7 @@
     }
   ],
   "datosTecnicos": {
-    "patente": "AA999DI",
+    "patente": "AA999DE",
     "numeroMotor": "a6sd4a6sd46asd46",
     "numeroChasis": "a6sd4a6sd46asd46"
   },
@@ -34,8 +34,22 @@
       "vencimiento": "12/2030"
     }
   },
+  "informacionAdicional": {
+    "conductorMenor30": "N",
+    "hijosMenores": "N",
+    "guardaGarage": "S"
+  },
+  "informacionDeContacto": {
+    "nombreApellido": "Contacto Test",
+    "telefono": "1134567890",
+    "email": "test@test.com",
+    "horaDesde": "09:00",
+    "horaHasta": "18:00"
+  },
+  "formaPago": "TARJETA DE CREDITO 1 CUOTA",
+  "tipoInspeccion": "Copia de póliza",
   "rama": "AUTOMOVILES",
-  "articulo": "PRODUCTO AUTOMOVILES RC",
+  "articulo": "MYWAY HAZLO A TU MANERA",
   "cliente": "ABARIA ADRIANA ALICIA",
   "variacion": 5
 }

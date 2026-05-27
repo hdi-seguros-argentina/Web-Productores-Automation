@@ -1,4 +1,4 @@
-@AUTOMATED @Emision
+﻿@AUTOMATED @Emision
 Feature: Emision
 
   Background:
@@ -8,7 +8,6 @@ Feature: Emision
     And el usuario hace click en el boton de login
     And el usuario ingresa a la home
     And el usuario selecciona un intermediario
-    Then el usuario verifica que el sistema muestra el panel de inicio
 
   @branding
   Scenario: Emisión > Endosos Aumento de Suma: muestra tabs, acciones y paginado

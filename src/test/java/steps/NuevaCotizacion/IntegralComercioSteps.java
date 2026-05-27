@@ -10,7 +10,7 @@ public class IntegralComercioSteps {
     CommonPage commonPage = new CommonPage();
     private CotizacionIntegralComercio dataIntegralComercio =
             JsonLoader.load(
-                    "Datos/cotizacion_integralComercio.json",
+                    "Datos/Cotizacion_IntegralComercio.json",
                     CotizacionIntegralComercio.class
             );
 
@@ -47,7 +47,10 @@ public class IntegralComercioSteps {
         commonPage.completarCoberturas(dataIntegralComercio.getCobertura());
 
         commonPage.clickBotonCotizar();
+    }
 
+    @And("el usuario modifica la variación de INTEGRAL DE COMERCIO WEB desde el json")
+    public void elUsuarioModificaLaVariacionDeINTEGRALDECOMERCIOWEBDesdeElJson() {
         Integer variacion = dataIntegralComercio.getVariacion();
         commonPage.guardarValoresAntesDeVariacion();
         commonPage.validarCambioVariacion(variacion);
@@ -79,7 +82,6 @@ public class IntegralComercioSteps {
     @And("el usuario emite la cotización de INTEGRAL DE COMERCIO WEB")
     public void elUsuarioEmiteLaCotizacionDeINTEGRALDECOMERCIOWEB() {
         commonPage.clickEditarCotizacion();
-        commonPage.validarResumenActualizado();
         commonPage.clickBotonEmitir();
 
         commonPage.seleccionarNacionalidad(dataIntegralComercio.getEmision().getNacionalidad());

@@ -7,8 +7,11 @@ public class ProduccionLocators {
     public static final String ASEGURADO1_INPUT_XPATH = "(//*[normalize-space()='Asegurado']/ancestor::div[1])[2]";
     public static final String ACCESODIRECTO_ICONS_XPATH = "//span[text()='Accesos directos']/ancestor::div[2]/div[2]//span[@role='img']";
     public static final String RAMO_NUMERO_POLIZA_RADIO_XPATH = "//label[contains(@class,'ant-radio-wrapper')][.//span[contains(normalize-space(),'Ramo y') and (contains(normalize-space(),'Póliza') or contains(normalize-space(),'Póliza'))]]";
-    public static final String RAMO_DESPLEGABLE_XPATH = "//span[text()='Ramo']/ancestor::div[1]";
+    public static final String RAMO_INPUT_XPATH = "//input[@id='branch']";
+    public static final String RAMO_DESPLEGABLE_XPATH = "//input[@id='branch']/ancestor::div[contains(@class,'ant-select-selector')][1]";
+    public static final String RAMO_PLACEHOLDER_XPATH = "//input[@id='branch']/ancestor::div[contains(@class,'ant-select-selector')][1]//span[contains(@class,'ant-select-selection-placeholder') and normalize-space()='Ramo']";
     public static final String RAMO_DESPLEGABLE1_XPATH = "//*[text()='%s']";
+    public static final String RAMO_SELECCIONADO_XPATH = "//input[@id='branch']/ancestor::div[contains(@class,'ant-select')][1]//*[normalize-space()='%s']";
     public static final String GENERIC_BOTON_XPATH = "(//span[text()='%s'])[1]";
     public static final String NUMERPOLIZA_INPUT1_XPATH = "//input[@placeholder='Número de póliza']";
     public static final String FECHA_DESPLEGABLE1_XPATH = "//input[@placeholder='Fecha inicial']";
@@ -18,7 +21,28 @@ public class ProduccionLocators {
     public static final String GENERIC_MENU_XPATH = "//span[text()='%s']";
     public static final String GENERIC_SUBMENU_XPATH = "//span[text()='%s']";
     public static final String BOTON_FILTRAR = "//button[contains(@class,'filters-buttons')][.//span[normalize-space()='Filtrar']]";
+    public static final String TITULO_LISTADO_POLIZAS_XPATH = "//h3[normalize-space()='Listado de Pólizas']";
+    public static final String CARD_POLIZA_LISTADO_XPATH = "(//span[text()='Póliza'])[1]";
     public static final String CARD_POLIZA_VIGENTE_XPATH = "//div[contains(@class,'ant-card-body')][.//span[normalize-space()='Vigente']]";
     public static final String CARD_POLIZA_NUMERO_RELATIVE_XPATH = "xpath=.//span[normalize-space()='Póliza' or normalize-space()='Póliza']/ancestor::div[1]/following-sibling::div[1]//strong";
+    public static final String ACCESO_DIRECTO_CARD_XPATH = "//div[@data-testid='basic-card'][.//span[contains(normalize-space(),'%s')]]";
+    public static final String POLICY_CARD_VIGENTE_XPATH = "//div[contains(@class,'policy-card')][.//span[normalize-space()='Vigente']]";
+    public static final String POLICY_CARD_PROXIMA_A_VENCER_XPATH = "//div[contains(@class,'policy-card')][.//span[normalize-space()='PrÃ³xima a vencer' or normalize-space()='Próxima a vencer']]";
+    public static final String VER_POLIZA_MENU_ITEM_XPATH = "//li[contains(@class,'ant-dropdown-menu-item')][.//span[normalize-space()='Ver pÃ³liza' or normalize-space()='Ver póliza']]";
+    public static final String TITULO_DETALLE_POLIZA_XPATH = "//h3[normalize-space()='Detalle de PÃ³liza' or normalize-space()='Detalle de Póliza']";
+    public static final String DETALLE_POLIZA_NUMERO_BTN_XPATH = "//button[contains(@class,'custom-dropdown-button')][.//span[contains(normalize-space(),'-')]]";
+    public static final String DETALLE_POLIZA_RAMO_DESCRIPCION_XPATH = "//div[contains(@class,'insurance-policy-detail-container')]//span[contains(normalize-space(),'/')]";
+    public static final String DETALLE_POLIZA_ESTADO_VIGENTE_XPATH = "//span[normalize-space()='Vigente']";
+    public static final String DETALLE_TAB_XPATH = "//div[@role='tab' and normalize-space()='%s']";
+    public static final String DETALLE_SECCION_XPATH = "//div[@role='tabpanel' and @aria-hidden='false']//h4[normalize-space()='%s']";
+    public static final String DETALLE_SECCION_CONTIENE_XPATH = "//div[@role='tabpanel' and @aria-hidden='false']//h4[contains(normalize-space(),'%s')]";
+    public static final String DETALLE_LABEL_VISIBLE_XPATH = "(//div[@role='tabpanel' and @aria-hidden='false']//*[normalize-space()='%s'])[1]";
+    public static final String DETALLE_PATENTE_INPUT_XPATH = "//div[@role='tabpanel' and @aria-hidden='false']//input[@id='patent' or @placeholder='Patente']";
+    public static final String DETALLE_BIEN_ASEGURADO_XPATH = "//div[@role='tabpanel' and @aria-hidden='false']//span[contains(@class,'ant-collapse-header-text') and contains(normalize-space(),' - ')]";
+    public static final String DETALLE_COLLAPSE_SECCION_XPATH = "//div[@role='tabpanel' and @aria-hidden='false']//span[contains(@class,'ant-collapse-header-text') and normalize-space()='%s']";
+    public static final String DOCUMENTOS_SELECT_XPATH = "//div[contains(@class,'documents-tab-container')]//div[contains(@class,'ant-select-selector')]";
+    public static final String DOCUMENTOS_PLACEHOLDER_XPATH = "//div[contains(@class,'documents-tab-container')]//span[contains(@class,'ant-select-selection-placeholder') and normalize-space()='Seleccione el documento que desea solicitar']";
+    public static final String DOCUMENTOS_OPCION_XPATH = "//div[contains(@class,'ant-select-item-option-content') and normalize-space()='%s']";
+    public static final String DOCUMENTOS_DESCARGAR_BTN_XPATH = "//div[contains(@class,'documents-tab-container')]//button[.//span[normalize-space()='Descargar']]";
+    public static final String PDF_ANTERIORES_CARD_XPATH = "//div[@role='tabpanel' and @aria-hidden='false']//div[contains(@class,'previous-pdf-tab-container')]//div[@data-testid='basic-card']";
 }
-

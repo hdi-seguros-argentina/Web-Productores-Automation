@@ -6,7 +6,7 @@ public class CotizacionAccidentes extends CotizacionBase {
     private String plan;
     private String actividad;
     private int cantidadPersonas;
-    private Cobertura cobertura;
+    private List<Cobertura> cobertura;
     private Emision emision;
     private List<Persona> personas;
 
@@ -22,7 +22,7 @@ public class CotizacionAccidentes extends CotizacionBase {
         return cantidadPersonas;
     }
 
-    public Cobertura getCobertura() {
+    public List<Cobertura> getCobertura() {
         return cobertura;
     }
 

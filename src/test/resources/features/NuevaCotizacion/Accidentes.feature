@@ -1,4 +1,4 @@
-@NUEVACOTIZACION
+﻿@NUEVACOTIZACION
 Feature: Cotizador AP
 
   Background:
@@ -10,17 +10,18 @@ Feature: Cotizador AP
     And el usuario selecciona un intermediario
 
   @AUTOMATED @COTIZACIONRETOME @regresion @Cotizador
-  Scenario: Persistencia de variación en retome de ACCIDENTES PERSONALES COLECTIV
+  Scenario: Cotizador > Nueva Cotización > ACCIDENTES PERSONALES COLECTIV: persiste variación en retome
     When el usuario ingresa al menu de "Nueva Cotizacion" en "Cotizador"
     And el usuario selecciona ACCIDENTES desde el json
     And el usuario selecciona ACCIDENTES PERSONALES COLECTIV desde el json
     And el usuario realiza la cotización de ACCIDENTES PERSONALES COLECTIV
+    And el usuario modifica la variación de ACCIDENTES PERSONALES COLECTIV desde el json
     And el usuario guarda la cotización
     And el usuario envia la cotización de ACCIDENTES PERSONALES COLECTIV con persistencia de comisión
     Then el usuario verifica el envío de la cotización
 
   @AUTOMATED @COTIZACIONRETOME @regresion @Cotizador
-  Scenario: Nueva Cotización de ACCIDENTES PERSONALES COLECTIV con retome
+  Scenario: Cotizador > Nueva Cotización > ACCIDENTES PERSONALES COLECTIV: permite cotizar con retome
     When el usuario ingresa al menu de "Nueva Cotizacion" en "Cotizador"
     And el usuario selecciona ACCIDENTES desde el json
     And el usuario selecciona ACCIDENTES PERSONALES COLECTIV desde el json
@@ -29,8 +30,8 @@ Feature: Cotizador AP
     And el usuario emite la cotización de ACCIDENTES PERSONALES COLECTIV
     Then el usuario verifica el envío de la cotización
 
-  @AUTOMATED @COTIZACIONRETOME @regresion @Cotizador @variacion @Noe
-  Scenario: Variación en retome de ACCIDENTES PERSONALES COLECTIV
+  @AUTOMATED @COTIZACIONRETOME @regresion @Cotizador @variacion
+  Scenario: Cotizador > Nueva Cotización > ACCIDENTES PERSONALES COLECTIV: permite variar cotización en retome
     When el usuario ingresa al menu de "Nueva Cotizacion" en "Cotizador"
     And el usuario selecciona ACCIDENTES desde el json
     And el usuario selecciona ACCIDENTES PERSONALES COLECTIV desde el json
@@ -40,7 +41,7 @@ Feature: Cotizador AP
     Then el usuario verifica el envío de la cotización
 
   @AUTOMATED @COTIZACIONNUEVA @regresion @Cotizador
-  Scenario: Nueva Cotización de ACCIDENTES PERSONALES COLECTIV
+  Scenario: Cotizador > Nueva Cotización > ACCIDENTES PERSONALES COLECTIV: permite generar nueva cotización
     When el usuario ingresa al menu de "Nueva Cotizacion" en "Cotizador"
     And el usuario selecciona ACCIDENTES desde el json
     And el usuario selecciona ACCIDENTES PERSONALES COLECTIV desde el json

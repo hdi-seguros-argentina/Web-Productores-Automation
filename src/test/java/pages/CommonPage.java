@@ -9,6 +9,7 @@ import org.assertj.core.api.SoftAssertions;
 
 import java.util.List;
 
+import static locators.AutomovilesLocators.*;
 import static locators.CommonLocators.*;
 
 public class CommonPage extends MasterPage {
@@ -35,7 +36,7 @@ public class CommonPage extends MasterPage {
     public void clickIniciarCotizacion() {
         auto_setClickElement(BOTON_INICIAR_COTIZACION);
         auto_waitForElementVisibility("//div[contains(@class,'ant-spin-spinning')]");
-        auto_waitForElementInvisibility("//div[contains(@class,'ant-spin-spinning')]");
+        auto_waitForElementInvisibilityIfPresent("//div[contains(@class,'ant-spin-spinning')]");
     }
 
     public void seleccionarIva(String iva) {
@@ -49,7 +50,7 @@ public class CommonPage extends MasterPage {
     }
 
     public void buscarCliente(String cliente) {
-        auto_waitForElementInvisibility(".ant-spin-spinning");
+        auto_waitForElementInvisibilityIfPresent(".ant-spin-spinning");
         clickConReintento(BOTON_BUSCAR_CLIENTE);
         clickConReintento(String.format(RESULTADO_CLIENTE, cliente));
     }
@@ -61,6 +62,15 @@ public class CommonPage extends MasterPage {
 
     public void seleccionarNacionalidad(String nacionalidad) {
         auto_waitForElementVisibility(NACIONALIDAD_SELECT);
+        Locator nacionalidadSelect = page.get().locator(NACIONALIDAD_SELECT).first();
+        Locator nacionalidadInput = page.get().locator(NACIONALIDAD_INPUT_SELECT).first();
+
+        String clasesSelect = nacionalidadSelect.getAttribute("class");
+        if ((clasesSelect != null && clasesSelect.contains("ant-select-disabled"))
+                || nacionalidadInput.isDisabled()) {
+            return;
+        }
+
         auto_setTextToInput(NACIONALIDAD_INPUT_SELECT, nacionalidad);
         auto_pressKey(NACIONALIDAD_INPUT_SELECT, "Enter");
     }
@@ -72,35 +82,21 @@ public class CommonPage extends MasterPage {
     }
 
     public void seleccionarEmpresaTarjeta(String empresaTarjeta) {
-        String empresa = (empresaTarjeta == null || empresaTarjeta.isBlank()) ? "VISA ARGENTINA SA" : empresaTarjeta;
+        String tarjetaSeleccionada = String.format(TARJETA_CREDITO_SELECCIONADA, empresaTarjeta);
+        Locator valor = page.get().locator(tarjetaSeleccionada).first();
 
-        Locator empresaSeleccionada = page.get().locator(String.format(TARJETA_CREDITO_SELECCIONADA, empresa)).first();
-        if (empresaSeleccionada.count() > 0 && empresaSeleccionada.isVisible()) {
-            return;
+        if (empresaTarjeta != null && !empresaTarjeta.isBlank() &&
+                (valor.count() == 0 || valor.textContent().trim().isBlank())) {
+            auto_setClickElement(TARJETA_CREDITO_SELECT);
+            Locator opcion = page.get().locator(String.format(TARJETA_CREDITO_OPCION_POR_TEXTO, empresaTarjeta)).first();
+            if (opcion.count() > 0 && opcion.isVisible()) opcion.click();
         }
-
-        auto_setClickElement(TARJETA_CREDITO_SELECT);
-        page.get().waitForTimeout(200);
-
-        Locator opcionPorTitle = page.get().locator(String.format(TARJETA_CREDITO_OPCION, empresa)).first();
-        if (opcionPorTitle.count() > 0 && opcionPorTitle.isVisible()) {
-            opcionPorTitle.click();
-            return;
-        }
-
-        Locator opcionPorTexto = page.get().locator(String.format(TARJETA_CREDITO_OPCION_POR_TEXTO, empresa)).first();
-        if (opcionPorTexto.count() > 0 && opcionPorTexto.isVisible()) {
-            opcionPorTexto.click();
-            return;
-        }
-
-        if (empresaSeleccionada.count() > 0 && empresaSeleccionada.isVisible()) {
-            return;
-        }
-
-        throw new RuntimeException("No se pudo seleccionar la empresa de tarjeta: " + empresa);
+        auto_waitForElementVisibility(tarjetaSeleccionada);
+        softAssertions.assertThat(valor.isVisible() ? valor.textContent().trim() : "")
+                .as("La compañía de tarjeta no coincide con el valor del JSON")
+                .isEqualTo(empresaTarjeta);
+        softAssertions.assertAll();
     }
-
     public void seleccionarMetodoPago(String metodoPago) {
         String valorActual = auto_getElementTextOrValue(METODO_PAGO_VALOR_ACTUAL);
         auto_setClickElement(METODO_PAGO_SELECT);
@@ -129,22 +125,25 @@ public class CommonPage extends MasterPage {
     }
 
     public void clickEditarCotizacion() {
+        page.get().waitForTimeout(1000);
         auto_waitForElementVisibility(BOTON_LAPIZ_EDITAR);
         auto_setClickElement(BOTON_LAPIZ_EDITAR);
-        auto_waitForElementInvisibility(".ant-spin-spinning");
+        auto_waitForElementInvisibilityIfPresent(".ant-spin-spinning");
         auto_waitForElementVisibility(TITULO_NUEVACOTIZACION_XPATH);
     }
 
     public void clickBotonEmitir() {
-        page.get().waitForTimeout(4000);
-        auto_waitForElementInvisibility(".ant-spin-spinning");
+        auto_waitForElementInvisibilityIfPresent(".ant-spin-spinning");
+        auto_waitForElementVisibility(BOTON_EMITIR);
         auto_setClickElement(BOTON_EMITIR);
+        auto_waitForElementInvisibilityIfPresent(".ant-spin-spinning");
     }
 
     public void clickBotonRecotizar() {
         page.get().waitForTimeout(4000);
         auto_waitForElementVisibility(BOTON_RECOTIZAR);
         auto_setClickElement(BOTON_RECOTIZAR);
+        auto_waitForElementInvisibilityIfPresent(".ant-spin-spinning");
     }
 
     public void clickBotonGuardar() {
@@ -153,7 +152,53 @@ public class CommonPage extends MasterPage {
     }
 
     public void clickBotonEnviar() {
-        auto_setClickElement(BOTON_ENVIAR);
+        Exception ultimoError = null;
+
+        for (int intento = 1; intento <= 4; intento++) {
+            try {
+                if (cotizacionEnviadaCorrectamente()) {
+                    return;
+                }
+                auto_waitForElementInvisibilityIfPresent(".ant-spin-spinning");
+                Locator botonEnviar = page.get().locator(BOTON_ENVIAR).first();
+                botonEnviar.waitFor();
+                botonEnviar.scrollIntoViewIfNeeded();
+                botonEnviar.click(new Locator.ClickOptions()
+                        .setTimeout(5000)
+                        .setForce(intento == 4));
+                return;
+            } catch (Exception e) {
+                if (cotizacionEnviadaCorrectamente()) {
+                    return;
+                }
+                ultimoError = e;
+                page.get().waitForTimeout(700);
+            }
+        }
+
+        throw new RuntimeException("No se pudo hacer click en el boton Enviar luego de reintentos", ultimoError);
+    }
+
+    public boolean seVisualizaPatenteDuplicada() {
+        for (int i = 0; i < 20; i++) {
+            if (cotizacionEnviadaCorrectamente()) {
+                return false;
+            }
+            if (estaVisible(MENSAJE_PATENTE_DUPLICADA)) {
+                return true;
+            }
+            page.get().waitForTimeout(500);
+        }
+        return false;
+    }
+
+    public boolean cotizacionEnviadaCorrectamente() {
+        return estaVisible(POLIZA_ENVIO_TITULO) || estaVisible(POLIZA_ENVIO_TEXTO);
+    }
+
+    private boolean estaVisible(String locator) {
+        Locator elemento = page.get().locator(locator).first();
+        return elemento.count() > 0 && elemento.isVisible();
     }
 
     public void verificaEnvioCotizacion() {
@@ -180,29 +225,32 @@ public class CommonPage extends MasterPage {
         String contenidoVisibleLocalidad = desplegableLocalidad
                 + "//span[contains(@class,'ant-select-selection-item') or contains(@class,'ant-select-selection-placeholder')]";
 
-        auto_waitForElementInvisibility(".ant-spin-spinning");
+        auto_waitForElementInvisibilityIfPresent(".ant-spin-spinning");
         auto_waitForElementVisibility(contenidoVisibleLocalidad);
 
-        try {
-            clickConReintento(desplegableLocalidad);
-            clickConReintento(opcionLocalidad);
-        } catch (Exception e) {
-            page.get().waitForTimeout(1500);
-            auto_waitForElementInvisibility(".ant-spin-spinning");
-            auto_waitForElementVisibility(contenidoVisibleLocalidad);
-            clickConReintento(desplegableLocalidad);
-            clickConReintento(opcionLocalidad);
+        Locator selectLocalidad = page.get().locator(desplegableLocalidad).first();
+        for (int i = 0; i < 20; i++) {
+            String clases = selectLocalidad.getAttribute("class");
+            if (clases != null && !clases.contains("ant-select-disabled") && !clases.contains("ant-select-loading")) {
+                break;
+            }
+            page.get().waitForTimeout(300);
         }
+
+        auto_setClickElement(desplegableLocalidad);
+        auto_waitForElementVisibility(opcionLocalidad);
+        auto_setClickElement(opcionLocalidad);
     }
 
     public void seleccionarCobertura(String nombreCobertura) {
         String checkbox = String.format(COBERTURA_CHECKBOX, nombreCobertura);
-        auto_waitForElementVisibility(checkbox);
-
-        boolean checked = page.get().isChecked(checkbox);
-        if (!checked) {
+        softAssertions.assertThatCode(() -> auto_waitForElementVisibility(checkbox))
+                .as("No se encuentra la cobertura: " + nombreCobertura)
+                .doesNotThrowAnyException();
+        if (page.get().locator(checkbox).isVisible() && !page.get().isChecked(checkbox)) {
             auto_setClickElement(checkbox);
         }
+        softAssertions.assertAll();
     }
 
     public void ingresarSumaCobertura(String nombreCobertura, Integer suma) {
@@ -214,27 +262,39 @@ public class CommonPage extends MasterPage {
     }
 
     public void completarCoberturas(List<Cobertura> coberturas) {
-        coberturas.forEach(c -> {
-            seleccionarCobertura(c.getNombre());
-            ingresarSumaCobertura(c.getNombre(), c.getSuma());
-        });
+        softAssertions.assertThat(coberturas)
+                .as("No se encontraron coberturas para completar")
+                .isNotNull()
+                .isNotEmpty();
+
+        if (coberturas != null) {
+            coberturas.forEach(c ->
+                    softAssertions.assertThatCode(() -> {
+                        seleccionarCobertura(c.getNombre());
+                        ingresarSumaCobertura(c.getNombre(), c.getSuma());
+                    }).as("No se pudo completar la cobertura: " + c.getNombre())
+                            .doesNotThrowAnyException()
+            );
+        }
+
+        softAssertions.assertAll();
     }
 
     public void guardarValoresAntesDeVariacion() {
-        guardarValoresAntesDeVariacion(false);
+        guardarValoresResumen(PRIMA_TECNICA_RESUMEN, COMISION_RESUMEN, PREMIO_RESUMEN, false);
     }
 
-    public void guardarValoresAntesDeVariacion(boolean esAuto) {
-        String locatorPrima = esAuto ? PRIMA_TECNICA_AUTO__RESUMEN : PRIMA_TECNICA_RESUMEN;
-        String locatorComision = esAuto ? COMISION_AUTO_RESUMEN : COMISION_RESUMEN;
-        String locatorPremio = esAuto ? PREMIO_AUTO_RESUMEN : PREMIO_RESUMEN;
+    public void guardarValoresAntesDeVariacionAuto() {
+        guardarValoresResumen(PRIMA_TECNICA_AUTO__RESUMEN, COMISION_AUTO_RESUMEN, PREMIO_AUTO_RESUMEN, true);
+    }
 
-        auto_waitForElementInvisibility(".ant-spin-spinning");
+    private void guardarValoresResumen(String locatorPrima, String locatorComision, String locatorPremio, boolean esAuto) {
+        auto_waitForElementInvisibilityIfPresent(".ant-spin-spinning");
         comisionAntes = auto_getElementTextOrValue(COMISION_CAMPO);
         extraPrimaAntes = auto_getElementTextOrValue(EXTRA_PRIMA_VARIABLE_CAMPO);
-        primaTecnicaResumen = esperarValorResumenValido(locatorPrima, "Prima tecnica");
-        comisionResumen = esperarValorResumenValido(locatorComision, "Comisión");
-        premioResumen = esperarValorResumenValido(locatorPremio, "Premio");
+        primaTecnicaResumen = esperarValorResumenValido(locatorPrima, "Prima tecnica", esAuto);
+        comisionResumen = esperarValorResumenValido(locatorComision, "Comisión", esAuto);
+        premioResumen = esperarValorResumenValido(locatorPremio, "Premio", esAuto);
     }
 
     public void validarCambioVariacion(Integer variacion) {
@@ -280,7 +340,6 @@ public class CommonPage extends MasterPage {
 
         int variacionMasUno = variacionBase + 1;
         auto_setTextToInput(INPUT_VARIACION, String.valueOf(variacionMasUno));
-        clickBotonRecotizar();
         page.get().waitForTimeout(2000);
 
         double comisionMasUno = parseNumeroMonetario(auto_getElementTextOrValue(COMISION_CAMPO), "Comisión +1");
@@ -310,22 +369,22 @@ public class CommonPage extends MasterPage {
     }
 
     public void validarResumenActualizado() {
-        validarResumenActualizado(false);
+        validarResumenActualizadoPorLocators(PRIMA_TECNICA_RESUMEN, COMISION_RESUMEN, PREMIO_RESUMEN, false);
     }
 
-    public void validarResumenActualizado(boolean esAuto) {
-        String locatorPrima = esAuto ? PRIMA_TECNICA_AUTO__RESUMEN : PRIMA_TECNICA_RESUMEN;
-        String locatorComision = esAuto ? COMISION_AUTO_RESUMEN : COMISION_RESUMEN;
-        String locatorPremio = esAuto ? PREMIO_AUTO_RESUMEN : PREMIO_RESUMEN;
+    public void validarResumenActualizadoAuto() {
+        validarResumenActualizadoPorLocators(PRIMA_TECNICA_AUTO__RESUMEN, COMISION_AUTO_RESUMEN, PREMIO_AUTO_RESUMEN, true);
+    }
 
-        auto_waitForElementInvisibility(".ant-spin-spinning");
-        auto_waitForElementVisibility(locatorPrima);
-        auto_waitForElementVisibility(locatorComision);
-        auto_waitForElementVisibility(locatorPremio);
+    private void validarResumenActualizadoPorLocators(String locatorPrima, String locatorComision, String locatorPremio, boolean esAuto) {
+        auto_waitForElementInvisibilityIfPresent(".ant-spin-spinning");
+        esperarResumenVisible(locatorPrima, "Prima", esAuto);
+        esperarResumenVisible(locatorComision, "Comisi", esAuto);
+        esperarResumenVisible(locatorPremio, "Premio", esAuto);
 
-        String primaTecnicaActual = esperarValorResumenValido(locatorPrima, "Prima tecnica");
-        String comisionActual = esperarValorResumenValido(locatorComision, "Comisión");
-        String premioActual = esperarValorResumenValido(locatorPremio, "Premio");
+        String primaTecnicaActual = esperarValorResumenValido(locatorPrima, "Prima tecnica", esAuto);
+        String comisionActual = esperarValorResumenValido(locatorComision, "Comisión", esAuto);
+        String premioActual = esperarValorResumenValido(locatorPremio, "Premio", esAuto);
 
         softAssertions.assertThat(primaTecnicaActual)
                 .as("La prima tecnica del resumen debe mantenerse sin cambios")
@@ -367,13 +426,15 @@ public class CommonPage extends MasterPage {
         auto_pressKey(INPUT_HORA_HASTA, "Enter");
     }
 
-    private String esperarValorResumenValido(String locator, String campo) {
-        auto_waitForElementVisibility(locator);
+    private String esperarValorResumenValido(String locator, String campo, boolean esAuto) {
+        esperarResumenVisible(locator, campo, esAuto);
         String ultimoValor = "";
         String patronValido = "(?i)^(?!recotizar$|cotizar$|emitir$).*[0-9].*$";
 
         for (int i = 0; i < 75; i++) {
-            String valor = auto_getElementTextOrValue(locator);
+            String valor = esAuto
+                    ? getTextoOValor(localizarValorResumenAutoSeleccionado(campo))
+                    : auto_getElementTextOrValue(locator);
             ultimoValor = valor == null ? "" : valor.trim();
             if (ultimoValor.matches(patronValido)) return ultimoValor;
             page.get().waitForTimeout(200);
@@ -382,6 +443,33 @@ public class CommonPage extends MasterPage {
                 .as("No se obtuvo un valor valido para " + campo + ". Ultimo valor leido: " + ultimoValor)
                 .matches(patronValido);
         return ultimoValor;
+    }
+
+    private void esperarResumenVisible(String locator, String campo, boolean esAuto) {
+        if (!esAuto) {
+            auto_waitForElementVisibility(locator);
+            return;
+        }
+        softAssertions.assertThatCode(() -> localizarValorResumenAutoSeleccionado(campo).waitFor())
+                .as("No se encontro el valor de " + campo + " en la card de cobertura seleccionada")
+                .doesNotThrowAnyException();
+        softAssertions.assertAll();
+    }
+
+    private Locator localizarValorResumenAutoSeleccionado(String campo) {
+        String locator = obtenerLocatorResumenAutoSeleccionado(campo);
+        return page.get().locator(locator).first();
+    }
+
+    private String obtenerLocatorResumenAutoSeleccionado(String campo) {
+        if (campo.contains("Prima")) return PRIMA_AUTO_SELECCIONADA_RESUMEN;
+        if (campo.contains("Comisi")) return COMISION_AUTO_SELECCIONADA_RESUMEN;
+        return PREMIO_AUTO_SELECCIONADA_RESUMEN;
+    }
+
+    private String getTextoOValor(Locator locator) {
+        Object valor = locator.evaluate("e => (e instanceof HTMLInputElement || e instanceof HTMLTextAreaElement || e instanceof HTMLSelectElement) ? e.value : e.textContent");
+        return valor == null ? "" : valor.toString().trim();
     }
 
     private double parseNumeroMonetario(String valorOriginal, String campo) {

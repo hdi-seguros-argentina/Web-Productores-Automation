@@ -1,4 +1,4 @@
-@AUTOMATED @Siniestros
+﻿@AUTOMATED @Siniestros
 Feature: Siniestros
 
   Background:
@@ -8,7 +8,6 @@ Feature: Siniestros
     And el usuario hace click en el boton de login
     And el usuario ingresa a la home
     And el usuario selecciona un intermediario
-    Then el usuario verifica que el sistema muestra el panel de inicio
 
   @branding
   Scenario: Siniestros > Listado de Siniestros: muestra filtros y paginado

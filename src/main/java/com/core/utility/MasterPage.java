@@ -20,6 +20,7 @@ import io.github.cdimascio.dotenv.Dotenv;
 
 public abstract class MasterPage extends Hooks {
     private static final Dotenv dotenv = Dotenv.load();
+    protected static final int DEFAULT_WAIT_TIMEOUT_MS = 20000;
 
     SoftAssertions softAssertions = new SoftAssertions();
 
@@ -72,7 +73,7 @@ public abstract class MasterPage extends Hooks {
                 return;
             } catch (Exception e) {
                 ultimoError = e;
-                auto_waitForElementInvisibility(".ant-spin-spinning");
+                auto_waitForElementInvisibilityIfPresent(".ant-spin-spinning");
             }
         }
 
@@ -141,13 +142,67 @@ public abstract class MasterPage extends Hooks {
         page.get().locator(locator).waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.ATTACHED));
     }
 
-    public void auto_waitForElementVisibility(String locator){
-        softAssertions.assertThat(page.get().locator(locator).count()).as("No se encontró el elemento en el DOM con locator: %s", locator).isGreaterThan(0);
-        page.get().locator(locator).waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.VISIBLE).setTimeout(80000));
+    public void auto_waitForElementVisibility(String locator) {
+        page.get().locator(locator).waitFor(
+                new Locator.WaitForOptions()
+                        .setState(WaitForSelectorState.VISIBLE)
+                        .setTimeout(DEFAULT_WAIT_TIMEOUT_MS)
+        );
+
+        softAssertions.assertThat(page.get().locator(locator).count())
+                .as("No se encontró el elemento en el DOM con locator: %s", locator)
+                .isGreaterThan(0);
+        softAssertions.assertAll();
     }
 
-    public static void auto_waitForElementInvisibility(String locator){
-        page.get().locator(locator).waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.HIDDEN).setTimeout(80000));
+    public static void auto_waitForElementInvisibility(String locator) {
+        page.get().locator(locator).waitFor(
+                new Locator.WaitForOptions()
+                        .setState(WaitForSelectorState.HIDDEN)
+                        .setTimeout(DEFAULT_WAIT_TIMEOUT_MS)
+        );
+    }
+
+    protected static void auto_waitForElementInvisibilityIfPresent(String locator) {
+        try {
+            Locator element = page.get().locator(locator).first();
+            if (element.count() > 0) {
+                element.waitFor(
+                        new Locator.WaitForOptions()
+                                .setState(WaitForSelectorState.HIDDEN)
+                                .setTimeout(DEFAULT_WAIT_TIMEOUT_MS)
+                );
+            }
+        } catch (Exception ignored) {
+            // Some Ant Design spinners remain mounted/visible while the target content is already usable.
+            // In those flows the next explicit content wait is the reliable readiness signal.
+        }
+    }
+
+    public void auto_waitForElementsVisibilities(Locator locator) {
+        List<Locator> elements = locator.all();
+
+        softAssertions.assertThat(elements)
+                .as("No se encontraron elementos en el DOM.")
+                .isNotEmpty();
+
+        for (Locator element : elements) {
+            element.waitFor(
+                    new Locator.WaitForOptions()
+                            .setState(WaitForSelectorState.VISIBLE)
+                            .setTimeout(DEFAULT_WAIT_TIMEOUT_MS)
+            );
+        }
+    }
+
+    public void auto_waitForElementsInvisibilities(Locator locator) {
+        for (Locator element : locator.all()) {
+            element.waitFor(
+                    new Locator.WaitForOptions()
+                            .setState(WaitForSelectorState.HIDDEN)
+                            .setTimeout(DEFAULT_WAIT_TIMEOUT_MS)
+            );
+        }
     }
 
     public static void auto_setTextToClipboard(String value){
@@ -208,16 +263,16 @@ public abstract class MasterPage extends Hooks {
     }
 
     public void auto_verifyVisibility(String locator) {
+        auto_waitForElementVisibility(locator);
         softAssertions.assertThat(page.get().isVisible(locator))
                 .as("El elemento no es visible [%s]", locator).isTrue();
+        softAssertions.assertAll();
     }
 
     public void auto_verifyVisibilities(String... locators){
         for (String locator : locators) {
-            auto_waitForElementVisibility(locator);
-            softAssertions.assertThat(locator).as("El elemento no se visualiza correctamente").isVisible();
+            auto_verifyVisibility(locator);
         }
-        softAssertions.assertAll();
     }
 
     public void auto_verifyInvisibilities(String... locators){

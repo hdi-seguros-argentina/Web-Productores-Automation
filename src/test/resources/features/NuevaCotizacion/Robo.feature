@@ -1,4 +1,4 @@
-@NUEVACOTIZACION
+﻿@NUEVACOTIZACION
 Feature: Cotizador Robo
 
   Background:
@@ -10,8 +10,8 @@ Feature: Cotizador Robo
     And el usuario selecciona un intermediario
 
   @AUTOMATED @COTIZACIONRETOME @regresion @Cotizador
-  Scenario: Emision de ROBO WEB en retome
-    When el usuario ingresa al menu de "Nueva Cotización" en "Cotizador"
+  Scenario: Cotizador > Nueva Cotización > ROBO WEB: permite emitir cotización en retome
+    When el usuario ingresa al menu de "Nueva Cotizacion" en "Cotizador"
     And el usuario selecciona ROBO desde el json
     And el usuario selecciona ROBO WEB desde el json
     And el usuario realiza la cotización de ROBO WEB
@@ -20,18 +20,19 @@ Feature: Cotizador Robo
     Then el usuario verifica el envío de la cotización
 
   @AUTOMATED @COTIZACIONRETOME @regresion @Cotizador
-  Scenario: Persistencia de variación en retome de ROBO WEB
-    When el usuario ingresa al menu de "Nueva Cotización" en "Cotizador"
+  Scenario: Cotizador > Nueva Cotización > ROBO WEB: persiste variación en retome
+    When el usuario ingresa al menu de "Nueva Cotizacion" en "Cotizador"
     And el usuario selecciona ROBO desde el json
     And el usuario selecciona ROBO WEB desde el json
     And el usuario realiza la cotización de ROBO WEB
+    And el usuario modifica la variación de ROBO WEB desde el json
     And el usuario guarda la cotización
     And el usuario envia la cotización de ROBO WEB
     Then el usuario verifica el envío de la cotización
 
   @AUTOMATED @COTIZACIONRETOME @regresion @Cotizador @variacion
-  Scenario: Variación en retome de ROBO WEB
-    When el usuario ingresa al menu de "Nueva Cotización" en "Cotizador"
+  Scenario: Cotizador > Nueva Cotización > ROBO WEB: permite variar cotización en retome
+    When el usuario ingresa al menu de "Nueva Cotizacion" en "Cotizador"
     And el usuario selecciona ROBO desde el json
     And el usuario selecciona ROBO WEB desde el json
     And el usuario realiza la cotización de ROBO WEB
@@ -40,8 +41,8 @@ Feature: Cotizador Robo
     Then el usuario verifica el envío de la cotización
 
   @AUTOMATED @COTIZACIONNUEVA @regresion @Cotizador
-  Scenario: Nueva Cotización de ROBO WEB
-    When el usuario ingresa al menu de "Nueva Cotización" en "Cotizador"
+  Scenario: Cotizador > Nueva Cotización > ROBO WEB: permite generar nueva cotización
+    When el usuario ingresa al menu de "Nueva Cotizacion" en "Cotizador"
     And el usuario selecciona ROBO desde el json
     And el usuario selecciona ROBO WEB desde el json
     And el usuario realiza la cotización de ROBO WEB

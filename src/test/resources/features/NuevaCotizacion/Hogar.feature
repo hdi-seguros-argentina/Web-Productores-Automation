@@ -1,4 +1,4 @@
-@NUEVACOTIZACION
+﻿@NUEVACOTIZACION
 Feature: Cotizador Hogar
 
   Background:
@@ -10,7 +10,7 @@ Feature: Cotizador Hogar
     And el usuario selecciona un intermediario
 
   @AUTOMATED @COTIZACIONRETOME @regresion @Cotizador
-  Scenario: Emision de COMBINADO FAMILIAR en retome
+  Scenario: Cotizador > Nueva Cotización > COMBINADO FAMILIAR: permite emitir cotización en retome
     When el usuario ingresa al menu de "Nueva Cotizacion" en "Cotizador"
     And el usuario selecciona HOGAR desde el json
     And el usuario selecciona COMBINADO FAMILIAR desde el json
@@ -20,17 +20,18 @@ Feature: Cotizador Hogar
     Then el usuario verifica el envío de la cotización
 
   @AUTOMATED @COTIZACIONRETOME @regresion @Cotizador
-  Scenario: Persistencia de variación en retome de COMBINADO FAMILIAR
+  Scenario: Cotizador > Nueva Cotización > COMBINADO FAMILIAR: persiste variación en retome
     When el usuario ingresa al menu de "Nueva Cotizacion" en "Cotizador"
     And el usuario selecciona HOGAR desde el json
     And el usuario selecciona COMBINADO FAMILIAR desde el json
     And el usuario realiza la cotización de COMBINADO FAMILIAR
+    And el usuario modifica la variación de COMBINADO FAMILIAR desde el json
     And el usuario guarda la cotización
     And el usuario envia la cotización de COMBINADO FAMILIAR
     Then el usuario verifica el envío de la cotización
 
   @AUTOMATED @COTIZACIONRETOME @regresion @Cotizador @variacion
-  Scenario: Variación en retome de COMBINADO FAMILIAR
+  Scenario: Cotizador > Nueva Cotización > COMBINADO FAMILIAR: permite variar cotización en retome
     When el usuario ingresa al menu de "Nueva Cotizacion" en "Cotizador"
     And el usuario selecciona HOGAR desde el json
     And el usuario selecciona COMBINADO FAMILIAR desde el json
@@ -40,7 +41,7 @@ Feature: Cotizador Hogar
     Then el usuario verifica el envío de la cotización
 
   @AUTOMATED @COTIZACIONNUEVA @regresion @Cotizador
-  Scenario: Nueva Cotización de COMBINADO FAMILIAR
+  Scenario: Cotizador > Nueva Cotización > COMBINADO FAMILIAR: permite generar nueva cotización
     When el usuario ingresa al menu de "Nueva Cotizacion" en "Cotizador"
     And el usuario selecciona HOGAR desde el json
     And el usuario selecciona COMBINADO FAMILIAR desde el json

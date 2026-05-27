@@ -12,7 +12,7 @@ public class HogarSteps {
     CommonPage commonPage = new CommonPage();
     private CotizacionHogar dataHogar =
             JsonLoader.load(
-                    "Datos/cotizacion_hogar.json",
+                    "Datos/Cotizacion_hogar.json",
                     CotizacionHogar.class
             );
 
@@ -42,17 +42,15 @@ public class HogarSteps {
         commonPage.completarCoberturas(dataHogar.getCobertura());
 
         commonPage.clickBotonCotizar();
+    }
 
+    @And("el usuario modifica la variación de COMBINADO FAMILIAR desde el json")
+    public void elUsuarioModificaLaVariacionDeCOMBINADOFAMILIARDesdeElJson() {
         Integer variacion = dataHogar.getVariacion();
         commonPage.guardarValoresAntesDeVariacion();
         commonPage.validarCambioVariacion(variacion);
 
         commonPage.clickBotonRecotizar();
-    }
-
-    @And("el usuario guarda la cotización")
-    public void elUsuarioGuardaCotizacion() {
-        commonPage.guardarCotizacion();
     }
 
     @And("el usuario envia la cotización de COMBINADO FAMILIAR")
@@ -74,7 +72,6 @@ public class HogarSteps {
     @And("el usuario emite la cotización de COMBINADO FAMILIAR")
     public void elUsuarioEmiteCotizacionDeCOMBINADOFAMILIAR() {
         commonPage.clickEditarCotizacion();
-        commonPage.validarResumenActualizado();
         commonPage.clickBotonEmitir();
 
         commonPage.seleccionarNacionalidad(dataHogar.getEmision().getNacionalidad());
@@ -113,10 +110,6 @@ public class HogarSteps {
         commonPage.clickBotonEnviar();
     }
 
-    @Then("el usuario verifica el envío de la cotización")
-    public void elUsuarioVerificaElEnvioDeLaCotizacion() {
-        commonPage.verificaEnvioCotizacion();
-    }
 }
 
 

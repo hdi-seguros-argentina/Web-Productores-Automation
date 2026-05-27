@@ -9,7 +9,7 @@ public class IntegralConsorcioSteps {
     CommonPage commonPage = new CommonPage();
     private CotizacionIntegralConsorcio dataIntegralConsorcio =
             JsonLoader.load(
-                    "Datos/cotizacion_integralConsorcio.json",
+                    "Datos/Cotizacion_IntegralConsorcio.json",
                     CotizacionIntegralConsorcio.class
             );
 
@@ -41,7 +41,10 @@ public class IntegralConsorcioSteps {
         commonPage.completarCoberturas(dataIntegralConsorcio.getCobertura());
 
         commonPage.clickBotonCotizar();
+    }
 
+    @And("el usuario modifica la variación de INTEGRAL DE CONSORCIO desde el json")
+    public void elUsuarioModificaLaVariacionDeINTEGRALDECONSORCIODESDEELJSON() {
         Integer variacion = dataIntegralConsorcio.getVariacion();
         commonPage.guardarValoresAntesDeVariacion();
         commonPage.validarCambioVariacion(variacion);
@@ -70,7 +73,6 @@ public class IntegralConsorcioSteps {
     @And("el usuario emite la cotización de INTEGRAL DE CONSORCIO")
     public void elUsuarioEmiteLaCotizacionDeINTEGRALDECONSORCIO() {
         commonPage.clickEditarCotizacion();
-        commonPage.validarResumenActualizado();
         commonPage.clickBotonEmitir();
 
         commonPage.seleccionarNacionalidad(dataIntegralConsorcio.getEmision().getNacionalidad());

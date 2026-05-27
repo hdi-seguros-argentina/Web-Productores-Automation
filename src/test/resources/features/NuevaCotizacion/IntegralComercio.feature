@@ -1,4 +1,4 @@
-@NUEVACOTIZACION
+﻿@NUEVACOTIZACION
 Feature: Cotizador Integral comercio
 
   Background:
@@ -10,7 +10,7 @@ Feature: Cotizador Integral comercio
     And el usuario selecciona un intermediario
 
   @AUTOMATED @COTIZACIONRETOME @regresion @Cotizador
-  Scenario: Emision de INTEGRAL COMERCIO WEB en retome
+  Scenario: Cotizador > Nueva Cotización > INTEGRAL COMERCIO WEB: permite emitir cotización en retome
     When el usuario ingresa al menu de "Nueva Cotizacion" en "Cotizador"
     And el usuario selecciona INTEGRAL DE COMERCIO desde el json
     And el usuario selecciona INTEGRAL DE COMERCIO WEB desde el json
@@ -20,17 +20,18 @@ Feature: Cotizador Integral comercio
     Then el usuario verifica el envío de la cotización
 
   @AUTOMATED @COTIZACIONRETOME @regresion @Cotizador
-  Scenario: Persistencia de variación en retome de INTEGRAL COMERCIO WEB
+  Scenario: Cotizador > Nueva Cotización > INTEGRAL COMERCIO WEB: persiste variación en retome
     When el usuario ingresa al menu de "Nueva Cotizacion" en "Cotizador"
     And el usuario selecciona INTEGRAL DE COMERCIO desde el json
     And el usuario selecciona INTEGRAL DE COMERCIO WEB desde el json
     And el usuario realiza la cotización de INTEGRAL DE COMERCIO WEB
+    And el usuario modifica la variación de INTEGRAL DE COMERCIO WEB desde el json
     And el usuario guarda la cotización
     And el usuario envia la cotización de INTEGRAL DE COMERCIO WEB
     Then el usuario verifica el envío de la cotización
 
   @AUTOMATED @COTIZACIONRETOME @regresion @Cotizador @variacion
-  Scenario: Variación en retome de INTEGRAL COMERCIO WEB
+  Scenario: Cotizador > Nueva Cotización > INTEGRAL COMERCIO WEB: permite variar cotización en retome
     When el usuario ingresa al menu de "Nueva Cotizacion" en "Cotizador"
     And el usuario selecciona INTEGRAL DE COMERCIO desde el json
     And el usuario selecciona INTEGRAL DE COMERCIO WEB desde el json
@@ -40,7 +41,7 @@ Feature: Cotizador Integral comercio
     Then el usuario verifica el envío de la cotización
 
   @AUTOMATED @COTIZACIONNUEVA @regresion @Cotizador
-  Scenario: Nueva Cotización de INTEGRAL COMERCIO WEB
+  Scenario: Cotizador > Nueva Cotización > INTEGRAL COMERCIO WEB: permite generar nueva cotización
     When el usuario ingresa al menu de "Nueva Cotizacion" en "Cotizador"
     And el usuario selecciona INTEGRAL DE COMERCIO desde el json
     And el usuario selecciona INTEGRAL DE COMERCIO WEB desde el json

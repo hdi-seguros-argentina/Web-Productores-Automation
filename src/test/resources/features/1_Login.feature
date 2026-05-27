@@ -1,4 +1,4 @@
-@AUTOMATED @Login
+﻿@AUTOMATED @Login
 Feature: Login
 
   @Regression

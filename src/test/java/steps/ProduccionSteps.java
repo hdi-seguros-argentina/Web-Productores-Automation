@@ -42,6 +42,11 @@ public class ProduccionSteps {
         produccionPage.clickBoton(arg0);
     }
 
+    @And("el usuario espera que aparezca el listado de polizas")
+    public void elUsuarioEsperaQueAparezcaElListadoDePolizas() {
+        produccionPage.esperarQueAparezcaListadoPolizas();
+    }
+
     @Then("el usuario verifica que el boton de Poliza es correcto")
     public void elUsuarioVerificaQueElBotonDePolizaEsCorrecto() {
         produccionPage.verificaBotonPoliza();
@@ -70,6 +75,35 @@ public class ProduccionSteps {
     @And("el usuario obtiene una póliza vigente del ramo {string}")
     public void elUsuarioObtieneUnaPolizaVigenteDelRamo(String ramo) {
         produccionPage.guardarPolizaVigenteDelRamoEnJson(ramo);
+    }
+    @And("el usuario selecciona el acceso directo {string}")
+    public void elUsuarioSeleccionaElAccesoDirecto(String accesoDirecto) {
+        produccionPage.seleccionarAccesoDirecto(accesoDirecto);
+    }
+
+    @Then("el usuario verifica el listado de proximas a vencer")
+    public void elUsuarioVerificaElListadoDeProximasAVencer() {
+        produccionPage.validarListadoProximasAVencer();
+    }
+
+    @Then("el usuario verifica el encabezado del detalle de poliza")
+    public void elUsuarioVerificaElEncabezadoDelDetalleDePoliza() {
+        produccionPage.validarEncabezadoDetallePoliza();
+    }
+
+    @And("el usuario abre la tab de detalle de poliza {string}")
+    public void elUsuarioAbreLaTabDeDetalleDePoliza(String tab) {
+        produccionPage.abrirTabDetallePoliza(tab);
+    }
+
+    @And("el usuario verifica las secciones principales de la tab de detalle {string}")
+    public void elUsuarioVerificaLasSeccionesPrincipalesDeLaTabDeDetalle(String tab) {
+        produccionPage.validarSeccionesPrincipalesTab(tab);
+    }
+
+    @And("el usuario descarga y valida el documento de poliza {string}")
+    public void elUsuarioDescargaYValidaElDocumentoDePoliza(String opcionDocumento) throws Exception {
+        produccionPage.descargarYValidarDocumentoPoliza(opcionDocumento);
     }
 }
 

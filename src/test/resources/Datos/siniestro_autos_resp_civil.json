@@ -1,4 +1,44 @@
 {
   "rama": "AUTOS - RESP. CIVIL",
-  "poliza": ""
+  "poliza": "115354",
+  "fechaLugar": {
+    "fecha": "18/05/2026",
+    "hora": "12:00",
+    "provincia": "BUENOS AIRES (01)",
+    "localidad": "HAEDO",
+    "calle": "PISCO",
+    "altura": "387",
+    "tipoCalzada": "ASFALTO"
+  },
+  "conductor": {
+    "email": "test.siniestro@barbus.com"
+  },
+  "tipoSiniestro": {
+    "causa": "R.CIVIL LESIONES TERC.NO TRANS",
+    "detalle": "Siniestro RC"
+  },
+  "tercero": {
+    "nombrePropietario": "JUAN PRUEBA",
+    "tipoDocumento": "DOC.NAC.IDENTIDAD",
+    "numeroDocumento": "30111222",
+    "email": "tercero.test@barbus.com",
+    "domicilio": "AV TEST 123",
+    "provincia": "BUENOS AIRES (01)",
+    "localidad": "HAEDO",
+    "genero": "MASCULINO",
+    "registro": "12345678",
+    "telefono": "1155555555",
+    "tipoLesion": "LEVE",
+    "transportado": "NO",
+    "vehiculo": {
+      "dominio": "AA123BB",
+      "anio": "2020",
+      "marca": "CHEVROLET",
+      "modelo": "CRUZE",
+      "uso": "PARTICULAR",
+      "tipo": "AUTO",
+      "numeroMotor": "MOTOR123456",
+      "numeroChasis": "CHASIS123456"
+    }
+  }
 }
