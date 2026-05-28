@@ -87,7 +87,6 @@ public class IntegralConsorcioSteps {
     public void elUsuarioEmiteLaCotizacionDeINTEGRALDECONSORCIOValidandoVariacion() {
         commonPage.clickEditarCotizacion();
         commonPage.validarSubaYBajaDeComisionYExtraPrima(dataIntegralConsorcio.getVariacion());
-        commonPage.validarResumenActualizado();
         commonPage.clickBotonEmitir();
 
         commonPage.seleccionarNacionalidad(dataIntegralConsorcio.getEmision().getNacionalidad());

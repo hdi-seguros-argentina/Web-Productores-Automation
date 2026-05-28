@@ -66,8 +66,7 @@ public class AutomovilesSteps {
     @And("el usuario emite la cotización de AUTOMOVILES RC validando variación de comisión")
     public void elUsuarioEmiteLaCotizacionDeAUTOMOVILESRCValidandoVariacionDeComision() {
         commonPage.clickEditarCotizacion();
-        commonPage.validarSubaYBajaDeComisionYExtraPrima(dataAutomovilesRC.getVariacion());
-        commonPage.validarResumenActualizadoAuto();
+        commonPage.validarSubaYBajaDeComisionYExtraPrimaAuto(dataAutomovilesRC.getVariacion());
         emitirCotizacionRC();
     }
 

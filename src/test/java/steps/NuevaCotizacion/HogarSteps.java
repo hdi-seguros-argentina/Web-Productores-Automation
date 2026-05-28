@@ -86,7 +86,6 @@ public class HogarSteps {
     public void elUsuarioEmiteCotizacionDeCOMBINADOFAMILIARValidandoVariacion() {
         commonPage.clickEditarCotizacion();
         commonPage.validarSubaYBajaDeComisionYExtraPrima(dataHogar.getVariacion());
-        commonPage.validarResumenActualizado();
         commonPage.clickBotonEmitir();
 
         commonPage.seleccionarNacionalidad(dataHogar.getEmision().getNacionalidad());

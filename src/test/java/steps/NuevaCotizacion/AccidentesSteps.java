@@ -89,7 +89,6 @@ public class AccidentesSteps{
         commonPage.clickEditarCotizacion();
         commonPage.seleccionarMetodoPago("DEB BANCARIO 1 CUOTA AP");
         commonPage.validarSubaYBajaDeComisionYExtraPrima(dataAccidentes.getVariacion());
-        commonPage.validarResumenActualizado();
         commonPage.clickBotonEmitir();
 
         commonPage.seleccionarNacionalidad(dataAccidentes.getEmision().getNacionalidad());

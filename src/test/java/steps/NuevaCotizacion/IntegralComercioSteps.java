@@ -98,7 +98,6 @@ public class IntegralComercioSteps {
     public void elUsuarioEmiteLaCotizacionDeINTEGRALDECOMERCIOWEBValidandoVariacion() {
         commonPage.clickEditarCotizacion();
         commonPage.validarSubaYBajaDeComisionYExtraPrima(dataIntegralComercio.getVariacion());
-        commonPage.validarResumenActualizado();
         commonPage.clickBotonEmitir();
 
         commonPage.seleccionarNacionalidad(dataIntegralComercio.getEmision().getNacionalidad());

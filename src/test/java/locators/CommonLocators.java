@@ -46,6 +46,8 @@ public class CommonLocators {
 
     // Vehiculo
     public static final String SELECT_DESPLEGABLE = "//label[normalize-space()='%s']/following::div[contains(@class,'ant-select')][1]";
+    public static final String SELECT_DESPLEGABLE_POR_INPUT_ID = "//input[@id='%s']/ancestor::div[contains(@class,'ant-select')][1]";
+    public static final String PROVINCIA_CONSORCIO_SELECT = "//input[@id='property-data-consortium-form_province-tab-1']/ancestor::div[contains(@class,'ant-select')][1]";
     public static final String MARCA_INPUT_SELECT = "//div[contains(@class,'ant-select-open')]//input[contains(@class,'ant-select-selection-search-input')]";
     // Datos del bien
     public static final String TIPO_VIVIENDA_SELECT = "//input[contains(@id,'property-data-home-form_type-housing')]";

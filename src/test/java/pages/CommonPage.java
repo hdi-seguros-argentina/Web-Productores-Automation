@@ -215,12 +215,16 @@ public class CommonPage extends MasterPage {
     }
 
     public void seleccionarProvincia(String provincia) {
-        auto_setClickElement(String.format(SELECT_DESPLEGABLE, "Provincia"));
+        String desplegableProvincia = resolverSelectVisible(
+                String.format(SELECT_DESPLEGABLE, "Provincia"),
+                PROVINCIA_CONSORCIO_SELECT
+        );
+        auto_setClickElement(desplegableProvincia);
         auto_setClickElement(String.format(SELECT_OPCION, provincia));
     }
 
     public void seleccionarLocalidad(String localidad) {
-        String desplegableLocalidad = String.format(SELECT_DESPLEGABLE, "Localidad");
+        String desplegableLocalidad = resolverSelectVisible(String.format(SELECT_DESPLEGABLE, "Localidad"));
         String opcionLocalidad = String.format(SELECT_OPCION, localidad);
         String contenidoVisibleLocalidad = desplegableLocalidad
                 + "//span[contains(@class,'ant-select-selection-item') or contains(@class,'ant-select-selection-placeholder')]";
@@ -240,6 +244,20 @@ public class CommonPage extends MasterPage {
         auto_setClickElement(desplegableLocalidad);
         auto_waitForElementVisibility(opcionLocalidad);
         auto_setClickElement(opcionLocalidad);
+    }
+
+    private String resolverSelectVisible(String... locators) {
+        auto_waitForElementInvisibilityIfPresent(".ant-spin-spinning");
+        for (int intento = 0; intento < 30; intento++) {
+            for (String locator : locators) {
+                Locator select = page.get().locator(locator).first();
+                if (select.count() > 0 && select.isVisible()) {
+                    return locator;
+                }
+            }
+            page.get().waitForTimeout(300);
+        }
+        return locators[0];
     }
 
     public void seleccionarCobertura(String nombreCobertura) {
@@ -298,6 +316,9 @@ public class CommonPage extends MasterPage {
     }
 
     public void validarCambioVariacion(Integer variacion) {
+        double comisionBase = parseNumeroMonetario(comisionAntes, "Comisión antes de variación");
+        double extraPrimaBase = parseNumeroMonetario(extraPrimaAntes, "Extra prima variable antes de variación");
+
         auto_setTextToInput(INPUT_VARIACION, String.valueOf(variacion));
         auto_pressKey(INPUT_VARIACION, "Enter");
 
@@ -305,6 +326,8 @@ public class CommonPage extends MasterPage {
 
         String comisionDespues = auto_getElementTextOrValue(COMISION_CAMPO);
         String extraPrimaDespues = auto_getElementTextOrValue(EXTRA_PRIMA_VARIABLE_CAMPO);
+        double comisionActual = parseNumeroMonetario(comisionDespues, "Comisión después de variación");
+        double extraPrimaActual = parseNumeroMonetario(extraPrimaDespues, "Extra prima variable después de variación");
 
         softAssertions.assertThat(comisionDespues)
                 .as("La comisión debe cambiar al modificar La variación")
@@ -313,6 +336,14 @@ public class CommonPage extends MasterPage {
         softAssertions.assertThat(extraPrimaDespues)
                 .as("La extra prima variable debe cambiar al modificar La variación")
                 .isNotEqualTo(extraPrimaAntes);
+
+        softAssertions.assertThat(comisionActual)
+                .as("La comisión debe sumar los puntos de variación al valor base")
+                .isEqualTo(comisionBase + variacion);
+
+        softAssertions.assertThat(extraPrimaActual)
+                .as("La extra prima variable debe sumar los puntos de variación al valor base")
+                .isEqualTo(extraPrimaBase + variacion);
         softAssertions.assertAll();
     }
 
@@ -331,40 +362,96 @@ public class CommonPage extends MasterPage {
     }
 
     public void validarSubaYBajaDeComisionYExtraPrima(Integer variacionBase) {
+        validarSubaYBajaDeComisionYExtraPrimaPorLocators(
+                variacionBase,
+                PRIMA_TECNICA_RESUMEN,
+                COMISION_RESUMEN,
+                PREMIO_RESUMEN,
+                false
+        );
+    }
+
+    public void validarSubaYBajaDeComisionYExtraPrimaAuto(Integer variacionBase) {
+        validarSubaYBajaDeComisionYExtraPrimaPorLocators(
+                variacionBase,
+                PRIMA_TECNICA_AUTO__RESUMEN,
+                COMISION_AUTO_RESUMEN,
+                PREMIO_AUTO_RESUMEN,
+                true
+        );
+    }
+
+    private void validarSubaYBajaDeComisionYExtraPrimaPorLocators(
+            Integer variacionBase,
+            String locatorPrima,
+            String locatorComision,
+            String locatorPremio,
+            boolean esAuto
+    ) {
         auto_waitForElementVisibility(INPUT_VARIACION);
         auto_waitForElementVisibility(COMISION_CAMPO);
         auto_waitForElementVisibility(EXTRA_PRIMA_VARIABLE_CAMPO);
+        guardarValoresResumen(locatorPrima, locatorComision, locatorPremio, esAuto);
 
         double comisionBase = parseNumeroMonetario(auto_getElementTextOrValue(COMISION_CAMPO), "Comisión base");
         double extraBase = parseNumeroMonetario(auto_getElementTextOrValue(EXTRA_PRIMA_VARIABLE_CAMPO), "Extra prima base");
+        double comisionResumenBase = parseNumeroMonetario(comisionResumen, "Comisión resumen base");
+        double premioResumenBase = parseNumeroMonetario(premioResumen, "Premio resumen base");
 
         int variacionMasUno = variacionBase + 1;
         auto_setTextToInput(INPUT_VARIACION, String.valueOf(variacionMasUno));
-        page.get().waitForTimeout(2000);
+        auto_pressKey(INPUT_VARIACION, "Enter");
+        clickBotonRecotizar();
 
         double comisionMasUno = parseNumeroMonetario(auto_getElementTextOrValue(COMISION_CAMPO), "Comisión +1");
         double extraMasUno = parseNumeroMonetario(auto_getElementTextOrValue(EXTRA_PRIMA_VARIABLE_CAMPO), "Extra prima +1");
+        String primaResumenMasUno = esperarValorResumenValido(locatorPrima, "Prima tecnica +1", esAuto);
+        String comisionResumenMasUnoTexto = esperarValorResumenValido(locatorComision, "Comisión +1", esAuto);
+        String premioResumenMasUnoTexto = esperarValorResumenValido(locatorPremio, "Premio +1", esAuto);
+        double comisionResumenMasUno = parseNumeroMonetario(comisionResumenMasUnoTexto, "Comisión resumen +1");
+        double premioResumenMasUno = parseNumeroMonetario(premioResumenMasUnoTexto, "Premio resumen +1");
 
         softAssertions.assertThat(comisionMasUno)
-                .as("La comisión debe subir al aumentar 1 punto La variación")
-                .isGreaterThan(comisionBase);
+                .as("La comisión debe sumar los puntos de variación al valor base")
+                .isEqualTo(comisionBase + variacionMasUno);
         softAssertions.assertThat(extraMasUno)
-                .as("La extra prima variable debe subir al aumentar 1 punto La variación")
-                .isGreaterThan(extraBase);
+                .as("La extra prima variable debe sumar los puntos de variación al valor base")
+                .isEqualTo(extraBase + variacionMasUno);
+        softAssertions.assertThat(primaResumenMasUno)
+                .as("La prima tecnica del resumen debe mantenerse sin cambios al subir la variación")
+                .isEqualTo(primaTecnicaResumen);
+        softAssertions.assertThat(comisionResumenMasUno)
+                .as("La comisión del resumen debe subir al aumentar 1 punto La variación")
+                .isGreaterThan(comisionResumenBase);
+        softAssertions.assertThat(premioResumenMasUno)
+                .as("El premio del resumen debe subir al aumentar 1 punto La variación")
+                .isGreaterThan(premioResumenBase);
 
         auto_setTextToInput(INPUT_VARIACION, String.valueOf(variacionBase));
+        auto_pressKey(INPUT_VARIACION, "Enter");
         clickBotonRecotizar();
-        page.get().waitForTimeout(2000);
 
         double comisionRestablecida = parseNumeroMonetario(auto_getElementTextOrValue(COMISION_CAMPO), "Comisión restablecida");
         double extraRestablecida = parseNumeroMonetario(auto_getElementTextOrValue(EXTRA_PRIMA_VARIABLE_CAMPO), "Extra prima restablecida");
+        String primaResumenRestablecida = esperarValorResumenValido(locatorPrima, "Prima tecnica restablecida", esAuto);
+        double comisionResumenRestablecida = parseNumeroMonetario(esperarValorResumenValido(locatorComision, "Comisión restablecida", esAuto), "Comisión resumen restablecida");
+        double premioResumenRestablecido = parseNumeroMonetario(esperarValorResumenValido(locatorPremio, "Premio restablecido", esAuto), "Premio resumen restablecido");
 
         softAssertions.assertThat(comisionRestablecida)
-                .as("La comisión debe bajar al volver 1 punto La variación")
-                .isLessThan(comisionMasUno);
+                .as("La comisión debe volver al valor base más la variación seteada")
+                .isEqualTo(comisionBase + variacionBase);
         softAssertions.assertThat(extraRestablecida)
-                .as("La extra prima variable debe bajar al volver 1 punto La variación")
-                .isLessThan(extraMasUno);
+                .as("La extra prima variable debe volver al valor base más la variación seteada")
+                .isEqualTo(extraBase + variacionBase);
+        softAssertions.assertThat(primaResumenRestablecida)
+                .as("La prima tecnica del resumen debe mantenerse sin cambios al bajar la variación")
+                .isEqualTo(primaTecnicaResumen);
+        softAssertions.assertThat(comisionResumenRestablecida)
+                .as("La comisión del resumen debe bajar al volver 1 punto La variación")
+                .isLessThan(comisionResumenMasUno);
+        softAssertions.assertThat(premioResumenRestablecido)
+                .as("El premio del resumen debe bajar al volver 1 punto La variación")
+                .isLessThan(premioResumenMasUno);
         softAssertions.assertAll();
     }
 

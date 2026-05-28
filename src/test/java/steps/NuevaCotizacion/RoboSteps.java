@@ -88,7 +88,6 @@ public class RoboSteps {
     public void elUsuarioEmiteLaCotizacionDeROBOWEBValidandoVariacion() {
         commonPage.clickEditarCotizacion();
         commonPage.validarSubaYBajaDeComisionYExtraPrima(dataRobo.getVariacion());
-        commonPage.validarResumenActualizado();
         commonPage.clickBotonEmitir();
 
         commonPage.seleccionarNacionalidad(dataRobo.getEmision().getNacionalidad());

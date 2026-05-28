@@ -9,7 +9,7 @@ Feature: Cotizador Robo
     And el usuario ingresa a la home
     And el usuario selecciona un intermediario
 
-  @AUTOMATED @COTIZACIONRETOME @regresion @Cotizador
+  @AUTOMATED @COTIZACIONRETOME @regresion @Cotizador @COTIZACIONRETOMECOMPLETA
   Scenario: Cotizador > Nueva Cotización > ROBO WEB: permite emitir cotización en retome
     When el usuario ingresa al menu de "Nueva Cotizacion" en "Cotizador"
     And el usuario selecciona ROBO desde el json
@@ -19,7 +19,7 @@ Feature: Cotizador Robo
     And el usuario emite la cotización de ROBO WEB
     Then el usuario verifica el envío de la cotización
 
-  @AUTOMATED @COTIZACIONRETOME @regresion @Cotizador
+  @AUTOMATED @COTIZACIONRETOME @regresion @Cotizador @variacion
   Scenario: Cotizador > Nueva Cotización > ROBO WEB: persiste variación en retome
     When el usuario ingresa al menu de "Nueva Cotizacion" en "Cotizador"
     And el usuario selecciona ROBO desde el json

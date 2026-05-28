@@ -69,8 +69,7 @@ public class AutomovilesMyWaySteps {
     @And("el usuario emite la cotización de AUTOMOVILES MYWAY validando variación de comisión")
     public void elUsuarioEmiteLaCotizacionDeAUTOMOVILESMYWAYValidandoVariacionDeComision() {
         commonPage.clickEditarCotizacion();
-        commonPage.validarSubaYBajaDeComisionYExtraPrima(dataAutomovilesMyWay.getVariacion());
-        commonPage.validarResumenActualizadoAuto();
+        commonPage.validarSubaYBajaDeComisionYExtraPrimaAuto(dataAutomovilesMyWay.getVariacion());
         emitirCotizacionMyWay();
     }
 

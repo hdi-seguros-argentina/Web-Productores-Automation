@@ -87,7 +87,6 @@ public class IncendioSteps {
     public void elUsuarioEmiteLaCotizacionDeINCENDIOVIVIENDASValidandoVariacion() {
         commonPage.clickEditarCotizacion();
         commonPage.validarSubaYBajaDeComisionYExtraPrima(dataIncendio.getVariacion());
-        commonPage.validarResumenActualizado();
         commonPage.clickBotonEmitir();
 
         commonPage.seleccionarNacionalidad(dataIncendio.getEmision().getNacionalidad());

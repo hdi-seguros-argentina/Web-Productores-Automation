@@ -9,7 +9,7 @@ Feature: Cotizador Autos MyWay
     And el usuario ingresa a la home
     And el usuario selecciona un intermediario
 
-  @AUTOMATED @COTIZACIONRETOME @regresion @Cotizador
+  @AUTOMATED @COTIZACIONRETOME @regresion @Cotizador @COTIZACIONRETOMECOMPLETA
   Scenario: Cotizador > Nueva Cotización > AUTOMOVILES MYWAY: permite emitir cotización en retome
     When el usuario ingresa al menu de "Nueva Cotizacion" en "Cotizador"
     And el usuario selecciona AUTOMOVILES MYWAY desde el json
@@ -19,7 +19,7 @@ Feature: Cotizador Autos MyWay
     And el usuario emite la cotización de AUTOMOVILES MYWAY
     Then el usuario verifica el envío de la cotización
 
-  @AUTOMATED @COTIZACIONRETOME @regresion @Cotizador
+  @AUTOMATED @COTIZACIONRETOME @regresion @Cotizador @variacion
   Scenario: Cotizador > Nueva Cotización > AUTOMOVILES MYWAY: persiste variación en retome
     When el usuario ingresa al menu de "Nueva Cotizacion" en "Cotizador"
     And el usuario selecciona AUTOMOVILES MYWAY desde el json
