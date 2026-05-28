@@ -3,6 +3,7 @@ package pages.NuevaCotizacion;
 import com.core.utility.MasterPage;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.microsoft.playwright.Locator;
 import models.CotizacionAutomoviles;
 import models.Vehiculo;
 import org.assertj.core.api.SoftAssertions;
@@ -16,21 +17,45 @@ public class AutomovilesPage extends MasterPage {
     SoftAssertions softAssertions = new SoftAssertions();
 
     public void completarDatosVehiculo(Vehiculo vehiculo) {
-        auto_setClickElement(String.format(SELECT_DESPLEGABLE, "Año Vehículo"));
-        auto_setClickElement(String.format(SELECT_OPCION, vehiculo.getAnio()));
+        seleccionarOpcionDependiente("Año Vehículo", vehiculo.getAnio());
 
-        page.get().waitForTimeout(2000);
+        esperarSelectHabilitado(String.format(SELECT_DESPLEGABLE, "Marca"));
         auto_setClickElement(String.format(SELECT_DESPLEGABLE, "Marca"));
         auto_setTextToInput(MARCA_INPUT_SELECT, vehiculo.getMarca());
         auto_pressKey(MARCA_INPUT_SELECT, "Enter");
 
-        page.get().waitForTimeout(2500);
-        auto_setClickElement(String.format(SELECT_DESPLEGABLE, "Modelo"));
-        auto_setClickElement(String.format(SELECT_OPCION, vehiculo.getModelo()));
+        seleccionarOpcionDependiente("Modelo", vehiculo.getModelo());
+        seleccionarOpcionDependiente("Versión", vehiculo.getVersion());
+    }
 
-        page.get().waitForTimeout(2000);
-        auto_setClickElement(String.format(SELECT_DESPLEGABLE, "Versión"));
-        auto_setClickElement(String.format(SELECT_OPCION, vehiculo.getVersion()));
+    private void seleccionarOpcionDependiente(String label, String opcion) {
+        String select = esperarSelectHabilitado(String.format(SELECT_DESPLEGABLE, label));
+        String opcionLocator = String.format(SELECT_OPCION, opcion);
+
+        auto_setClickElement(select);
+        auto_waitForElementVisibility(opcionLocator);
+        auto_setClickElement(opcionLocator);
+    }
+
+    private String esperarSelectHabilitado(String selectLocator) {
+        auto_waitForElementInvisibilityIfPresent(".ant-spin-spinning");
+        auto_waitForElementVisibility(selectLocator);
+
+        Locator select = page.get().locator(selectLocator).first();
+        for (int intento = 0; intento < 30; intento++) {
+            String clases = select.getAttribute("class");
+            if (clases != null && !clases.contains("ant-select-disabled") && !clases.contains("ant-select-loading")) {
+                return selectLocator;
+            }
+            page.get().waitForTimeout(300);
+        }
+
+        softAssertions.assertThat(select.getAttribute("class"))
+                .as("El select no se habilito antes de interactuar: " + selectLocator)
+                .doesNotContain("ant-select-disabled")
+                .doesNotContain("ant-select-loading");
+        softAssertions.assertAll();
+        return selectLocator;
     }
 
     public void seleccionarCobertura(String cobertura) {

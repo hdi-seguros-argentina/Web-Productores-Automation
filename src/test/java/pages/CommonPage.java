@@ -261,14 +261,42 @@ public class CommonPage extends MasterPage {
     }
 
     public void seleccionarCobertura(String nombreCobertura) {
+        validarCoberturaSinEnie(nombreCobertura);
+        String label = String.format(COBERTURA_LABEL, nombreCobertura);
         String checkbox = String.format(COBERTURA_CHECKBOX, nombreCobertura);
-        softAssertions.assertThatCode(() -> auto_waitForElementVisibility(checkbox))
+        softAssertions.assertThatCode(() -> auto_waitForElementVisibility(label))
                 .as("No se encuentra la cobertura: " + nombreCobertura)
                 .doesNotThrowAnyException();
-        if (page.get().locator(checkbox).isVisible() && !page.get().isChecked(checkbox)) {
-            auto_setClickElement(checkbox);
+
+        Locator checkboxInput = page.get().locator(checkbox).first();
+        checkboxInput.waitFor();
+        if (!checkboxInput.isChecked()) {
+            page.get().locator(label).first().click();
         }
         softAssertions.assertAll();
+    }
+
+    private void validarCoberturaSinEnie(String nombreCobertura) {
+        String nombreSinEnie = nombreCobertura.replace("Ñ", "N").replace("ñ", "n");
+        if (nombreSinEnie.equals(nombreCobertura)) {
+            return;
+        }
+
+        String labelCorrecto = String.format(COBERTURA_LABEL, nombreCobertura);
+        String labelSinEnie = String.format(COBERTURA_LABEL, nombreSinEnie);
+        for (int intento = 0; intento < 30; intento++) {
+            if (page.get().locator(labelCorrecto).first().count() > 0) {
+                return;
+            }
+            if (page.get().locator(labelSinEnie).first().count() > 0) {
+                System.out.println("ERROR FALTA LA Ñ");
+                softAssertions.assertThat(false)
+                        .as("ERROR FALTA LA Ñ en la cobertura: " + nombreSinEnie)
+                        .isTrue();
+                return;
+            }
+            page.get().waitForTimeout(300);
+        }
     }
 
     public void ingresarSumaCobertura(String nombreCobertura, Integer suma) {
@@ -389,6 +417,7 @@ public class CommonPage extends MasterPage {
             boolean esAuto
     ) {
         auto_waitForElementVisibility(INPUT_VARIACION);
+        page.get().waitForTimeout(1000);
         auto_waitForElementVisibility(COMISION_CAMPO);
         auto_waitForElementVisibility(EXTRA_PRIMA_VARIABLE_CAMPO);
         guardarValoresResumen(locatorPrima, locatorComision, locatorPremio, esAuto);
@@ -586,7 +615,8 @@ public class CommonPage extends MasterPage {
     }
 
     public void seleccionarPlan(String plan) {
-        auto_setClickElement(PLAN_SELECT);
+        String planSelect = resolverSelectVisible(PLAN_SELECT, PLAN_ROBO_SELECT);
+        auto_setClickElement(planSelect);
         auto_setClickElement(String.format(SELECT_OPCION, plan));
     }
 }

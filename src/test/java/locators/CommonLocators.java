@@ -9,6 +9,7 @@ public class CommonLocators {
     public static final String RESULTADO_CLIENTE="//td[contains(text(),'%s')]";
     public static final String BOTON_CONTINUAR="//button[.//span[text()='Continuar']]";
     public static final String PLAN_SELECT="//h3[normalize-space()='Planes']/following::div[contains(@class,'ant-select')][1]";
+    public static final String PLAN_ROBO_SELECT="//input[@id='property-data-theft-insurance-form_plan-tab-1']/ancestor::div[contains(@class,'ant-select')][1]";
     public static final String ACTIVIDAD_SELECT="//label[text()='Actividad']/following::div[contains(@class,'ant-select')][1]";
     public static final String INPUT_CANTIDAD="//input[@id='activities-form_quantity']";
     public static final String BOTON_AGREGAR="//button[.//span[text()='Agregar']]";
@@ -52,7 +53,8 @@ public class CommonLocators {
     // Datos del bien
     public static final String TIPO_VIVIENDA_SELECT = "//input[contains(@id,'property-data-home-form_type-housing')]";
     public static final String INPUT_DOMICILIO = "//input[@id='activity-form-1_propertyDataAddress1']";
-    public static final String COBERTURA_CHECKBOX = "//span[normalize-space()='%s']/ancestor::label[1]//input[@type='checkbox']";
+    public static final String COBERTURA_LABEL = "//span[normalize-space()='%s']/ancestor::label[1]";
+    public static final String COBERTURA_CHECKBOX = COBERTURA_LABEL + "//input[@type='checkbox']";
     public static final String COBERTURA_INPUT = "//span[normalize-space()='%s']/following::input[@role='spinbutton'][1]";
 
     // Informacion contacto

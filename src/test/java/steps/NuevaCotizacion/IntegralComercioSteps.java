@@ -31,7 +31,11 @@ public class IntegralComercioSteps {
         commonPage.clickIniciarCotizacion();
 
         commonPage.buscarCliente(dataIntegralComercio.getCliente());
-        commonPage.seleccionarIva(dataIntegralComercio.getDatosDelCliente().getIva());
+        if (dataIntegralComercio.getDatosDelCliente() != null
+                && dataIntegralComercio.getDatosDelCliente().getIva() != null
+                && !dataIntegralComercio.getDatosDelCliente().getIva().isBlank()) {
+            commonPage.seleccionarIva(dataIntegralComercio.getDatosDelCliente().getIva());
+        }
 
         commonPage.clickBotonContinuar();
 

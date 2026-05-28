@@ -1,10 +1,10 @@
 {
   "rama": "INTEGRAL DE COMERCIO WEB",
   "articulo": "INTEGRAL DE COMERCIO WEB",
-  "cliente": "ABARIA ADRIANA ALICIA",
+  "cliente": "ACORAZADO S.A.",
 
   "datosDelCliente": {
-    "iva": "RESPONSABLE INSCRIPTO"
+    "iva": ""
   },
 
   "rubro": "ACADEMIAS DE BAILE",
@@ -21,12 +21,8 @@
       "suma": 1000000000
     },
     {
-      "nombre": "INCENDIO CONTENIDO O MOB. C/HVCT+GRANIZO",
+      "nombre": "DAÑOS POR AGUA",
       "suma": 10000000
-    },
-    {
-      "nombre": "ROBO CONTENIDO GENERAL",
-      "suma": 1000000
     },
     {
       "nombre": "CRISTALES",

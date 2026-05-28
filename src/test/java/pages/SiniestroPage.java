@@ -254,6 +254,7 @@ public class SiniestroPage extends MasterPage {
         try {
             seleccionarEnAntSelectPorInputId("typeClaim_cause", "DAÑO PARCIAL");
         } catch (RuntimeException e) {
+            System.out.println("ERROR FALTA LA Ñ");
             seleccionarEnAntSelectPorInputId("typeClaim_cause", "DANO PARCIAL");
         }
     }

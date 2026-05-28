@@ -15,9 +15,12 @@ public class AccidentePage extends MasterPage {
     }
 
     public void ingresarCantidad(int cantidad) {
+        page.get().waitForTimeout(1000);
         auto_setTextToInput(INPUT_CANTIDAD, String.valueOf(cantidad));
         auto_setClickElement(BOTON_AGREGAR);
+        page.get().waitForTimeout(1000);
         auto_setClickElement(BOTON_CONTINUAR);
+        page.get().waitForTimeout(1000);
     }
 
     public void agregarPersona(Persona persona) {
